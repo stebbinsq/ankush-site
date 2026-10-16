@@ -43,12 +43,65 @@
     padding: 48px 16px 24px;
   }
   .face {
-    font-size: 120px;
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--hot);
     display: inline-block;
     cursor: pointer;
     animation: bob 2s ease-in-out infinite;
     user-select: none;
   }
+
+  .fact-row { display: flex; gap: 16px; align-items: center; }
+  .fact-row img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    transform: rotate(-4deg);
+    flex-shrink: 0;
+  }
+  .fact-row #fact { flex: 1; }
+
+  .polaroids {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+    padding: 8px;
+  }
+  .polaroid {
+    background: #fff;
+    padding: 10px 10px 14px;
+    border: 2px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform .2s;
+    margin: 0;
+  }
+  .polaroid:nth-child(odd) { transform: rotate(-3deg); }
+  .polaroid:nth-child(even) { transform: rotate(2.5deg); }
+  .polaroid:hover { transform: rotate(0) scale(1.06); z-index: 2; position: relative; }
+  .polaroid img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    background: #eee;
+  }
+  .polaroid figcaption { margin-top: 10px; font-size: 15px; line-height: 1.3; }
+
+  video {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    border: 4px solid var(--ink);
+    border-radius: 12px;
+  }
+  .disclaimer { text-align: center; font-size: 14px; opacity: .7; }
   @keyframes bob { 50% { transform: translateY(-12px) rotate(6deg); } }
   h1 {
     font-family: "Bungee", sans-serif;
@@ -177,7 +230,7 @@
 <div class="marquee"><span>🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 More at 11 🚨 Local man "just built different," sources confirm 🚨</span></div>
 
 <header>
-  <div class="face" id="face" title="poke him">😎</div>
+  <img class="face" id="face" src="img/p9.jpg" alt="Ankush" title="poke him">
   <h1>ANKUSH MANCHANDA</h1>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
@@ -188,8 +241,29 @@
   <section>
     <h2>📜 Certified Ankush Facts™</h2>
     <p>100% peer-reviewed by Ankush.</p>
-    <div id="fact">Click the button. Learn the truth.</div>
+    <div class="fact-row">
+      <img id="factImg" src="img/p5.jpg" alt="">
+      <div id="fact">Click the button. Learn the truth.</div>
+    </div>
     <button id="factBtn">Generate Fact</button>
+  </section>
+
+  <section>
+    <h2>🖼️ The Hall of Fame</h2>
+    <p>Photographic evidence. Hover to inspect.</p>
+    <div class="polaroids">
+      <figure class="polaroid"><img src="img/p9.jpg" alt="" loading="lazy"><figcaption>Sunset. Palm trees. Two shirts that have never agreed on anything.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p7.jpg" alt="" loading="lazy"><figcaption>Being hand-fed like royalty, as is tradition.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p4.jpg" alt="" loading="lazy"><figcaption>"It's an easy hike," he said. It was not an easy hike.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p1.jpg" alt="" loading="lazy"><figcaption>Party bus. Claims he was "just there for the vibes."</figcaption></figure>
+      <figure class="polaroid"><img src="img/p6.jpg" alt="" loading="lazy"><figcaption>Gondola selfie. Peace sign deployed on schedule.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p3.jpg" alt="" loading="lazy"><figcaption>Sunset cruise. Main-character lighting: achieved.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p5.jpg" alt="" loading="lazy"><figcaption>Hat indoors. Zero regrets.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p2.jpg" alt="" loading="lazy"><figcaption>"One more set," he said, four sets ago.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p10.jpg" alt="" loading="lazy"><figcaption>Stood in front of art. Became art.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p8.jpg" alt="" loading="lazy"><figcaption>Rooftop, sunglasses, vibes: all accounted for.</figcaption></figure>
+      <figure class="polaroid"><img src="img/p11.jpg" alt="" loading="lazy"><figcaption>Tiny humans. Big mountain. Even bigger ego.</figcaption></figure>
+    </div>
   </section>
 
   <section>
@@ -208,6 +282,13 @@
       <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
     </div>
+  </section>
+
+  <section>
+    <h2>🎬 Exclusive Footage</h2>
+    <p>Recovered from the archives and "enhanced" by a computer.</p>
+    <video src="media/ai-footage.mp4" controls muted loop playsinline preload="metadata" poster="img/p7.jpg"></video>
+    <p class="disclaimer">AI-generated animation of a real photo. The snack was real.</p>
   </section>
 
   <section>
@@ -234,6 +315,8 @@
 <footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋</footer>
 
 <script>
+  const photos = ["p9", "p7", "p4", "p1", "p6", "p3", "p5", "p2", "p10", "p8", "p11"].map(p => `img/${p}.jpg`);
+
   const facts = [
     "Ankush doesn't do push-ups. He pushes the Earth down.",
     "Ankush's phone battery is always at 3%. It's a lifestyle.",
@@ -254,6 +337,7 @@
     do { i = Math.floor(Math.random() * facts.length); } while (i === lastFact);
     lastFact = i;
     document.getElementById("fact").textContent = facts[i];
+    document.getElementById("factImg").src = photos[Math.floor(Math.random() * photos.length)];
   };
 
   const levels = [
@@ -294,11 +378,10 @@
     confetti(60);
   };
 
-  const faces = ["😎", "🤪", "😴", "🤓", "🥸", "😤", "🫡", "🤠"];
   let pokes = 0;
   document.getElementById("face").onclick = e => {
     pokes++;
-    e.target.textContent = faces[pokes % faces.length];
+    e.target.src = photos[pokes % photos.length];
     if (pokes % 10 === 0) alert(`You've poked Ankush ${pokes} times. He's filing a complaint.`);
   };
 
