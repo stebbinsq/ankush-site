@@ -223,17 +223,118 @@
     z-index: 99;
   }
   @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+  .confetti img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ink); }
+
+  /* Loading screen */
+  #loader {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--ink); color: var(--sun);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; padding: 16px; text-align: center;
+    font-family: "Bungee", sans-serif;
+    transition: opacity .5s;
+  }
+  #loader .bar { width: min(420px, 90vw); height: 24px; border: 3px solid var(--sun); border-radius: 12px; overflow: hidden; }
+  #loader .bar div { height: 100%; width: 0; background: var(--hot); transition: width .3s; }
+  #loaderMsg { font-family: "Comic Neue", cursive; font-size: 20px; color: #fff; min-height: 52px; }
+  #loader button { font-size: 12px; padding: 6px 12px; background: transparent; color: #fff; border-color: #fff; box-shadow: none; }
+
+  /* Days since sign */
+  .sign {
+    display: inline-block;
+    margin-top: 16px;
+    background: #fff;
+    border: 4px solid var(--ink);
+    padding: 10px 18px;
+    font-family: "Bungee", sans-serif;
+    font-size: 15px;
+    transform: rotate(-2deg);
+  }
+  .sign b { display: inline-block; background: var(--ink); color: #ff3b3b; padding: 2px 12px; margin-left: 8px; font-size: 26px; vertical-align: middle; }
+  .sign small { display: block; font-family: "Comic Neue", cursive; font-size: 13px; margin-top: 4px; }
+
+  /* Wikipedia infobox */
+  .wiki { font-family: Georgia, serif; }
+  .wiki table { width: 100%; border-collapse: collapse; font-size: 16px; }
+  .wiki th, .wiki td { text-align: left; padding: 8px; border-top: 1px solid #ccc; vertical-align: top; }
+  .wiki th { width: 38%; background: #f3f3f3; }
+  .wiki .cite { color: #3366cc; font-size: 12px; vertical-align: super; }
+  .wiki .note { font-size: 13px; color: #666; margin-top: 12px; }
+
+  /* Magic 8-ball */
+  .ball-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ball-row input {
+    flex: 1; min-width: 200px;
+    font: inherit; padding: 12px; border: 3px solid var(--ink); border-radius: 12px;
+  }
+  .ball {
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #555, #000 70%);
+    margin: 20px auto 0;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 6px 6px 0 var(--hot);
+  }
+  .ball.shake { animation: shake .6s; }
+  @keyframes shake { 20%,60% { transform: translateX(-12px) rotate(-8deg); } 40%,80% { transform: translateX(12px) rotate(8deg); } }
+  .ball-window {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: #1b2a8a; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 14px; padding: 12px; line-height: 1.2;
+  }
+
+  /* Bingo */
+  .bingo { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .bingo button { overflow-wrap: anywhere; hyphens: auto; min-width: 0; }
+  @media (max-width: 520px) {
+    .bingo { gap: 3px; }
+    .bingo button { font-size: 9.5px; padding: 2px; aspect-ratio: auto; min-height: 58px; }
+    section { padding: 18px 14px; }
+  }
+  .bingo button {
+    font-family: "Comic Neue", cursive; font-weight: 700; font-size: 13px;
+    padding: 6px 4px; aspect-ratio: 1; background: #fff; box-shadow: 2px 2px 0 var(--ink);
+    line-height: 1.15; border-width: 2px; border-radius: 8px;
+  }
+  .bingo button.on { background: var(--hot); color: #fff; }
+  .bingo button.free { background: var(--sun); }
+  #bingoMsg { text-align: center; font-weight: 700; font-size: 20px; min-height: 28px; margin-top: 12px; }
+
+  /* Cookie banner */
+  #cookie {
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 150;
+    max-width: 520px; margin: 0 auto;
+    background: #fff; border: 4px solid var(--ink); border-radius: 16px; box-shadow: 6px 6px 0 var(--ink);
+    padding: 16px; display: none;
+  }
+  #cookie p { margin: 0 0 12px; }
+  #cookie small { display: block; opacity: .6; margin-top: 8px; }
+  #cookie button { font-size: 13px; padding: 8px 14px; margin-right: 8px; }
+
+  .goat-trail { position: fixed; pointer-events: none; z-index: 120; font-size: 22px; animation: trail 1s forwards; }
+  @keyframes trail { to { opacity: 0; transform: translateY(-30px) scale(.4); } }
+  body.roll { animation: roll 1.2s ease-in-out; }
+  @keyframes roll { to { transform: rotate(360deg); } }
+  .hint { font-size: 12px; opacity: .5; }
 </style>
 </head>
 <body>
 
-<div class="marquee"><span>🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 More at 11 🚨 Local man "just built different," sources confirm 🚨</span></div>
+<div id="loader">
+  <div>LOADING ANKUSH…</div>
+  <div class="bar"><div id="loaderBar"></div></div>
+  <div id="loaderMsg">Locating Ankush…</div>
+  <button id="skipLoader">Skip (he won't notice)</button>
+</div>
+
+<div class="marquee"><span>🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 Ankush reportedly spotted being on time; experts confirm it was a lookalike 🚨 Group chat enters day 400 of waiting for a reply 🚨 Local man "just built different," sources confirm 🚨 More at 11 (he'll be there at 11:45) 🚨</span></div>
 
 <header>
   <img class="face" id="face" src="img/p9.jpg" alt="Ankush" title="poke him">
   <h1>ANKUSH MANCHANDA</h1>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
+  <div class="sign">DAYS SINCE ANKUSH WAS LATE: <b id="daysLate">0</b><small>All-time record: also 0</small></div>
 </header>
 
 <main>
@@ -246,6 +347,24 @@
       <div id="fact">Click the button. Learn the truth.</div>
     </div>
     <button id="factBtn">Generate Fact</button>
+  </section>
+
+  <section class="wiki">
+    <h2>📖 From Wikipedia, the free encyclopedia*</h2>
+    <table>
+      <tr><th>Name</th><td>Ankush Manchanda</td></tr>
+      <tr><th>Known for</th><td>Being Ankush<span class="cite">[citation needed]</span></td></tr>
+      <tr><th>Occupation</th><td>Professional "5 more minutes" sayer</td></tr>
+      <tr><th>Years active</th><td>Since whenever he woke up (afternoon)</td></tr>
+      <tr><th>Natural habitat</th><td>The group chat (read-only access)</td></tr>
+      <tr><th>Arch-nemesis</th><td>His alarm clock</td></tr>
+      <tr><th>Signature move</th><td>The peace sign ✌️</td></tr>
+      <tr><th>Catchphrase</th><td>"Bro."</td></tr>
+      <tr><th>Phone battery</th><td>3% (lifetime average)</td></tr>
+      <tr><th>Net worth</th><td>One borrowed hoodie<span class="cite">[disputed]</span></td></tr>
+      <tr><th>Time zone</th><td>Ankush Standard Time (UTC +45 min)</td></tr>
+    </table>
+    <p class="note">*Not actually from Wikipedia. Wikipedia said "please stop calling us."</p>
   </section>
 
   <section>
@@ -275,12 +394,26 @@
   </section>
 
   <section>
+    <h2>🎱 Ask Ankush</h2>
+    <p>Life advice from the man himself. Results not guaranteed. Results not even likely.</p>
+    <div class="ball-row">
+      <input id="question" placeholder="Should I go to bed early tonight?" maxlength="120">
+      <button id="askBtn">Ask</button>
+    </div>
+    <div class="ball" id="ball"><div class="ball-window" id="answer">Ask me something, bro</div></div>
+  </section>
+
+  <section>
     <h2>⭐ Testimonials</h2>
     <div class="grid">
       <div class="quote"><span class="stars">★★★★★</span><br>"He once looked at me. I think about it often."<b>— A pigeon</b></div>
       <div class="quote"><span class="stars">★★★★☆</span><br>"Took 40 minutes to pick a restaurant. Picked the first one."<b>— His group chat</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
+      <div class="quote"><span class="stars">★★★☆☆</span><br>"He said he'd read me 'this weekend.' Which weekend, Ankush."<b>— A book on his nightstand</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"He pressed me eleven times. I was already lit."<b>— An elevator button</b></div>
+      <div class="quote"><span class="stars">★★☆☆☆</span><br>"Seen 4:12 PM. No reply. I'm fine."<b>— Your text message</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"Every night at 3am he opens me and just stares. We have a connection."<b>— His fridge</b></div>
     </div>
   </section>
 
@@ -301,6 +434,13 @@
     <div id="voteResult"></div>
   </section>
 
+  <section>
+    <h2>🎯 Hanging Out With Ankush: Bingo</h2>
+    <p>Bring this to your next hangout. Tap a square when it happens. Get a line, win nothing.</p>
+    <div class="bingo" id="bingo"></div>
+    <div id="bingoMsg"></div>
+  </section>
+
   <section class="certificate">
     <div class="seal">🏆</div>
     <h2>Certificate of Achievement</h2>
@@ -312,7 +452,13 @@
 
 </main>
 
-<footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋</footer>
+<footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋<br><span class="hint">psst… try typing his name</span></footer>
+
+<div id="cookie">
+  <p>🍪 <b>This site uses cookies.</b> Unfortunately, Ankush ate all of them.</p>
+  <button id="cookieYes">Accept</button><button id="cookieNo">Decline</button>
+  <small>(There are no cookies. He really did eat them.)</small>
+</div>
 
 <script>
   const photos = ["p9", "p7", "p4", "p1", "p6", "p3", "p5", "p2", "p10", "p8", "p11"].map(p => `img/${p}.jpg`);
@@ -329,7 +475,16 @@
     "Ankush has 47 browser tabs open and needs every single one.",
     "Ankush has never once known what day it is, and he is thriving.",
     "Ankush's 'one more game' has a runtime of 3 hours.",
-    "Ankush is the reason the restaurant has a 'large group' policy."
+    "Ankush is the reason the restaurant has a 'large group' policy.",
+    "Ankush has said \"that's crazy\" to hundreds of stories he was not listening to.",
+    "Scientists tried to measure how chill Ankush is. The equipment fell asleep.",
+    "Ankush doesn't lose arguments. He stops replying and counts it as a win.",
+    "40% of Ankush's camera roll is screenshots he will 'look at later.' He will not.",
+    "Ankush's 'last one' has had more sequels than Fast & Furious.",
+    "Ankush once said \"I'm not even hungry\" and then ate everyone's fries.",
+    "Ankush's read receipts are a work of fiction.",
+    "Ankush has never set an alarm he didn't snooze. Not once. Not even for this website.",
+    "When Ankush says \"I'm outside,\" he means he is outside. Of his apartment. Still in it."
   ];
   let lastFact = -1;
   document.getElementById("factBtn").onclick = () => {
@@ -390,13 +545,148 @@
     for (let i = 0; i < n; i++) {
       const el = document.createElement("div");
       el.className = "confetti";
-      el.textContent = bits[Math.floor(Math.random() * bits.length)];
+      if (Math.random() < 0.3) {
+        const img = document.createElement("img");
+        img.src = photos[Math.floor(Math.random() * photos.length)];
+        img.alt = "";
+        el.appendChild(img);
+      } else {
+        el.textContent = bits[Math.floor(Math.random() * bits.length)];
+      }
       el.style.left = Math.random() * 100 + "vw";
       el.style.animationDuration = 2 + Math.random() * 2 + "s";
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 4500);
     }
   }
+
+  // Loading screen: Ankush is, of course, running late
+  const loader = document.getElementById("loader");
+  const loaderSteps = [
+    [30, "Locating Ankush…"],
+    [60, "Found him. He's still in bed."],
+    [85, "He says he's 5 minutes away."],
+    [99, "He was not 5 minutes away."],
+    [99, "Still 99%. He stopped for snacks."],
+    [100, "He's here! (45 minutes late, as is tradition)"]
+  ];
+  let step = 0;
+  const hideLoader = () => {
+    loader.style.opacity = 0;
+    setTimeout(() => { loader.remove(); setTimeout(() => document.getElementById("cookie").style.display = "block", 2500); }, 500);
+  };
+  const loaderTimer = setInterval(() => {
+    const [pct, msg] = loaderSteps[step];
+    document.getElementById("loaderBar").style.width = pct + "%";
+    document.getElementById("loaderMsg").textContent = msg;
+    if (++step === loaderSteps.length) { clearInterval(loaderTimer); setTimeout(hideLoader, 900); }
+  }, 750);
+  document.getElementById("skipLoader").onclick = () => { clearInterval(loaderTimer); hideLoader(); };
+
+  // Days since late: briefly hits 1, then gets reset
+  setInterval(() => {
+    const d = document.getElementById("daysLate");
+    d.textContent = "1";
+    setTimeout(() => { d.textContent = "0"; }, 600);
+  }, 7000);
+
+  // Ask Ankush
+  const answers = [
+    "Bro.", "Trust me.", "5 more minutes.", "Ask me after this game.",
+    "Wait, what are we doing?", "100%. (He did not hear the question.)",
+    "Let me check the group chat. (He will not check the group chat.)",
+    "I'm on my way.", "That's crazy.", "Lowkey yes. Highkey no.",
+    "Can't talk, phone's at 3%.", "Absolutely not. Anyway, what's the plan?",
+    "Ask me tomorrow. (Do not ask him tomorrow.)", "Sounds like a you problem, bro."
+  ];
+  const ask = () => {
+    const q = document.getElementById("question").value.trim();
+    const ball = document.getElementById("ball");
+    const out = document.getElementById("answer");
+    ball.classList.remove("shake"); void ball.offsetWidth; ball.classList.add("shake");
+    out.textContent = "…";
+    setTimeout(() => {
+      out.textContent = q ? answers[Math.floor(Math.random() * answers.length)]
+                          : "You have to ask something. Even Ankush asks quick questions.";
+    }, 600);
+  };
+  document.getElementById("askBtn").onclick = ask;
+  document.getElementById("question").addEventListener("keydown", e => { if (e.key === "Enter") ask(); });
+
+  // Bingo
+  const squares = [
+    "Says \"bro\"", "\"5 more minutes\"", "Phone at 3%", "Hasn't read the group chat", "\"Quick question\" (not quick)",
+    "Shows up late", "Falls asleep somewhere weird", "\"Trust me\"", "40 min to pick food", "Story with no ending",
+    "\"One more game\"", "Says \"that's crazy\"", "FREE SPACE: Ankush exists", "Peace sign in a photo", "\"I'm on my way\" (he's not)",
+    "Forgets what day it is", "\"Wait, what are we doing?\"", "Eats your fries", "Hat indoors", "\"Last one\" (it's not)",
+    "Snoozes alarm 5+ times", "Main character moment", "\"I'm outside\" (he's not)", "47 tabs open", "Leaves you on read"
+  ];
+  const board = document.getElementById("bingo");
+  const marked = new Set([12]);
+  const lines = [];
+  for (let r = 0; r < 5; r++) lines.push([0, 1, 2, 3, 4].map(c => r * 5 + c));
+  for (let c = 0; c < 5; c++) lines.push([0, 1, 2, 3, 4].map(r => r * 5 + c));
+  lines.push([0, 6, 12, 18, 24], [4, 8, 12, 16, 20]);
+  let won = false;
+  squares.forEach((s, i) => {
+    const b = document.createElement("button");
+    b.textContent = s;
+    if (i === 12) { b.className = "free on"; b.disabled = true; }
+    b.onclick = () => {
+      marked.has(i) ? marked.delete(i) : marked.add(i);
+      b.classList.toggle("on");
+      const hit = lines.some(l => l.every(x => marked.has(x)));
+      if (hit && !won) {
+        won = true;
+        document.getElementById("bingoMsg").textContent = "BINGO! 🎉 Your prize is on its way. (Ankush is delivering it. Don't wait up.)";
+        confetti(60);
+      } else if (!hit) {
+        won = false;
+        document.getElementById("bingoMsg").textContent = "";
+      }
+    };
+    board.appendChild(b);
+  });
+
+  // Cookie banner that won't take no for an answer
+  const cookieNoLines = ["Are you sure?", "Ankush is sad now 🥺", "He's typing…", "He stopped typing.", "Fine. Accepted anyway."];
+  let noCount = 0;
+  document.getElementById("cookieYes").onclick = () => document.getElementById("cookie").remove();
+  document.getElementById("cookieNo").onclick = e => {
+    e.target.textContent = cookieNoLines[noCount++];
+    if (noCount === cookieNoLines.length) setTimeout(() => document.getElementById("cookie").remove(), 900);
+  };
+
+  // Tab title guilt trip
+  const realTitle = document.title;
+  document.addEventListener("visibilitychange", () => {
+    document.title = document.hidden ? "Ankush misses you 🥺" : "He knew you'd come back 😎";
+    if (!document.hidden) setTimeout(() => { document.title = realTitle; }, 2000);
+  });
+
+  // Easter egg: type "ankush" for GOAT mode
+  let typed = "", goatMode = false;
+  document.addEventListener("keydown", e => {
+    if (e.target.tagName === "INPUT") return;
+    typed = (typed + e.key.toLowerCase()).slice(-6);
+    if (typed === "ankush") {
+      goatMode = true;
+      document.body.classList.remove("roll"); void document.body.offsetWidth; document.body.classList.add("roll");
+      confetti(80);
+    }
+  });
+  let lastTrail = 0;
+  document.addEventListener("mousemove", e => {
+    if (!goatMode || Date.now() - lastTrail < 50) return;
+    lastTrail = Date.now();
+    const g = document.createElement("div");
+    g.className = "goat-trail";
+    g.textContent = "🐐";
+    g.style.left = e.clientX + "px";
+    g.style.top = e.clientY + "px";
+    document.body.appendChild(g);
+    setTimeout(() => g.remove(), 1000);
+  });
 </script>
 </body>
 </html>
