@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ankush Manchanda Fan Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff6d6;
+    --ink: #1d1b16;
+    --hot: #ff4f8b;
+    --sun: #ffcf2e;
+    --sky: #4fc3ff;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 18px;
+    overflow-x: hidden;
+  }
+  .marquee {
+    background: var(--ink);
+    color: var(--sun);
+    font-family: "Bungee", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 8px 0;
+  }
+  .marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 18s linear infinite;
+  }
+  @keyframes scroll { to { transform: translateX(-100%); } }
+
+  header {
+    text-align: center;
+    padding: 48px 16px 24px;
+  }
+  .face {
+    font-size: 120px;
+    display: inline-block;
+    cursor: pointer;
+    animation: bob 2s ease-in-out infinite;
+    user-select: none;
+  }
+  @keyframes bob { 50% { transform: translateY(-12px) rotate(6deg); } }
+  h1 {
+    font-family: "Bungee", sans-serif;
+    font-size: clamp(36px, 8vw, 80px);
+    margin: 12px 0 4px;
+    color: var(--hot);
+    text-shadow: 4px 4px 0 var(--sun), 8px 8px 0 var(--ink);
+  }
+  .tag { font-size: 22px; margin: 0; }
+  .tag em { background: var(--sun); padding: 0 6px; font-style: normal; }
+
+  .ig {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: "Bungee", sans-serif;
+    color: var(--ink);
+    background: linear-gradient(90deg, #feda75, #fa7e1e, #d62976, #962fbf);
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    padding: 8px 16px;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  main { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+  section {
+    background: var(--card);
+    border: 4px solid var(--ink);
+    border-radius: 18px;
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 24px;
+    margin: 32px 0;
+  }
+  h2 {
+    font-family: "Bungee", sans-serif;
+    margin-top: 0;
+    font-size: 26px;
+  }
+  button {
+    font-family: "Bungee", sans-serif;
+    font-size: 16px;
+    background: var(--sky);
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--ink);
+    color: var(--ink);
+  }
+  button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+
+  #fact {
+    font-size: 22px;
+    min-height: 64px;
+    margin: 16px 0;
+    padding: 12px;
+    background: #fff0f5;
+    border-left: 6px solid var(--hot);
+  }
+
+  .meter {
+    height: 36px;
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    overflow: hidden;
+    background: #eee;
+    margin: 16px 0 8px;
+  }
+  .meter-fill {
+    height: 100%;
+    width: 0;
+    background: repeating-linear-gradient(45deg, var(--hot), var(--hot) 12px, var(--sun) 12px, var(--sun) 24px);
+    transition: width 1.2s cubic-bezier(.2,1.6,.4,1);
+  }
+  #meterLabel { font-weight: 700; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .quote {
+    background: var(--bg);
+    border: 3px dashed var(--ink);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .quote b { display: block; margin-top: 8px; color: var(--hot); }
+  .stars { color: #f5a400; }
+
+  .vote-zone {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+  #noBtn { background: #ddd; position: relative; transition: transform .15s; }
+  #yesBtn { background: var(--sun); }
+  #voteResult { text-align: center; font-size: 22px; font-weight: 700; min-height: 30px; }
+
+  .certificate {
+    text-align: center;
+    border: 10px double var(--sun);
+    background: #fffdf3;
+  }
+  .certificate h2 { color: var(--hot); }
+  .seal { font-size: 64px; }
+
+  footer { text-align: center; padding: 24px 16px 48px; font-size: 14px; opacity: .7; }
+
+  .confetti {
+    position: fixed;
+    top: -20px;
+    font-size: 24px;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 99;
+  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+</style>
+</head>
+<body>
+
+<div class="marquee"><span>🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 More at 11 🚨 Local man "just built different," sources confirm 🚨</span></div>
+
+<header>
+  <div class="face" id="face" title="poke him">😎</div>
+  <h1>ANKUSH MANCHANDA</h1>
+  <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
+  <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
+</header>
+
+<main>
+
+  <section>
+    <h2>📜 Certified Ankush Facts™</h2>
+    <p>100% peer-reviewed by Ankush.</p>
+    <div id="fact">Click the button. Learn the truth.</div>
+    <button id="factBtn">Generate Fact</button>
+  </section>
+
+  <section>
+    <h2>📈 Ankush-O-Meter</h2>
+    <p>Measures how much Ankush energy is in the room right now.</p>
+    <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+    <p id="meterLabel">Reading: not yet measured</p>
+    <button id="meterBtn">Measure</button>
+  </section>
+
+  <section>
+    <h2>⭐ Testimonials</h2>
+    <div class="grid">
+      <div class="quote"><span class="stars">★★★★★</span><br>"He once looked at me. I think about it often."<b>— A pigeon</b></div>
+      <div class="quote"><span class="stars">★★★★☆</span><br>"Took 40 minutes to pick a restaurant. Picked the first one."<b>— His group chat</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
+      <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🗳️ Official Poll</h2>
+    <p>Is Ankush the GOAT?</p>
+    <div class="vote-zone" id="voteZone">
+      <button id="yesBtn">YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+    <div id="voteResult"></div>
+  </section>
+
+  <section class="certificate">
+    <div class="seal">🏆</div>
+    <h2>Certificate of Achievement</h2>
+    <p>This certifies that</p>
+    <p style="font-family:Bungee; font-size:28px; margin:8px 0;">ANKUSH MANCHANDA</p>
+    <p>has successfully existed for another year<br>with only a moderate number of incidents.</p>
+    <p><i>Signed, The Committee (it's us, his friends)</i></p>
+  </section>
+
+</main>
+
+<footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋</footer>
+
+<script>
+  const facts = [
+    "Ankush doesn't do push-ups. He pushes the Earth down.",
+    "Ankush's phone battery is always at 3%. It's a lifestyle.",
+    "When Ankush says \"I'm on my way,\" he is in the shower.",
+    "Ankush once won an argument by simply saying \"bro\" with conviction.",
+    "Ankush has a 'quick question' that is never quick and is never one question.",
+    "Ankush's Spotify Wrapped had to be reviewed by a panel of experts.",
+    "Ankush can fall asleep anywhere. Anywhere.",
+    "Ankush doesn't read the group chat. The group chat reads Ankush.",
+    "Ankush has 47 browser tabs open and needs every single one.",
+    "Ankush has never once known what day it is, and he is thriving.",
+    "Ankush's 'one more game' has a runtime of 3 hours.",
+    "Ankush is the reason the restaurant has a 'large group' policy."
+  ];
+  let lastFact = -1;
+  document.getElementById("factBtn").onclick = () => {
+    let i;
+    do { i = Math.floor(Math.random() * facts.length); } while (i === lastFact);
+    lastFact = i;
+    document.getElementById("fact").textContent = facts[i];
+  };
+
+  const levels = [
+    [20, "Mild Ankush. He's probably asleep."],
+    [45, "Moderate Ankush. Someone mentioned food."],
+    [70, "High Ankush. He has a 'quick question.'"],
+    [90, "DANGEROUS Ankush. He's telling a story with no ending."],
+    [100, "MAXIMUM ANKUSH. Evacuate the group chat."]
+  ];
+  document.getElementById("meterBtn").onclick = () => {
+    const v = Math.floor(Math.random() * 101);
+    const fill = document.getElementById("meterFill");
+    fill.style.width = "0";
+    setTimeout(() => {
+      fill.style.width = v + "%";
+      const label = levels.find(([max]) => v <= max)[1];
+      document.getElementById("meterLabel").textContent = `Reading: ${v}% — ${label}`;
+      if (v > 90) confetti(40);
+    }, 150);
+  };
+
+  // The NO button refuses to be clicked
+  const noBtn = document.getElementById("noBtn");
+  const zone = document.getElementById("voteZone");
+  const dodge = () => {
+    const zr = zone.getBoundingClientRect();
+    const x = (Math.random() - 0.5) * (zr.width - 120);
+    const y = (Math.random() - 0.5) * (zr.height - 60);
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  };
+  noBtn.addEventListener("mouseenter", dodge);
+  noBtn.addEventListener("touchstart", e => { e.preventDefault(); dodge(); });
+  noBtn.addEventListener("click", () => {
+    document.getElementById("voteResult").textContent = "Error: that answer does not exist. 🚫";
+  });
+  document.getElementById("yesBtn").onclick = () => {
+    document.getElementById("voteResult").textContent = "Correct. 100% of voters agree. 🐐";
+    confetti(60);
+  };
+
+  const faces = ["😎", "🤪", "😴", "🤓", "🥸", "😤", "🫡", "🤠"];
+  let pokes = 0;
+  document.getElementById("face").onclick = e => {
+    pokes++;
+    e.target.textContent = faces[pokes % faces.length];
+    if (pokes % 10 === 0) alert(`You've poked Ankush ${pokes} times. He's filing a complaint.`);
+  };
+
+  function confetti(n) {
+    const bits = ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement("div");
+      el.className = "confetti";
+      el.textContent = bits[Math.floor(Math.random() * bits.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 2 + Math.random() * 2 + "s";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4500);
+    }
+  }
+</script>
+</body>
+</html>
