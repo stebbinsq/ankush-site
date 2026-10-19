@@ -1309,8 +1309,12 @@
 
   // Roast Wall: submissions go to a Google Form; only rows marked approved
   // in the linked sheet are published (as CSV) and shown here.
-  const ROAST_FORM = { action: "", name: "", roast: "" };
-  const ROAST_CSV = "";
+  const ROAST_FORM = {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLScY11hjGqi8xwommttwbVlxFFHAU3UJllh7mTfu1aktdrF0Nw/formResponse",
+    name: "entry.499341248",
+    roast: "entry.760047509"
+  };
+  const ROAST_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTBvGxGsDTE2kTCMXmBx_5TfIgu79H1AbugE8M_Ku6zQjYRvXU5L-f3Tzy0yWQiGxrqgksG9OOMgtu/pub?output=csv";
 
   function parseCSV(text) {
     const rows = []; let row = [], cell = "", q = false;
