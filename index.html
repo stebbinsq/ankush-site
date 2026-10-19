@@ -268,28 +268,6 @@
   .wiki .cite { color: #3366cc; font-size: 12px; vertical-align: super; }
   .wiki .note { font-size: 13px; color: #666; margin-top: 12px; }
 
-  /* Magic 8-ball */
-  .ball-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .ball-row input {
-    flex: 1; min-width: 200px;
-    font: inherit; padding: 12px; border: 3px solid var(--ink); border-radius: 12px;
-  }
-  .ball {
-    width: 200px; height: 200px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #555, #000 70%);
-    margin: 20px auto 0;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 6px 6px 0 var(--hot);
-  }
-  .ball.shake { animation: shake .6s; }
-  @keyframes shake { 20%,60% { transform: translateX(-12px) rotate(-8deg); } 40%,80% { transform: translateX(12px) rotate(8deg); } }
-  .ball-window {
-    width: 120px; height: 120px; border-radius: 50%;
-    background: #1b2a8a; color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; font-size: 14px; padding: 12px; line-height: 1.2;
-  }
-
   /* Bingo */
   .bingo { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
   .bingo button { overflow-wrap: anywhere; hyphens: auto; min-width: 0; }
@@ -359,15 +337,9 @@
   .wake .says { font-size: 20px; font-weight: 700; min-height: 30px; margin-bottom: 12px; }
   .wake .count { font-size: 14px; opacity: .7; margin-top: 8px; }
 
-  /* Departures board */
-  .board { background: #111; border-radius: 12px; padding: 12px; overflow-x: auto; }
-  .board table { width: 100%; border-collapse: collapse; font-family: "Courier New", monospace; color: #ffd84d; font-size: 15px; }
-  .board th { color: #888; text-align: left; font-size: 12px; padding: 6px; }
-  .board td { padding: 8px 6px; border-top: 1px solid #333; }
-  .board .bad { color: #ff5a5a; animation: blink 1s steps(2) infinite; }
-  @keyframes blink { 50% { opacity: .2; } }
 
   /* Typing popup */
+  @keyframes blink { 50% { opacity: .2; } }
   #chat {
     position: fixed; right: 16px; bottom: 16px; z-index: 140;
     width: min(290px, calc(100vw - 32px));
@@ -884,16 +856,6 @@
     <p style="text-align:center;font-size:14px">See the full collection (if you dare) at <a href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">@ojandkushh</a>.</p>
   </section>
 
-  <section>
-    <h2>🎱 Ask Ankush</h2>
-    <p>Life advice from the man himself. Results not guaranteed. Results not even likely.</p>
-    <div class="ball-row">
-      <input id="question" placeholder="Should I go to bed early tonight?" maxlength="120">
-      <button id="askBtn">Ask</button>
-    </div>
-    <div class="ball" id="ball"><div class="ball-window" id="answer">Ask me something, bro</div></div>
-  </section>
-
   <section class="translate">
     <h2>🗣️ Ankush → English Translator</h2>
     <p style="margin:0">Powered by years of painful experience.</p>
@@ -910,31 +872,6 @@
     <div class="says" id="wakeSays">zzz…</div>
     <button id="wakeBtn">⏰ RING ALARM</button>
     <div class="count" id="wakeCount">Snoozes: 0</div>
-  </section>
-
-  <section>
-    <h2>🛫 Ankush International Airport: Departures</h2>
-    <div class="board">
-      <table>
-        <tr><th>FLIGHT</th><th>DESTINATION</th><th>STATUS</th></tr>
-        <tr><td>ANK 001</td><td>Dinner reservation</td><td class="bad">DELAYED +45 MIN</td></tr>
-        <tr><td>ANK 002</td><td>Replying to group chat</td><td class="bad">CANCELLED</td></tr>
-        <tr><td>ANK 003</td><td>"Quick" question</td><td class="bad">DELAYED 2 HRS</td></tr>
-        <tr><td>ANK 004</td><td>Returning your hoodie</td><td class="bad">NEVER</td></tr>
-        <tr><td>ANK 005</td><td>Leaving the party</td><td>BOARDING (for 3 hrs)</td></tr>
-        <tr><td>ANK 006</td><td>Bedtime</td><td class="bad">DIVERTED TO 4 AM</td></tr>
-        <tr><td>ANK 007</td><td>Arriving on time</td><td class="bad">FLIGHT NOT FOUND</td></tr>
-        <tr><td>ANK 008</td><td>Soccer game</td><td class="bad">MISSED (AGAIN)</td></tr>
-        <tr><td>ANK 009</td><td>Picking up Gabby</td><td>ON TIME ✅ (miraculously)</td></tr>
-        <tr><td>ANK 010</td><td>Walking MF</td><td>ON TIME ✅ (MF insists)</td></tr>
-        <tr><td>ANK 011</td><td>Photographing a flower at golden hour</td><td>EARLY ✅ (always, somehow)</td></tr>
-        <tr><td>ANK 012</td><td>Leaving the apartment</td><td class="bad">CANCELLED INDEFINITELY</td></tr>
-        <tr><td>ANK 013</td><td>Couch → Fridge</td><td>DEPARTED ✅ (14th time today)</td></tr>
-        <tr><td>ANK 014</td><td>Food delivery (inbound)</td><td>ARRIVING ✅ (daily since forever)</td></tr>
-        <tr><td>ANK 015</td><td>"I'm cooking tonight"</td><td class="bad">DIVERTED TO DELIVERY</td></tr>
-        <tr><td>ANK 016</td><td>Original thought</td><td class="bad">OUTSOURCED TO AI</td></tr>
-      </table>
-    </div>
   </section>
 
   <section>
@@ -1203,34 +1140,6 @@
     d.textContent = "1";
     setTimeout(() => { d.textContent = "0"; }, 600);
   }, 7000);
-
-  // Ask Ankush
-  const answers = [
-    "Bro.", "Trust me.", "5 more minutes.", "Ask me after this game.",
-    "Wait, what are we doing?", "100%. (He did not hear the question.)",
-    "Let me check the group chat. (He will not check the group chat.)",
-    "I'm on my way.", "That's crazy.", "Lowkey yes. Highkey no.",
-    "Can't talk, phone's at 3%.", "Absolutely not. Anyway, what's the plan?",
-    "Ask me tomorrow. (Do not ask him tomorrow.)", "Sounds like a you problem, bro.",
-    "Hit the kush and find out. 💨", "Ask MF. He's the smart one.", "Let me ask Gabby. (Good call, honestly.)",
-    "B*tches flock. (Sorry, old habit. Retired.)", "Can't, I have soccer. (He will not be at soccer.)",
-    "Come over, I'm not leaving. Ever.", "Sounds fun. Can we do it at my apartment?",
-    "Hold on, my food's here. 🛵", "Let me order something first and get back to you. (He will not get back to you.)",
-    "Hold on, let me ask AI. 🤖", "The AI said no, so… no."
-  ];
-  const ask = () => {
-    const q = document.getElementById("question").value.trim();
-    const ball = document.getElementById("ball");
-    const out = document.getElementById("answer");
-    ball.classList.remove("shake"); void ball.offsetWidth; ball.classList.add("shake");
-    out.textContent = "…";
-    setTimeout(() => {
-      out.textContent = q ? answers[Math.floor(Math.random() * answers.length)]
-                          : "You have to ask something. Even Ankush asks quick questions.";
-    }, 600);
-  };
-  document.getElementById("askBtn").onclick = ask;
-  document.getElementById("question").addEventListener("keydown", e => { if (e.key === "Enter") ask(); });
 
   // Bingo
   const squares = [
