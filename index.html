@@ -219,7 +219,7 @@
   .signatures span { display: block; font-family: "Brush Script MT", "Snell Roundhand", cursive; font-size: 26px; margin-top: -42px; margin-bottom: 14px; color: #1b2a8a; }
   .certificate .fine { font-size: 12px; opacity: .6; }
 
-  footer { text-align: center; padding: 24px 16px 48px; font-size: 14px; opacity: .7; }
+  footer { text-align: center; padding: 24px 16px 48px; font-size: 14px; color: #6b665a; }
 
   .confetti {
     position: fixed;
@@ -323,6 +323,12 @@
   body.roll { animation: roll 1.2s ease-in-out; }
   @keyframes roll { to { transform: rotate(360deg); } }
   .hint { font-size: 12px; opacity: .5; }
+  .credit {
+    display: block; width: fit-content; margin: 18px auto 0; padding: 6px 14px;
+    background: var(--ink); color: var(--sun); border-radius: 999px;
+    font-family: "Bungee", sans-serif; font-size: 12px; letter-spacing: .5px; opacity: 1;
+  }
+  .credit b { color: #fff; font-weight: normal; }
 
   /* "Getting ready" scroll bar */
   #ready {
@@ -868,16 +874,10 @@
         <figcaption><b>★ AUTHENTIC MANCHANDA ★ "Sunflowers, Uncomfortably Close"</b>A real photograph from the artist's Instagram. The centerpiece of the collection. Shot from a distance that made the sunflowers nervous.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
       <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ff9ac1,#5a1030)"><span class="bloom">🌷</span></div>
         <figcaption><b>"Untitled Tulip No. 47"</b>iPhone, portrait mode, 2 inches away. The tulip did not consent to this level of intimacy.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
-      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ffb38a,#5a1a05)"><span class="bloom">🌺</span></div>
-        <figcaption><b>"Hibiscus, After Dark"</b>Shot at golden hour, which is the only thing Ankush has ever been on time for.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
-      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ffe27a,#4a3a05)"><span class="bloom">🌻</span></div>
-        <figcaption><b>"Sunflower, Vulnerable"</b>Instagram caption: "nature 🌿". The comments section has questions.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
       <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ff7a7a,#3a0505)"><span class="bloom">🌹</span></div>
         <figcaption><b>"Rose, Lingering"</b>Photographed from an angle that made three people unfollow and one person follow.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
       <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#fff6b0,#3d4a10)"><span class="bloom">🌼</span></div>
         <figcaption><b>"Daisy (Too Close)"</b>The daisy has since requested he stay at least 6 feet away.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
-      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#f7c6ff,#3a1046)"><span class="bloom">🪷</span></div>
-        <figcaption><b>"Lotus, Unbothered"</b>Caption: "peace." Nobody knows what he meant. Nobody has asked.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
     </div>
     <div id="critic">"…"</div>
     <p style="text-align:center"><button id="criticBtn">🎧 Hear from an art critic</button></p>
@@ -1020,7 +1020,7 @@
 
 </main>
 
-<footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋<br><span class="hint">psst… try typing his name</span></footer>
+<footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋<br><span class="hint">psst… try typing his name</span><div class="credit">🛠️ Site made by <b>justQuinn</b></div></footer>
 
 <div id="ready"><div id="readyBar"></div><span id="readyText">Ankush getting ready: 0%</span></div>
 
