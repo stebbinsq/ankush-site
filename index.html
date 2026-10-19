@@ -475,6 +475,43 @@
   .outside-list { columns: 2 220px; margin-top: 12px; }
   .outside-list li { break-inside: avoid; margin: 4px 0; }
 
+  /* Ankush Eats: Year in Review */
+  .review { max-width: 380px; margin: 0 auto; }
+  .story {
+    position: relative; aspect-ratio: 9 / 14; border-radius: 22px; border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink); overflow: hidden; color: #fff; cursor: pointer; user-select: none;
+    display: flex; flex-direction: column; justify-content: center; padding: 28px 24px; text-align: center;
+    transition: background .5s;
+  }
+  .story .bars { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; gap: 4px; }
+  .story .bars span { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,.35); }
+  .story .bars span.done { background: #fff; }
+  .story .kicker { font-family: "Bungee", sans-serif; font-size: 15px; opacity: .9; letter-spacing: 1px; }
+  .story .big { font-family: "Bungee", sans-serif; font-size: clamp(54px, 18vw, 92px); line-height: 1; margin: 14px 0; text-shadow: 4px 4px 0 rgba(0,0,0,.25); }
+  .story .big.small { font-size: clamp(30px, 9vw, 42px); }
+  .story .line { font-size: 20px; line-height: 1.3; font-weight: 700; }
+  .story .tap { position: absolute; bottom: 12px; left: 0; right: 0; font-size: 13px; opacity: .75; }
+  .story-nav { display: flex; justify-content: space-between; margin-top: 16px; }
+  .story-nav button { font-size: 13px; padding: 8px 14px; }
+
+  /* Ankush's AI chat history */
+  .aichat { display: grid; grid-template-columns: 230px 1fr; border: 4px solid var(--ink); border-radius: 14px; overflow: hidden; min-height: 380px; background: #fff; }
+  .aichat .side { background: #202123; color: #ececf1; padding: 10px; font-size: 14px; }
+  .aichat .side button.newchat { width: 100%; background: transparent; color: #ececf1; border: 1px solid #555; box-shadow: none; font-size: 12px; padding: 8px; margin-bottom: 10px; }
+  .aichat .side h4 { font-size: 11px; color: #8e8ea0; margin: 12px 4px 4px; text-transform: uppercase; letter-spacing: .5px; }
+  .aichat .side a { display: block; padding: 7px 8px; border-radius: 6px; color: #ececf1; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+  .aichat .side a:hover, .aichat .side a.active { background: #343541; }
+  .aichat .main { display: flex; flex-direction: column; gap: 14px; padding: 18px; background: #f7f7f8; }
+  .aichat .bubble { max-width: 85%; padding: 12px 14px; border-radius: 14px; font-size: 16px; line-height: 1.4; }
+  .aichat .me { align-self: flex-end; background: var(--hot); color: #fff; border-bottom-right-radius: 4px; }
+  .aichat .bot { align-self: flex-start; background: #fff; border: 2px solid #e2e2e2; border-bottom-left-radius: 4px; min-height: 48px; }
+  .aichat .bot::before { content: "🤖 "; }
+  .aichat .empty { margin: auto; color: #8e8ea0; text-align: center; }
+  @media (max-width: 620px) {
+    .aichat { grid-template-columns: 1fr; }
+    .aichat .side { max-height: 220px; overflow-y: auto; }
+  }
+
   /* Flower art museum */
   .museum { background: #2b2420; color: #f3e9d8; border-color: #000; }
   .museum h2 { color: #e8c66a; font-family: Georgia, serif; font-style: italic; letter-spacing: .5px; }
@@ -616,6 +653,9 @@
       <tr><th>Years active</th><td>Since whenever he woke up (afternoon)</td></tr>
       <tr><th>Natural habitat</th><td>His New York apartment (has not left since)<span class="cite">[source: his couch]</span></td></tr>
       <tr><th>Secondary habitat</th><td>The group chat (read-only access)</td></tr>
+      <tr><th>Diet</th><td>Exclusively delivery<span class="cite">[receipts available, thousands of them]</span></td></tr>
+      <tr><th>Kitchen</th><td>Decorative</td></tr>
+      <tr><th>Primary advisor</th><td>An AI chatbot (consulted on every decision, including this one)</td></tr>
       <tr><th>Arch-nemesis</th><td>His alarm clock</td></tr>
       <tr><th>Signature move</th><td>Hitting the kush 💨<span class="cite">[witnesses requested anonymity]</span></td></tr>
       <tr><th>Catchphrase</th><td>"Bro."</td></tr>
@@ -655,6 +695,7 @@
       <text class="room" x="487" y="135">FRIDGE</text>
       <text class="thing" x="505" y="290">💻</text>
       <text class="thing" x="541" y="348" style="font-size:22px">🕸️</text>
+      <text id="deliveryBag" class="thing" x="555" y="352" style="font-size:24px;opacity:0;transition:opacity .4s">🛍️</text>
       <text class="exit" x="478" y="318">EXIT (UNUSED)</text>
       <g id="ankushDot" transform="translate(100 140)">
         <circle class="pulse" r="22"/>
@@ -667,6 +708,7 @@
       <div><b id="sinceOut">—</b><small>since he last left the apartment</small></div>
       <div><b id="distToday">0 ft</b><small>traveled today</small></div>
       <div><b id="fridgeTrips">0</b><small>fridge visits this session</small></div>
+      <div><b id="ordersToday">0</b><small>deliveries received this session</small></div>
       <div><b>0</b><small>times touched grass</small></div>
     </div>
     <p style="text-align:center"><button id="inviteBtn">📣 Invite Ankush outside</button></p>
@@ -683,6 +725,24 @@
       <li>His neighbors started a rumor that his apartment is empty.</li>
       <li>The sun asked if he was okay.</li>
     </ul>
+  </section>
+
+  <section id="ankush-eats">
+    <h2>🛵 Ankush Eats: Year in Review</h2>
+    <p>His food delivery app sent him a year-end recap. We obtained a copy. Tap through it.</p>
+    <div class="review">
+      <div class="story" id="story" role="button" tabindex="0" aria-label="Next slide">
+        <div class="bars" id="storyBars"></div>
+        <div class="kicker" id="storyKicker"></div>
+        <div class="big" id="storyBig"></div>
+        <div class="line" id="storyLine"></div>
+        <div class="tap">tap for next ▶</div>
+      </div>
+      <div class="story-nav">
+        <button id="storyPrev">◀ Back</button>
+        <button id="storyNext">Next ▶</button>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -747,6 +807,18 @@
       <li>Approved by MF, the harshest critic in the household.</li>
       <li>Everyone agrees she's the best decision Ankush has ever made. It's not even close.</li>
     </ul>
+  </section>
+
+  <section id="ai-history">
+    <h2>🤖 Ankush's AI Chat History (Leaked)</h2>
+    <p>Ankush hasn't made a decision on his own in years. We got into his AI chat history. Click a chat to read it.</p>
+    <div class="aichat">
+      <div class="side" id="aiSide">
+        <button class="newchat" id="aiNew">＋ New chat</button>
+      </div>
+      <div class="main" id="aiMain"><div class="empty">Select a chat. Witness the decline of independent thought.</div></div>
+    </div>
+    <p class="disclaimer" style="margin-top:12px">Full disclosure: this website was also made with AI. Ankush, we see the irony. We're keeping it.</p>
   </section>
 
   <section class="museum">
@@ -844,6 +916,9 @@
         <tr><td>ANK 011</td><td>Photographing a flower at golden hour</td><td>EARLY ✅ (always, somehow)</td></tr>
         <tr><td>ANK 012</td><td>Leaving the apartment</td><td class="bad">CANCELLED INDEFINITELY</td></tr>
         <tr><td>ANK 013</td><td>Couch → Fridge</td><td>DEPARTED ✅ (14th time today)</td></tr>
+        <tr><td>ANK 014</td><td>Food delivery (inbound)</td><td>ARRIVING ✅ (daily since forever)</td></tr>
+        <tr><td>ANK 015</td><td>"I'm cooking tonight"</td><td class="bad">DIVERTED TO DELIVERY</td></tr>
+        <tr><td>ANK 016</td><td>Original thought</td><td class="bad">OUTSOURCED TO AI</td></tr>
       </table>
     </div>
   </section>
@@ -860,6 +935,11 @@
       <div class="quote"><span class="stars">★★★★★</span><br>"He never leaves. We spend every waking moment together. And most sleeping ones."<b>— His couch</b></div>
       <div class="quote"><span class="stars">★★☆☆☆</span><br>"I haven't been opened in weeks. A spider moved in. We're happy."<b>— His front door</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Best customer in New York. I have never seen him in daylight."<b>— His delivery guy</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"When I text 'I'm outside,' I'm actually outside. He could learn from me."<b>— A different delivery guy</b></div>
+      <div class="quote"><span class="stars">★★☆☆☆</span><br>"I've been used three times. Twice to store delivery bags."<b>— His kitchen</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"He orders so often that we think of him as a coworker."<b>— The restaurant down the street</b></div>
+      <div class="quote"><span class="stars">★★☆☆☆</span><br>"He asked me what to eat 400 times this year. Then ordered the usual. Every time."<b>— His AI assistant</b></div>
+      <div class="quote"><span class="stars">★☆☆☆☆</span><br>"Haven't been used since he got AI. Honestly? Relaxing."<b>— His brain</b></div>
       <div class="quote"><span class="stars">★★★★☆</span><br>"Took 40 minutes to pick a restaurant. Picked the first one."<b>— His group chat</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
@@ -947,6 +1027,7 @@
       <tr><th>Signature dance</th><td>Hitting the kush 💨</td><td>The robot (low battery)</td></tr>
       <tr><th>Dog's opinion</th><td>MF: "he's alright"</td><td>MF: *growls*</td></tr>
       <tr><th>Home field advantage</th><td>Never leaves home. Undefeated there.</td><td>Not invited over</td></tr>
+      <tr><th>Delivery app status</th><td>Diamond VIP 💎 (they send him holiday cards)</td><td>Has to cook</td></tr>
       <tr><th>In the photos on this site</th><td>11</td><td>0 (we checked twice)</td></tr>
     </table>
     <p class="verdict">WINNER: ANKUSH 🏆<br><small>by forfeit. Ryan was still parking.</small></p>
@@ -1004,7 +1085,16 @@
     "Ankush's delivery driver knows him better than his own neighbors do.",
     "Ankush's apartment has a Google review from Ankush: 'Never leaving. 5 stars.'",
     "Ankush's front door has cobwebs. On the inside.",
-    "Ankush doesn't have FOMO. He has FOGO: Fear Of Going Outside."
+    "Ankush doesn't have FOMO. He has FOGO: Fear Of Going Outside.",
+    "Ankush has ordered delivery every day this year. Including the days he said 'I'm cooking tonight.'",
+    "Ankush's delivery drivers have a group chat about him. He's never been late to reply in that one.",
+    "Ankush's kitchen still has the plastic on the oven.",
+    "Ankush once ordered delivery from a restaurant he could see from his window.",
+    "Ankush's delivery app sends HIM a birthday card. And a fruit basket. Delivered, obviously.",
+    "Ankush asked AI whether he should ask AI. AI said yes. He's been asking ever since.",
+    "Ankush's AI assistant has requested a vacation. Ankush asked AI how to respond.",
+    "Ankush hasn't written his own text message in years. You've been talking to a chatbot. Sorry.",
+    "Ankush once asked AI to pick his outfit. He didn't leave the apartment, so it didn't matter."
   ];
   let lastFact = -1;
   document.getElementById("factBtn").onclick = () => {
@@ -1120,7 +1210,9 @@
     "Ask me tomorrow. (Do not ask him tomorrow.)", "Sounds like a you problem, bro.",
     "Hit the kush and find out. 💨", "Ask MF. He's the smart one.", "Let me ask Gabby. (Good call, honestly.)",
     "B*tches flock. (Sorry, old habit. Retired.)", "Can't, I have soccer. (He will not be at soccer.)",
-    "Come over, I'm not leaving. Ever.", "Sounds fun. Can we do it at my apartment?"
+    "Come over, I'm not leaving. Ever.", "Sounds fun. Can we do it at my apartment?",
+    "Hold on, my food's here. 🛵", "Let me order something first and get back to you. (He will not get back to you.)",
+    "Hold on, let me ask AI. 🤖", "The AI said no, so… no."
   ];
   const ask = () => {
     const q = document.getElementById("question").value.trim();
@@ -1139,9 +1231,9 @@
   // Bingo
   const squares = [
     "Says \"bro\"", "\"5 more minutes\"", "Phone at 3%", "Hasn't read the group chat", "\"Quick question\" (not quick)",
-    "Shows up late", "Hits the kush 💨", "\"Trust me\"", "40 min to pick food", "Mentions MF",
+    "Shows up late", "Hits the kush 💨", "\"Let me ask AI\" 🤖", "40 min to pick food", "Mentions MF",
     "\"One more game\"", "Says \"that's crazy\"", "FREE SPACE: Ankush exists", "Peace sign in a photo", "\"I'm on my way\" (he's not)",
-    "Stops to shoot a flower 🌷", "Suggests staying in 🏠", "Eats your fries", "Skips soccer", "\"Last one\" (it's not)",
+    "Stops to shoot a flower 🌷", "Suggests staying in 🏠", "Orders delivery (again) 🛵", "Skips soccer", "\"Last one\" (it's not)",
     "Snoozes alarm 5+ times", "Texts Gabby mid-story", "\"I'm outside\" (he's not)", "Hits the kush AGAIN", "Vintage \"b*tches flock\""
   ];
   const board = document.getElementById("bingo");
@@ -1262,7 +1354,12 @@
     "Hold on, the lighting is perfect": "We will be here for 25 minutes. There is a tulip.",
     "Let's do something this weekend": "Come to my apartment. I will not be leaving it.",
     "I'm in the city": "I'm in my apartment, which is technically in the city.",
-    "I went out last night": "I went to the lobby to get a package."
+    "I went out last night": "I went to the lobby to get a package.",
+    "I'm cooking tonight": "I'm ordering delivery tonight.",
+    "I'll just grab something": "I'll have something brought to me by a stranger on a scooter.",
+    "I'm trying to eat healthy": "I ordered a side salad with my burger. It's still in the bag.",
+    "Let me think about it": "Let me ask the AI.",
+    "I wrote this myself": "The AI wrote this. I added the 'bro.'"
   };
   const sel = document.getElementById("phrase");
   Object.keys(dictionary).forEach(k => sel.add(new Option(`"${k}"`, k)));
@@ -1307,7 +1404,7 @@
   };
 
   // "Ankush is typing…" popup
-  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "brb there's a tulip 🌷", "come over, I'm not leaving 🏠", "hold on hitting the kush 💨"];
+  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "brb there's a tulip 🌷", "come over, I'm not leaving 🏠", "hold on food's here 🛵", "one sec asking AI what to reply 🤖", "hold on hitting the kush 💨"];
   let chatIdx = 0, chatStarted = false;
   const chat = document.getElementById("chat");
   function startChat() {
@@ -1355,6 +1452,95 @@
     document.getElementById("woof").textContent = woofs[woofIdx++ % woofs.length];
   };
 
+  // Ankush's leaked AI chat history
+  const aiChats = [
+    { group: "Today", q: "write a text saying I'm 5 min away but make it believable", a: "Sure! Option 1: \"omw, 5 min 🏃\". Note: based on your history, your real ETA is 47 minutes. Option 2: tell the truth. (Not recommended for you specifically.)" },
+    { group: "Today", q: "what should I eat tonight", a: "Based on your last 365 orders, I predict: the usual. I've already put it in your cart. I also did this yesterday. And the day before. And the day before that." },
+    { group: "Today", q: "is it possible to go outside without leaving my apartment", a: "Great question! Options: 1) open a window, 2) stand near a plant, 3) look at a picture of grass. I see you've chosen option 3. Bold." },
+    { group: "Yesterday", q: "rate my flower pic 1-10 be honest", a: "Artistically: 9/10. Distance from flower: about half an inch. Several people have asked me if you're okay. I said I'd check." },
+    { group: "Yesterday", q: "how to play soccer without going to soccer", a: "That's called watching soccer. Your team says hi. They'd like to meet you someday." },
+    { group: "Yesterday", q: "summarize the group chat (412 unread)", a: "Summary: everyone is asking where you are. You are in your apartment. I could have told them that." },
+    { group: "Previous 7 days", q: "how to hit the kush (advanced tutorial)", a: "I'm sorry, but I can't help with that. It's not against my guidelines. I've just seen it." },
+    { group: "Previous 7 days", q: "what does MF think of me", a: "I can't read dogs' minds. But based on the way he sighs when you hit the kush, I'd say it's complicated." },
+    { group: "Previous 7 days", q: "should I ask AI before replying to this", a: "You just did." }
+  ];
+  const aiSide = document.getElementById("aiSide");
+  const aiMain = document.getElementById("aiMain");
+  let aiTyper, lastGroup = "";
+  aiChats.forEach((c, i) => {
+    if (c.group !== lastGroup) {
+      const h = document.createElement("h4");
+      h.textContent = c.group;
+      aiSide.appendChild(h);
+      lastGroup = c.group;
+    }
+    const a = document.createElement("a");
+    a.textContent = c.q;
+    a.title = c.q;
+    a.tabIndex = 0;
+    a.onclick = () => openChat(i, a);
+    a.onkeydown = e => { if (e.key === "Enter") openChat(i, a); };
+    aiSide.appendChild(a);
+  });
+  function renderChat(q, answer) {
+    clearInterval(aiTyper);
+    aiMain.innerHTML = "";
+    const me = document.createElement("div");
+    me.className = "bubble me";
+    me.textContent = q;
+    const bot = document.createElement("div");
+    bot.className = "bubble bot";
+    aiMain.append(me, bot);
+    let n = 0;
+    aiTyper = setInterval(() => {
+      bot.textContent = answer.slice(0, n += 2);
+      if (n >= answer.length) clearInterval(aiTyper);
+    }, 18);
+  }
+  function openChat(i, link) {
+    aiSide.querySelectorAll("a").forEach(x => x.classList.remove("active"));
+    link.classList.add("active");
+    renderChat(aiChats[i].q, aiChats[i].a);
+  }
+  document.getElementById("aiNew").onclick = () => {
+    aiSide.querySelectorAll("a").forEach(x => x.classList.remove("active"));
+    renderChat("what should I name this new chat", "Ankush, this is the 9th chat today asking me to name a chat. I'm naming this one \"Please go outside.\"");
+  };
+
+  // Ankush Eats: Year in Review (story slides)
+  const slides = [
+    { bg: "linear-gradient(160deg,#ff4f8b,#7b2ff7)", kicker: "ANKUSH EATS", big: "YOUR YEAR IN DELIVERY", small: true, line: "We need to talk. 🛵" },
+    { bg: "linear-gradient(160deg,#ff7a18,#ff3d6e)", kicker: "THIS YEAR YOU PLACED", big: "365", line: "orders. That's every single day. Including all 52 times you said \"I'm cooking tonight.\"" },
+    { bg: "linear-gradient(160deg,#00b09b,#0a6b5d)", kicker: "TIMES YOU PICKED UP AN ORDER YOURSELF", big: "0", line: "The restaurant can literally see your window." },
+    { bg: "linear-gradient(160deg,#4776e6,#2b2f8a)", kicker: "TOP CUISINE", big: "\"Whatever's fastest\"", small: true, line: "You spent 41 hours scrolling the menu this year, then ordered the usual. Every time." },
+    { bg: "linear-gradient(160deg,#f7971e,#d35400)", kicker: "YOU'RE IN THE TOP", big: "0.001%", line: "of customers. The restaurant down the street has a framed photo of your order history." },
+    { bg: "linear-gradient(160deg,#8e2de2,#4a00e0)", kicker: "YOUR DRIVERS SAY", big: "\"Who?\"", small: true, line: "Nobody has seen your face. They know you only as a hand reaching through a 2-inch door gap." },
+    { bg: "linear-gradient(160deg,#11998e,#38ef7d)", kicker: "MILES WALKED TO GET FOOD", big: "0.004", line: "Bed → door → bed. MF walked further than you. MF is a dog." },
+    { bg: "linear-gradient(160deg,#ee0979,#ff6a00)", kicker: "YOUR KITCHEN WAS USED", big: "3×", line: "Twice to store delivery bags. Once by MF. We don't know how." },
+    { bg: "linear-gradient(160deg,#1d1b16,#4b4636)", kicker: "SEE YOU", big: "TOMORROW", small: true, line: "And the day after. And the day after that. 🛵🛵🛵" }
+  ];
+  let slide = 0;
+  const bars = document.getElementById("storyBars");
+  slides.forEach(() => bars.appendChild(document.createElement("span")));
+  function showSlide(i) {
+    slide = (i + slides.length) % slides.length;
+    const s = slides[slide];
+    document.getElementById("story").style.background = s.bg;
+    document.getElementById("storyKicker").textContent = s.kicker;
+    const big = document.getElementById("storyBig");
+    big.textContent = s.big;
+    big.classList.toggle("small", !!s.small);
+    document.getElementById("storyLine").textContent = s.line;
+    [...bars.children].forEach((b, j) => b.classList.toggle("done", j <= slide));
+    if (slide === slides.length - 1) confetti(25);
+  }
+  const story = document.getElementById("story");
+  story.onclick = () => showSlide(slide + 1);
+  story.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showSlide(slide + 1); } });
+  document.getElementById("storyNext").onclick = () => showSlide(slide + 1);
+  document.getElementById("storyPrev").onclick = () => showSlide(slide - 1);
+  showSlide(0);
+
   // Live Ankush Tracker: wanders the apartment, never reaches the door
   const spots = {
     bed:     { x: 100, y: 140, say: "🛏️ In bed. Status: horizontal." },
@@ -1363,10 +1549,10 @@
     desk:    { x: 520, y: 265, say: "💻 At his desk. \"Working.\"" },
     bath:    { x: 110, y: 255, say: "🛁 Bathroom. Privacy, please." },
     tv:      { x: 330, y: 105, say: "📺 Staring at the TV. It's off." },
-    door:    { x: 545, y: 318, say: "🚪 Approaching the door…" }
+    door:    { x: 545, y: 318, say: "🚪 Approaching the door… (only because the food is here)" }
   };
   const route = ["bed", "couch", "fridge", "couch", "tv", "desk", "fridge", "bath", "couch", "door", "couch", "bed", "fridge", "couch"];
-  let stop = 0, lastSpot = spots.bed, feet = 0, fridgeTrips = 0;
+  let stop = 0, lastSpot = spots.bed, feet = 0, fridgeTrips = 0, ordersToday = 0;
   const dot = document.getElementById("ankushDot");
   const trackerStatus = document.getElementById("trackerStatus");
   function moveAnkush() {
@@ -1378,7 +1564,15 @@
     if (name === "fridge") document.getElementById("fridgeTrips").textContent = ++fridgeTrips;
     document.getElementById("distToday").textContent = feet + " ft";
     trackerStatus.textContent = s.say;
-    if (name === "door") setTimeout(() => { trackerStatus.textContent = "🚪 …saw daylight through the peephole. Retreating."; }, 1800);
+    const bag = document.getElementById("deliveryBag");
+    if (name === "door") {
+      bag.style.opacity = 1;
+      setTimeout(() => {
+        bag.style.opacity = 0;
+        document.getElementById("ordersToday").textContent = ++ordersToday;
+        trackerStatus.textContent = "🛍️ Grabbed the delivery bag through a 2-inch door gap without being seen. Retreating.";
+      }, 2000);
+    }
   }
   dot.removeAttribute("transform");
   dot.style.transform = `translate(${spots.bed.x}px, ${spots.bed.y}px)`;
