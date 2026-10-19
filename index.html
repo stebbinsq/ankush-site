@@ -466,13 +466,17 @@
   #ankushDot { transition: transform 2.2s ease-in-out; }
   #ankushDot .pulse { fill: rgba(255,79,139,.35); animation: pulse 1.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
   @keyframes pulse { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
-  .tracker-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .tracker-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(122px, 1fr)); gap: 10px; margin: 14px 0; }
   .tracker-stats div { background: var(--bg); border: 3px solid var(--ink); border-radius: 12px; padding: 10px; text-align: center; }
   .tracker-stats b { display: block; font-family: "Bungee", sans-serif; font-size: 20px; }
   .tracker-stats small { font-size: 13px; }
   #trackerStatus { font-weight: 700; font-size: 18px; text-align: center; min-height: 26px; }
   #inviteOut { font-weight: 700; min-height: 26px; margin-top: 8px; text-align: center; }
   .outside-list { columns: 2 220px; margin-top: 12px; }
+  .sighting { display: flex; gap: 16px; align-items: center; background: #fff0f0; border: 3px dashed #c0392b; border-radius: 14px; padding: 14px; margin: 14px 0; }
+  .sighting img { width: 150px; aspect-ratio: 4 / 5; object-fit: cover; border: 3px solid var(--ink); transform: rotate(-3deg); flex-shrink: 0; filter: contrast(1.1) saturate(1.1); }
+  .sighting b { color: #c0392b; font-family: "Bungee", sans-serif; display: block; margin-bottom: 4px; }
+  @media (max-width: 520px) { .sighting { flex-direction: column; text-align: center; } }
   .outside-list li { break-inside: avoid; margin: 4px 0; }
 
   /* Ankush Eats: Year in Review */
@@ -711,6 +715,10 @@
       <div><b id="ordersToday">0</b><small>deliveries received this session</small></div>
       <div><b>0</b><small>times touched grass</small></div>
     </div>
+    <div class="sighting">
+      <img src="img/p12.jpg" alt="Ankush sitting outside at a restaurant" loading="lazy">
+      <div><b>🚨 Last confirmed sighting outside</b>Ankush, photographed in the wild: outdoors, at a restaurant, eating food that was <i>not</i> delivered. Experts have spent months verifying it. The sunglasses suggest he was not prepared for the sun.</div>
+    </div>
     <p style="text-align:center"><button id="inviteBtn">📣 Invite Ankush outside</button></p>
     <div id="inviteOut"></div>
     <p class="disclaimer">Known exceptions: flowers at golden hour (see the Museum) and picking up Gabby.</p>
@@ -848,6 +856,7 @@
     <h2>🖼️ The Hall of Fame</h2>
     <p>Photographic evidence. Hover to inspect.</p>
     <div class="polaroids">
+      <figure class="polaroid"><img src="img/p12.jpg" alt="" loading="lazy"><figcaption>RARE: Ankush outside, at a restaurant, eating food that was not delivered. Experts are still verifying.</figcaption></figure>
       <figure class="polaroid"><img src="img/p9.jpg" alt="" loading="lazy"><figcaption>Sunset. Palm trees. Two shirts that have never agreed on anything.</figcaption></figure>
       <figure class="polaroid"><img src="img/p7.jpg" alt="" loading="lazy"><figcaption>Being hand-fed like royalty, as is tradition.</figcaption></figure>
       <figure class="polaroid"><img src="img/p4.jpg" alt="" loading="lazy"><figcaption>"It's an easy hike," he said. It was not an easy hike.</figcaption></figure>
@@ -1044,7 +1053,7 @@
 </div>
 
 <script>
-  const photos = ["p9", "p7", "p4", "p1", "p6", "p3", "p5", "p2", "p10", "p8", "p11"].map(p => `img/${p}.jpg`);
+  const photos = ["p9", "p12", "p7", "p4", "p1", "p6", "p3", "p5", "p2", "p10", "p8", "p11"].map(p => `img/${p}.jpg`);
 
   const facts = [
     "Ankush doesn't do push-ups. He pushes the Earth down.",
