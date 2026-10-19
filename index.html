@@ -442,6 +442,31 @@
   .fifa .club { font-size: 13px; margin-top: 10px; }
   .soccer-stats { text-align: center; margin-top: 20px; font-size: 16px; }
 
+  /* Flower art museum */
+  .museum { background: #2b2420; color: #f3e9d8; border-color: #000; }
+  .museum h2 { color: #e8c66a; font-family: Georgia, serif; font-style: italic; letter-spacing: .5px; }
+  .museum > p { font-family: Georgia, serif; }
+  .artworks { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px; margin-top: 16px; }
+  .artwork { margin: 0; cursor: zoom-in; }
+  .artwork .frame {
+    aspect-ratio: 4 / 5; overflow: hidden; position: relative;
+    border: 14px solid #c9a43c; outline: 3px solid #7a5c13; outline-offset: -3px;
+    box-shadow: inset 0 0 0 6px #e8c66a, 0 10px 24px rgba(0,0,0,.6);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .artwork .frame::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle, transparent 45%, rgba(0,0,0,.55)); pointer-events: none; }
+  .artwork .bloom { font-size: 96px; transition: transform .6s cubic-bezier(.2,1.4,.4,1); filter: saturate(1.4) drop-shadow(0 0 18px rgba(255,255,255,.35)); }
+  .artwork.closer .bloom { transform: scale(4.2); }
+  .artwork figcaption {
+    background: #f6f1e7; color: #222; font-family: Georgia, serif; font-size: 13.5px; line-height: 1.35;
+    padding: 10px 12px; margin: 14px auto 0; width: 92%; box-shadow: 0 2px 6px rgba(0,0,0,.4);
+  }
+  .artwork figcaption b { display: block; font-style: italic; font-size: 15px; }
+  .artwork figcaption .zoomhint { display: block; margin-top: 6px; color: #8a6d1c; font-size: 12px; }
+  #critic { margin-top: 20px; text-align: center; font-family: Georgia, serif; font-style: italic; font-size: 18px; min-height: 26px; color: #e8c66a; }
+  .museum button { background: #e8c66a; }
+  .museum a { color: #e8c66a; }
+
   /* Gabby + MF */
   .gabby { background: #fff0f7; text-align: center; }
   .gabby .medal { font-size: 72px; }
@@ -529,6 +554,7 @@
       <tr><th>Dog</th><td>MF (the responsible one in the household)</td></tr>
       <tr><th>Girlfriend</th><td>Gabby (way out of his league<span class="cite">[confirmed by everyone]</span>)</td></tr>
       <tr><th>Soccer career</th><td>Mostly theoretical</td></tr>
+      <tr><th>Artistic medium</th><td>Flowers, photographed from an uncomfortably close distance<span class="cite">[the flowers declined to comment]</span></td></tr>
       <tr><th>Phone battery</th><td>3% (lifetime average)</td></tr>
       <tr><th>Net worth</th><td>One borrowed hoodie<span class="cite">[disputed]</span></td></tr>
       <tr><th>Time zone</th><td>Ankush Standard Time (UTC +45 min)</td></tr>
@@ -597,6 +623,29 @@
       <li>Approved by MF, the harshest critic in the household.</li>
       <li>Everyone agrees she's the best decision Ankush has ever made. It's not even close.</li>
     </ul>
+  </section>
+
+  <section class="museum">
+    <h2>🌷 The Manchanda Museum of Fine Flower Art</h2>
+    <p>Ankush's artsy flower photography, as seen on his Instagram. Each piece is shot from a distance that is, frankly, a little too intimate. Curators have described the collection as "bold," "moving," and "why is he so close to it."</p>
+    <p style="font-size:14px;opacity:.8">Tap any artwork to view it the way Ankush intended: way too close.</p>
+    <div class="artworks">
+      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ff9ac1,#5a1030)"><span class="bloom">🌷</span></div>
+        <figcaption><b>"Untitled Tulip No. 47"</b>iPhone, portrait mode, 2 inches away. The tulip did not consent to this level of intimacy.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
+      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ffb38a,#5a1a05)"><span class="bloom">🌺</span></div>
+        <figcaption><b>"Hibiscus, After Dark"</b>Shot at golden hour, which is the only thing Ankush has ever been on time for.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
+      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ffe27a,#4a3a05)"><span class="bloom">🌻</span></div>
+        <figcaption><b>"Sunflower, Vulnerable"</b>Instagram caption: "nature 🌿". The comments section has questions.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
+      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#ff7a7a,#3a0505)"><span class="bloom">🌹</span></div>
+        <figcaption><b>"Rose, Lingering"</b>Photographed from an angle that made three people unfollow and one person follow.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
+      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#fff6b0,#3d4a10)"><span class="bloom">🌼</span></div>
+        <figcaption><b>"Daisy (Too Close)"</b>The daisy has since requested he stay at least 6 feet away.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
+      <figure class="artwork"><div class="frame" style="background:radial-gradient(circle,#f7c6ff,#3a1046)"><span class="bloom">🪷</span></div>
+        <figcaption><b>"Lotus, Unbothered"</b>Caption: "peace." Nobody knows what he meant. Nobody has asked.<span class="zoomhint">🔍 tap to get closer</span></figcaption></figure>
+    </div>
+    <div id="critic">"…"</div>
+    <p style="text-align:center"><button id="criticBtn">🎧 Hear from an art critic</button></p>
+    <p style="text-align:center;font-size:14px">See the full collection (if you dare) at <a href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">@ojandkushh</a>.</p>
   </section>
 
   <section>
@@ -668,6 +717,7 @@
         <tr><td>ANK 008</td><td>Soccer game</td><td class="bad">MISSED (AGAIN)</td></tr>
         <tr><td>ANK 009</td><td>Picking up Gabby</td><td>ON TIME ✅ (miraculously)</td></tr>
         <tr><td>ANK 010</td><td>Walking MF</td><td>ON TIME ✅ (MF insists)</td></tr>
+        <tr><td>ANK 011</td><td>Photographing a flower at golden hour</td><td>EARLY ✅ (always, somehow)</td></tr>
       </table>
     </div>
   </section>
@@ -679,6 +729,7 @@
       <div class="quote"><span class="stars">★★★★☆</span><br>"Woof. He hit the kush in front of my friends. I had to pretend I didn't know him."<b>— MF</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"Never met him. Heard he's on the team though."<b>— His soccer coach</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Kept his spot warm all season. Never once had to move."<b>— The bench</b></div>
+      <div class="quote"><span class="stars">★★☆☆☆</span><br>"He got so close I could feel him breathing. Then he posted me with the caption 'nature.'"<b>— A tulip</b></div>
       <div class="quote"><span class="stars">★★★★☆</span><br>"Took 40 minutes to pick a restaurant. Picked the first one."<b>— His group chat</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
@@ -797,7 +848,11 @@
     "Gabby is the only known force in the universe that can get Ankush somewhere on time.",
     "When Ankush hits the kush, nearby DJs stop the music out of respect. And concern.",
     "MF is short for something. Nobody will tell you what. Don't ask MF either.",
-    "Every time Ankush hits the kush, a soccer coach somewhere sighs and doesn't know why."
+    "Every time Ankush hits the kush, a soccer coach somewhere sighs and doesn't know why.",
+    "Ankush has never been on time for anything except golden hour at a flower bed.",
+    "Ankush's flower photos are so artsy that Instagram asked if he was okay.",
+    "Botanists study Ankush's Instagram to learn what flowers look like from 1 inch away. They wish they hadn't.",
+    "Ankush once missed a soccer game because he saw a tulip on the way. He never made it to the game. The tulip got 40 likes."
   ];
   let lastFact = -1;
   document.getElementById("factBtn").onclick = () => {
@@ -933,7 +988,7 @@
     "Says \"bro\"", "\"5 more minutes\"", "Phone at 3%", "Hasn't read the group chat", "\"Quick question\" (not quick)",
     "Shows up late", "Hits the kush 💨", "\"Trust me\"", "40 min to pick food", "Mentions MF",
     "\"One more game\"", "Says \"that's crazy\"", "FREE SPACE: Ankush exists", "Peace sign in a photo", "\"I'm on my way\" (he's not)",
-    "Forgets what day it is", "\"Wait, what are we doing?\"", "Eats your fries", "Skips soccer", "\"Last one\" (it's not)",
+    "Stops to shoot a flower 🌷", "\"Wait, what are we doing?\"", "Eats your fries", "Skips soccer", "\"Last one\" (it's not)",
     "Snoozes alarm 5+ times", "Texts Gabby mid-story", "\"I'm outside\" (he's not)", "Hits the kush AGAIN", "Vintage \"b*tches flock\""
   ];
   const board = document.getElementById("bingo");
@@ -1049,7 +1104,9 @@
     "B*tches flock": "[ARCHIVED] Vintage Ankush. Translation discontinued after he met Gabby.",
     "I'm walking MF": "I am walking MF. (This one is actually true. MF makes sure.)",
     "Watch this": "I am about to hit the kush. Brace yourself.",
-    "Gabby says hi": "Gabby says hi. (Gabby is the reason I am on time today.)"
+    "Gabby says hi": "Gabby says hi. (Gabby is the reason I am on time today.)",
+    "nature 🌿 (IG caption)": "I got way too close to a flower again and I need you to like it.",
+    "Hold on, the lighting is perfect": "We will be here for 25 minutes. There is a tulip."
   };
   const sel = document.getElementById("phrase");
   Object.keys(dictionary).forEach(k => sel.add(new Option(`"${k}"`, k)));
@@ -1094,7 +1151,7 @@
   };
 
   // "Ankush is typing…" popup
-  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "hold on hitting the kush 💨"];
+  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "brb there's a tulip 🌷", "hold on hitting the kush 💨"];
   let chatIdx = 0, chatStarted = false;
   const chat = document.getElementById("chat");
   function startChat() {
@@ -1140,6 +1197,29 @@
   let woofIdx = 0;
   document.getElementById("dog").onclick = () => {
     document.getElementById("woof").textContent = woofs[woofIdx++ % woofs.length];
+  };
+
+  // Flower museum: zoom in like Ankush would, plus art critics
+  document.querySelectorAll(".artwork").forEach(a => {
+    a.onclick = () => {
+      a.classList.toggle("closer");
+      a.querySelector(".zoomhint").textContent = a.classList.contains("closer")
+        ? "📸 Ankush-approved distance reached. (tap to back away respectfully)"
+        : "🔍 tap to get closer";
+    };
+  });
+  const critiques = [
+    "\"Bold. Intimate. Why is he so close to it.\" — The New York Times (probably)",
+    "\"Georgia O'Keeffe would have told him to back up.\" — Art Monthly",
+    "\"I came for the flowers. I left with questions.\" — A museum visitor",
+    "\"The tulip looks like it's being interrogated.\" — Botany Today",
+    "\"Five stars. Would not show my parents.\" — Some guy",
+    "\"This is either genius or a cry for help. Possibly both.\" — Art critic, visibly sweating",
+    "\"He should be this committed to soccer.\" — His coach"
+  ];
+  let critIdx = 0;
+  document.getElementById("criticBtn").onclick = () => {
+    document.getElementById("critic").textContent = critiques[critIdx++ % critiques.length];
   };
 
   // SECRET: Ryan G. intruder alert (type "ryan", or click the trophy 3 times)
