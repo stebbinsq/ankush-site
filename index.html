@@ -390,6 +390,67 @@
     background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 12px;
     width: max-content; max-width: calc(100vw - 32px); text-align: center; display: none;
   }
+
+  /* Hit the kush */
+  #kushBtn { background: #7CFF6B; font-size: 20px; padding: 14px 24px; margin: 8px; }
+  #kushOut { font-family: "Bungee", sans-serif; min-height: 28px; margin-top: 6px; color: var(--hot); }
+  /* Stanky Legg dancer */
+  .dancer { width: 200px; height: 290px; display: block; margin: 0 auto; overflow: visible; }
+  .dancer line { stroke: var(--ink); stroke-width: 9; stroke-linecap: round; }
+  .dancer .ring { fill: none; stroke: var(--ink); stroke-width: 5; }
+  .dancer .body, .dancer .upper, .dancer .thigh, .dancer .shin, .dancer .arms-l, .dancer .arms-r { transform-box: view-box; }
+  .dancer .body { animation: bob .3s ease-in-out infinite alternate; }
+  @keyframes bob { to { transform: translateY(6px); } }
+  .dancer .upper { transform-origin: 100px 170px; animation: lean .6s ease-in-out infinite alternate; }
+  @keyframes lean { from { transform: rotate(-12deg); } to { transform: rotate(7deg); } }
+  .dancer .thigh { transform-origin: 100px 170px; animation: thigh .6s ease-in-out infinite alternate; }
+  @keyframes thigh { from { transform: rotate(-35deg); } to { transform: rotate(10deg); } }
+  .dancer .shin { transform-origin: 145px 212px; animation: shin .6s ease-in-out infinite alternate; }
+  @keyframes shin { from { transform: rotate(55deg); } to { transform: rotate(-20deg); } }
+  .dancer .arms-l { transform-origin: 100px 105px; animation: armL .3s ease-in-out infinite alternate; }
+  .dancer .arms-r { transform-origin: 100px 105px; animation: armR .3s ease-in-out infinite alternate; }
+  @keyframes armL { from { transform: rotate(0); } to { transform: rotate(14deg) translateY(-6px); } }
+  @keyframes armR { from { transform: rotate(0); } to { transform: rotate(-14deg) translateY(-6px); } }
+  #heroDancer { display: none; }
+  .hero-dancing #face { display: none; }
+  .hero-dancing #heroDancer { display: block; }
+  @media (prefers-reduced-motion: reduce) { .dancer * { animation-duration: 2s !important; } }
+  body.kush-shake main { animation: kshake .5s 3; }
+  @keyframes kshake { 25% { transform: translateX(-6px) rotate(-.5deg); } 75% { transform: translateX(6px) rotate(.5deg); } }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+  .steps li { counter-increment: s; padding: 10px 0 10px 56px; position: relative; border-bottom: 2px dashed #ddd; }
+  .steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 6px;
+    width: 40px; height: 40px; border-radius: 50%; background: #7CFF6B; border: 3px solid var(--ink);
+    display: flex; align-items: center; justify-content: center; font-family: "Bungee", sans-serif;
+  }
+
+  /* FIFA card */
+  .fifa {
+    width: 260px; margin: 8px auto 0; padding: 18px 16px 20px;
+    background: linear-gradient(160deg, #f7e08a, #c9a43c 55%, #f3d97a);
+    border: 4px solid var(--ink); border-radius: 22px 22px 60px 60px; box-shadow: 8px 8px 0 var(--ink);
+    text-align: center; transform: rotate(-2deg);
+  }
+  .fifa .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .fifa .ovr { font-family: "Bungee", sans-serif; font-size: 44px; line-height: 1; text-align: left; }
+  .fifa .ovr small { display: block; font-size: 13px; }
+  .fifa img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 3px solid var(--ink); }
+  .fifa .name { font-family: "Bungee", sans-serif; font-size: 22px; margin: 8px 0 4px; border-bottom: 2px solid var(--ink); }
+  .fifa .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; text-align: left; font-weight: 700; font-size: 15px; }
+  .fifa .stats b { font-family: "Bungee", sans-serif; display: inline-block; width: 34px; }
+  .fifa .club { font-size: 13px; margin-top: 10px; }
+  .soccer-stats { text-align: center; margin-top: 20px; font-size: 16px; }
+
+  /* Gabby + MF */
+  .gabby { background: #fff0f7; text-align: center; }
+  .gabby .medal { font-size: 72px; }
+  .gabby ul, .mf ul { text-align: left; max-width: 520px; margin: 12px auto 0; }
+  .gabby li, .mf li { margin: 6px 0; }
+  .mf { text-align: center; }
+  .mf .dog { font-size: 90px; cursor: pointer; display: inline-block; transition: transform .2s; }
+  .mf .dog:active { transform: scale(1.2) rotate(-10deg); }
+  #woof { font-weight: 700; min-height: 26px; }
 </style>
 </head>
 <body>
@@ -404,12 +465,40 @@
 <div class="marquee"><span>🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 Ankush reportedly spotted being on time; experts confirm it was a lookalike 🚨 Group chat enters day 400 of waiting for a reply 🚨 Local man "just built different," sources confirm 🚨 More at 11 (he'll be there at 11:45) 🚨</span></div>
 
 <header>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs><clipPath id="headClip"><circle cx="100" cy="52" r="38"/></clipPath></defs>
+  </svg>
+  <template id="dancerTpl">
+    <svg class="dancer" viewBox="0 0 200 290" role="img" aria-label="Ankush doing the Stanky Legg">
+      <g class="body">
+        <line x1="100" y1="170" x2="88" y2="272"/>
+        <line x1="88" y1="272" x2="70" y2="276"/>
+        <g class="thigh">
+          <line x1="100" y1="170" x2="145" y2="212"/>
+          <g class="shin">
+            <line x1="145" y1="212" x2="140" y2="268"/>
+            <line x1="140" y1="268" x2="160" y2="272"/>
+          </g>
+        </g>
+        <g class="upper">
+          <line x1="100" y1="90" x2="100" y2="170"/>
+          <image href="img/p9.jpg" x="62" y="14" width="76" height="76" preserveAspectRatio="xMidYMid slice" clip-path="url(#headClip)"/>
+          <circle class="ring" cx="100" cy="52" r="38"/>
+          <g class="arms-l"><line x1="100" y1="108" x2="48" y2="104"/><line x1="48" y1="104" x2="32" y2="62"/></g>
+          <g class="arms-r"><line x1="100" y1="108" x2="152" y2="104"/><line x1="152" y1="104" x2="168" y2="62"/></g>
+        </g>
+      </g>
+    </svg>
+  </template>
   <img class="face" id="face" src="img/p9.jpg" alt="Ankush" title="poke him">
+  <div id="heroDancer"></div>
   <h1>ANKUSH MANCHANDA</h1>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
   <button id="broBtn">🔊 Hear Ankush's full vocabulary</button>
   <div id="broOut"></div>
+  <button id="kushBtn">💨 HIT THE KUSH</button>
+  <div id="kushOut"></div>
   <div class="sign">DAYS SINCE ANKUSH WAS LATE: <b id="daysLate">0</b><small>All-time record: also 0</small></div>
 </header>
 
@@ -434,13 +523,81 @@
       <tr><th>Years active</th><td>Since whenever he woke up (afternoon)</td></tr>
       <tr><th>Natural habitat</th><td>The group chat (read-only access)</td></tr>
       <tr><th>Arch-nemesis</th><td>His alarm clock</td></tr>
-      <tr><th>Signature move</th><td>The peace sign ✌️</td></tr>
+      <tr><th>Signature move</th><td>Hitting the kush 💨<span class="cite">[witnesses requested anonymity]</span></td></tr>
       <tr><th>Catchphrase</th><td>"Bro."</td></tr>
+      <tr><th>Retired catchphrase</th><td>"B*tches flock" (1 flock recorded, consisting of pigeons)</td></tr>
+      <tr><th>Dog</th><td>MF (the responsible one in the household)</td></tr>
+      <tr><th>Girlfriend</th><td>Gabby (way out of his league<span class="cite">[confirmed by everyone]</span>)</td></tr>
+      <tr><th>Soccer career</th><td>Mostly theoretical</td></tr>
       <tr><th>Phone battery</th><td>3% (lifetime average)</td></tr>
       <tr><th>Net worth</th><td>One borrowed hoodie<span class="cite">[disputed]</span></td></tr>
       <tr><th>Time zone</th><td>Ankush Standard Time (UTC +45 min)</td></tr>
     </table>
     <p class="note">*Not actually from Wikipedia. Wikipedia said "please stop calling us."</p>
+  </section>
+
+  <section>
+    <h2>💨 How to Hit the Kush: An Official Tutorial</h2>
+    <p>Ankush's legendary dance move, finally documented for future generations. Live demonstration below.</p>
+    <div id="tutorialDancer"></div>
+    <ol class="steps">
+      <li>Wait for the beat to drop.</li>
+      <li>Ignore the beat entirely. The kush answers to no rhythm.</li>
+      <li>Lock one leg. Bend the other. Rotate that knee like you're stirring a giant pot of soup.</li>
+      <li>Lean away from the soup. Raise the roof. Make eye contact with the most uncomfortable person in the room.</li>
+      <li><b>HIT. THE. KUSH.</b></li>
+      <li>Everyone around you quietly reconsiders the friendship.</li>
+      <li>Do it again, somehow worse.</li>
+    </ol>
+    <p class="disclaimer" style="margin-top:12px">Warning: Do not attempt the kush without a licensed professional (Ankush) present.</p>
+  </section>
+
+  <section>
+    <h2>⚽ Player Profile</h2>
+    <div class="fifa">
+      <div class="top">
+        <div class="ovr">47<small>BENCH</small></div>
+        <div style="font-size:30px" title="his natural habitat">🪑</div>
+      </div>
+      <img src="img/p8.jpg" alt="">
+      <div class="name">MANCHANDA</div>
+      <div class="stats">
+        <span><b>12</b> PAC</span><span><b>4</b> DEF</span>
+        <span><b>3</b> SHO</span><span><b>6</b> PHY</span>
+        <span><b>8</b> PAS</span><span><b>0</b> ATT</span>
+        <span><b>11</b> DRI</span><span><b>99</b> KUSH</span>
+      </div>
+      <div class="club">Club: Missed The Game FC</div>
+    </div>
+    <div class="soccer-stats">
+      <p><b>Career stats:</b> Games scheduled: 47 · Games attended: 3 · Goals: 0 · Excuses: 44</p>
+      <p><b>Scouting report:</b> "Excellent at warming up. Mostly does this at home, in bed, on game day."</p>
+    </div>
+  </section>
+
+  <section class="mf">
+    <h2>🐶 MF's Corner</h2>
+    <div class="dog" id="dog" title="pet MF">🐶</div>
+    <div id="woof">Tap MF for a statement.</div>
+    <ul>
+      <li>MF has never missed a game. Mostly because nobody's ever missed one harder than Ankush.</li>
+      <li>MF's footwork is rated 30 points higher than Ankush's (see Player Profile).</li>
+      <li>MF has witnessed the kush being hit thousands of times. MF has requested therapy.</li>
+      <li>Yes, his name is MF. No, we will not be explaining it.</li>
+    </ul>
+  </section>
+
+  <section class="gabby">
+    <div class="medal">🏅</div>
+    <h2>The Gabby Appreciation Corner</h2>
+    <p>This year's <b>Nobel Prize for Patience</b> goes to Gabby, Ankush's sweet, amazing girlfriend.</p>
+    <ul>
+      <li>The only person in recorded history to get Ankush somewhere on time.</li>
+      <li>Has watched him hit the kush, in public, and stayed.</li>
+      <li>Retired "b*tches flock" permanently. A public service.</li>
+      <li>Approved by MF, the harshest critic in the household.</li>
+      <li>Everyone agrees she's the best decision Ankush has ever made. It's not even close.</li>
+    </ul>
   </section>
 
   <section>
@@ -509,6 +666,9 @@
         <tr><td>ANK 005</td><td>Leaving the party</td><td>BOARDING (for 3 hrs)</td></tr>
         <tr><td>ANK 006</td><td>Bedtime</td><td class="bad">DIVERTED TO 4 AM</td></tr>
         <tr><td>ANK 007</td><td>Arriving on time</td><td class="bad">FLIGHT NOT FOUND</td></tr>
+        <tr><td>ANK 008</td><td>Soccer game</td><td class="bad">MISSED (AGAIN)</td></tr>
+        <tr><td>ANK 009</td><td>Picking up Gabby</td><td>ON TIME ✅ (miraculously)</td></tr>
+        <tr><td>ANK 010</td><td>Walking MF</td><td>ON TIME ✅ (MF insists)</td></tr>
       </table>
     </div>
   </section>
@@ -516,7 +676,10 @@
   <section>
     <h2>⭐ Testimonials</h2>
     <div class="grid">
-      <div class="quote"><span class="stars">★★★★★</span><br>"He once looked at me. I think about it often."<b>— A pigeon</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"He said b*tches would flock. We flocked. We were the only ones."<b>— A group of pigeons</b></div>
+      <div class="quote"><span class="stars">★★★★☆</span><br>"Woof. He hit the kush in front of my friends. I had to pretend I didn't know him."<b>— MF</b></div>
+      <div class="quote"><span class="stars">★☆☆☆☆</span><br>"Never met him. Heard he's on the team though."<b>— His soccer coach</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"Kept his spot warm all season. Never once had to move."<b>— The bench</b></div>
       <div class="quote"><span class="stars">★★★★☆</span><br>"Took 40 minutes to pick a restaurant. Picked the first one."<b>— His group chat</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
@@ -586,6 +749,8 @@
       <tr><th>Group chat energy</th><td>Legendary (never replies)</td><td>Sends "lol" four minutes late</td></tr>
       <tr><th>Late to things</th><td>Always (fashionably)</td><td>Never (nobody told him where it was)</td></tr>
       <tr><th>Peace sign technique</th><td>Flawless ✌️</td><td>Somehow upside down</td></tr>
+      <tr><th>Signature dance</th><td>Hitting the kush 💨</td><td>The robot (low battery)</td></tr>
+      <tr><th>Dog's opinion</th><td>MF: "he's alright"</td><td>MF: *growls*</td></tr>
       <tr><th>In the photos on this site</th><td>11</td><td>0 (we checked twice)</td></tr>
     </table>
     <p class="verdict">WINNER: ANKUSH 🏆<br><small>by forfeit. Ryan was still parking.</small></p>
@@ -625,7 +790,15 @@
     "Ankush once said \"I'm not even hungry\" and then ate everyone's fries.",
     "Ankush's read receipts are a work of fiction.",
     "Ankush has never set an alarm he didn't snooze. Not once. Not even for this website.",
-    "When Ankush says \"I'm outside,\" he means he is outside. Of his apartment. Still in it."
+    "When Ankush says \"I'm outside,\" he means he is outside. Of his apartment. Still in it.",
+    "Ankush has missed more soccer games than he has touched the ball. Statistically impressive.",
+    "Ankush once missed a soccer game because he was 'warming up.' At home. In bed.",
+    "MF the dog has better footwork than Ankush. MF has four left feet. Still better.",
+    "Ankush used to say \"b*tches flock.\" Ornithologists have confirmed: they did not flock.",
+    "Gabby is the only known force in the universe that can get Ankush somewhere on time.",
+    "When Ankush hits the kush, nearby DJs stop the music out of respect. And concern.",
+    "MF is short for something. Nobody will tell you what. Don't ask MF either.",
+    "Every time Ankush hits the kush, a soccer coach somewhere sighs and doesn't know why."
   ];
   let lastFact = -1;
   document.getElementById("factBtn").onclick = () => {
@@ -738,7 +911,9 @@
     "Let me check the group chat. (He will not check the group chat.)",
     "I'm on my way.", "That's crazy.", "Lowkey yes. Highkey no.",
     "Can't talk, phone's at 3%.", "Absolutely not. Anyway, what's the plan?",
-    "Ask me tomorrow. (Do not ask him tomorrow.)", "Sounds like a you problem, bro."
+    "Ask me tomorrow. (Do not ask him tomorrow.)", "Sounds like a you problem, bro.",
+    "Hit the kush and find out. 💨", "Ask MF. He's the smart one.", "Let me ask Gabby. (Good call, honestly.)",
+    "B*tches flock. (Sorry, old habit. Retired.)", "Can't, I have soccer. (He will not be at soccer.)"
   ];
   const ask = () => {
     const q = document.getElementById("question").value.trim();
@@ -757,10 +932,10 @@
   // Bingo
   const squares = [
     "Says \"bro\"", "\"5 more minutes\"", "Phone at 3%", "Hasn't read the group chat", "\"Quick question\" (not quick)",
-    "Shows up late", "Falls asleep somewhere weird", "\"Trust me\"", "40 min to pick food", "Story with no ending",
+    "Shows up late", "Hits the kush 💨", "\"Trust me\"", "40 min to pick food", "Mentions MF",
     "\"One more game\"", "Says \"that's crazy\"", "FREE SPACE: Ankush exists", "Peace sign in a photo", "\"I'm on my way\" (he's not)",
-    "Forgets what day it is", "\"Wait, what are we doing?\"", "Eats your fries", "Hat indoors", "\"Last one\" (it's not)",
-    "Snoozes alarm 5+ times", "Main character moment", "\"I'm outside\" (he's not)", "47 tabs open", "Leaves you on read"
+    "Forgets what day it is", "\"Wait, what are we doing?\"", "Eats your fries", "Skips soccer", "\"Last one\" (it's not)",
+    "Snoozes alarm 5+ times", "Texts Gabby mid-story", "\"I'm outside\" (he's not)", "Hits the kush AGAIN", "Vintage \"b*tches flock\""
   ];
   const board = document.getElementById("bingo");
   const marked = new Set([12]);
@@ -870,7 +1045,12 @@
     "That's crazy": "I did not hear a single word you said.",
     "I'll Venmo you": "You will never see this money again.",
     "Lowkey": "Highkey.",
-    "I'll be quick": "I will not be quick."
+    "I'll be quick": "I will not be quick.",
+    "I'll be at the game": "I will not be at the game.",
+    "B*tches flock": "[ARCHIVED] Vintage Ankush. Translation discontinued after he met Gabby.",
+    "I'm walking MF": "I am walking MF. (This one is actually true. MF makes sure.)",
+    "Watch this": "I am about to hit the kush. Brace yourself.",
+    "Gabby says hi": "Gabby says hi. (Gabby is the reason I am on time today.)"
   };
   const sel = document.getElementById("phrase");
   Object.keys(dictionary).forEach(k => sel.add(new Option(`"${k}"`, k)));
@@ -915,7 +1095,7 @@
   };
 
   // "Ankush is typing…" popup
-  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "ok this is kinda funny", "wait am I late for something", "on my way (I'm not)"];
+  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "hold on hitting the kush 💨"];
   let chatIdx = 0, chatStarted = false;
   const chat = document.getElementById("chat");
   function startChat() {
@@ -934,6 +1114,34 @@
   }
   document.getElementById("chatX").onclick = () => { chat.style.display = "none"; chatIdx = chatMsgs.length; };
   setTimeout(startChat, 45000);
+
+  // Hit the kush
+  const tpl = document.getElementById("dancerTpl");
+  ["heroDancer", "tutorialDancer"].forEach(id => document.getElementById(id).appendChild(tpl.content.cloneNode(true)));
+  let kushes = 0, kushTimer;
+  const kushLines = ["💨 THE KUSH HAS BEEN HIT", "💨 KUSH HIT AGAIN. NEIGHBORS NOTIFIED.", "💨 MF IS LOOKING AWAY", "💨 SOMEWHERE A SOCCER COACH SIGHS",
+                     "💨 THE DJ STOPPED THE MUSIC", "💨 THIS IS GETTING OUT OF HAND", "💨 OK THAT ONE WAS ACTUALLY FIRE"];
+  document.getElementById("kushBtn").onclick = () => {
+    const header = document.querySelector("header");
+    document.body.classList.remove("kush-shake");
+    void document.body.offsetWidth;
+    document.body.classList.add("kush-shake");
+    header.classList.add("hero-dancing");
+    clearTimeout(kushTimer);
+    kushTimer = setTimeout(() => header.classList.remove("hero-dancing"), 4000);
+    kushes++;
+    document.getElementById("kushOut").textContent = `${kushLines[(kushes - 1) % kushLines.length]} (×${kushes})`;
+    if (kushes % 5 === 0) confetti(40);
+  };
+
+  // MF statements
+  const woofs = ["Woof. (He forgot to tell me he was leaving. Again.)", "Woof woof. (I've seen the kush. I can't unsee it.)",
+                 "Woof. (Gabby is my favorite. Don't tell him.)", "Grrr. (Don't ask what MF stands for.)",
+                 "Woof. (I've attended more soccer games than him. I'm a dog.)", "*licks screen* (that's a 10/10 from MF)"];
+  let woofIdx = 0;
+  document.getElementById("dog").onclick = () => {
+    document.getElementById("woof").textContent = woofs[woofIdx++ % woofs.length];
+  };
 
   // SECRET: Ryan G. intruder alert (type "ryan", or click the trophy 3 times)
   function ryanAlert() {
