@@ -316,6 +316,80 @@
   body.roll { animation: roll 1.2s ease-in-out; }
   @keyframes roll { to { transform: rotate(360deg); } }
   .hint { font-size: 12px; opacity: .5; }
+
+  /* "Getting ready" scroll bar */
+  #ready {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 110;
+    height: 22px; background: rgba(29,27,22,.85);
+    font: 700 12px "Comic Neue", cursive; color: #fff;
+  }
+  #ready div { height: 100%; width: 0; background: var(--hot); }
+  #ready span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  body { padding-top: 22px; }
+
+  /* Bro button */
+  #broBtn { background: var(--hot); color: #fff; margin-top: 8px; }
+  #broOut { min-height: 24px; font-weight: 700; margin-top: 8px; }
+
+  /* Translator */
+  .translate { display: grid; gap: 12px; }
+  .translate select { font: inherit; padding: 12px; border: 3px solid var(--ink); border-radius: 12px; background: #fff; }
+  .translate .out {
+    background: var(--ink); color: #7CFF6B; font-family: "Courier New", monospace;
+    padding: 14px; border-radius: 12px; min-height: 56px; font-size: 17px;
+  }
+
+  /* Wake up game */
+  .wake { text-align: center; }
+  .wake .zz { font-size: 80px; line-height: 1; }
+  .wake .clock { font-family: "Bungee", sans-serif; font-size: 34px; margin: 8px 0; }
+  .wake .says { font-size: 20px; font-weight: 700; min-height: 30px; margin-bottom: 12px; }
+  .wake .count { font-size: 14px; opacity: .7; margin-top: 8px; }
+
+  /* Departures board */
+  .board { background: #111; border-radius: 12px; padding: 12px; overflow-x: auto; }
+  .board table { width: 100%; border-collapse: collapse; font-family: "Courier New", monospace; color: #ffd84d; font-size: 15px; }
+  .board th { color: #888; text-align: left; font-size: 12px; padding: 6px; }
+  .board td { padding: 8px 6px; border-top: 1px solid #333; }
+  .board .bad { color: #ff5a5a; animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+
+  /* Typing popup */
+  #chat {
+    position: fixed; right: 16px; bottom: 16px; z-index: 140;
+    width: min(290px, calc(100vw - 32px));
+    background: #fff; border: 3px solid var(--ink); border-radius: 18px; box-shadow: 5px 5px 0 var(--ink);
+    padding: 12px; display: none; gap: 10px; align-items: center;
+  }
+  #chat img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ink); }
+  #chat .who { font-weight: 700; font-size: 14px; }
+  #chat .msg { font-size: 16px; }
+  #chat .x { margin-left: auto; align-self: flex-start; background: none; border: none; box-shadow: none; padding: 0 4px; font-size: 18px; }
+  .dots span { animation: blink 1s infinite; }
+  .dots span:nth-child(2) { animation-delay: .2s; }
+  .dots span:nth-child(3) { animation-delay: .4s; }
+
+  /* Secret Ryan intruder alert */
+  #ryan {
+    position: fixed; inset: 0; z-index: 300; display: none;
+    background: #2a0000; color: #fff; overflow-y: auto; padding: 32px 16px;
+    animation: siren .8s infinite alternate;
+  }
+  @keyframes siren { from { box-shadow: inset 0 0 0 10px #ff0000; } to { box-shadow: inset 0 0 0 10px #0055ff; } }
+  #ryan .inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  #ryan h2 { font-size: clamp(26px, 7vw, 44px); color: #ff3b3b; margin: 0; }
+  #ryan table { width: 100%; border-collapse: collapse; margin: 20px 0; text-align: left; background: #fff; color: var(--ink); border-radius: 12px; overflow: hidden; font-size: 15px; }
+  #ryan th, #ryan td { padding: 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  #ryan thead th { background: var(--sun); font-family: "Bungee", sans-serif; font-size: 13px; }
+  #ryan td:nth-child(2) { background: #eaffea; }
+  #ryan td:nth-child(3) { background: #ffecec; }
+  #ryan .verdict { font-family: "Bungee", sans-serif; font-size: 20px; color: var(--sun); }
+  #ryan button { margin: 8px; }
+  #toast {
+    position: fixed; left: 50%; top: 40px; transform: translateX(-50%); z-index: 310;
+    background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 12px;
+    width: max-content; max-width: calc(100vw - 32px); text-align: center; display: none;
+  }
 </style>
 </head>
 <body>
@@ -334,6 +408,8 @@
   <h1>ANKUSH MANCHANDA</h1>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
+  <button id="broBtn">🔊 Hear Ankush's full vocabulary</button>
+  <div id="broOut"></div>
   <div class="sign">DAYS SINCE ANKUSH WAS LATE: <b id="daysLate">0</b><small>All-time record: also 0</small></div>
 </header>
 
@@ -403,6 +479,40 @@
     <div class="ball" id="ball"><div class="ball-window" id="answer">Ask me something, bro</div></div>
   </section>
 
+  <section class="translate">
+    <h2>🗣️ Ankush → English Translator</h2>
+    <p style="margin:0">Powered by years of painful experience.</p>
+    <select id="phrase"></select>
+    <button id="translateBtn">Translate</button>
+    <div class="out" id="translation">&gt; awaiting input_</div>
+  </section>
+
+  <section class="wake">
+    <h2>⏰ Mini-Game: Wake Up Ankush</h2>
+    <p>Your mission: get him out of bed. Nobody has ever won.</p>
+    <div class="zz" id="wakeFace">😴</div>
+    <div class="clock" id="wakeClock">8:00 AM</div>
+    <div class="says" id="wakeSays">zzz…</div>
+    <button id="wakeBtn">⏰ RING ALARM</button>
+    <div class="count" id="wakeCount">Snoozes: 0</div>
+  </section>
+
+  <section>
+    <h2>🛫 Ankush International Airport: Departures</h2>
+    <div class="board">
+      <table>
+        <tr><th>FLIGHT</th><th>DESTINATION</th><th>STATUS</th></tr>
+        <tr><td>ANK 001</td><td>Dinner reservation</td><td class="bad">DELAYED +45 MIN</td></tr>
+        <tr><td>ANK 002</td><td>Replying to group chat</td><td class="bad">CANCELLED</td></tr>
+        <tr><td>ANK 003</td><td>"Quick" question</td><td class="bad">DELAYED 2 HRS</td></tr>
+        <tr><td>ANK 004</td><td>Returning your hoodie</td><td class="bad">NEVER</td></tr>
+        <tr><td>ANK 005</td><td>Leaving the party</td><td>BOARDING (for 3 hrs)</td></tr>
+        <tr><td>ANK 006</td><td>Bedtime</td><td class="bad">DIVERTED TO 4 AM</td></tr>
+        <tr><td>ANK 007</td><td>Arriving on time</td><td class="bad">FLIGHT NOT FOUND</td></tr>
+      </table>
+    </div>
+  </section>
+
   <section>
     <h2>⭐ Testimonials</h2>
     <div class="grid">
@@ -453,6 +563,37 @@
 </main>
 
 <footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋<br><span class="hint">psst… try typing his name</span></footer>
+
+<div id="ready"><div id="readyBar"></div><span id="readyText">Ankush getting ready: 0%</span></div>
+
+<div id="chat">
+  <img src="img/p9.jpg" alt="">
+  <div><div class="who">Ankush</div><div class="msg" id="chatMsg"></div></div>
+  <button class="x" id="chatX" aria-label="Close">×</button>
+</div>
+
+<div id="ryan" role="dialog" aria-label="Intruder alert">
+  <div class="inner">
+    <div style="font-size:64px">🚨</div>
+    <h2>INTRUDER ALERT</h2>
+    <p style="font-size:20px">A <b>Ryan G.</b> has been detected on this website.<br>Please remain calm. Do not make eye contact.</p>
+    <table>
+      <thead><tr><th>Tale of the tape</th><th>Ankush</th><th>Ryan G.</th></tr></thead>
+      <tr><th>Rizz</th><td>Off the charts</td><td>Still buffering…</td></tr>
+      <tr><th>Famous for</th><td>Being Ankush</td><td>Standing near Ankush</td></tr>
+      <tr><th>Fan club members</th><td>Everyone</td><td>1 (it's Ryan)</td></tr>
+      <tr><th>Personal website</th><td>ankushmanchanda.live</td><td>404 Not Found</td></tr>
+      <tr><th>Group chat energy</th><td>Legendary (never replies)</td><td>Sends "lol" four minutes late</td></tr>
+      <tr><th>Late to things</th><td>Always (fashionably)</td><td>Never (nobody told him where it was)</td></tr>
+      <tr><th>Peace sign technique</th><td>Flawless ✌️</td><td>Somehow upside down</td></tr>
+      <tr><th>In the photos on this site</th><td>11</td><td>0 (we checked twice)</td></tr>
+    </table>
+    <p class="verdict">WINNER: ANKUSH 🏆<br><small>by forfeit. Ryan was still parking.</small></p>
+    <button id="ryanOut">🚪 Escort Ryan out</button>
+    <button id="ryanStay">🥺 Let him stay (out of pity)</button>
+  </div>
+</div>
+<div id="toast"></div>
 
 <div id="cookie">
   <p>🍪 <b>This site uses cookies.</b> Unfortunately, Ankush ate all of them.</p>
@@ -651,10 +792,10 @@
   // Cookie banner that won't take no for an answer
   const cookieNoLines = ["Are you sure?", "Ankush is sad now 🥺", "He's typing…", "He stopped typing.", "Fine. Accepted anyway."];
   let noCount = 0;
-  document.getElementById("cookieYes").onclick = () => document.getElementById("cookie").remove();
+  document.getElementById("cookieYes").onclick = () => { document.getElementById("cookie").remove(); startChat(); };
   document.getElementById("cookieNo").onclick = e => {
     e.target.textContent = cookieNoLines[noCount++];
-    if (noCount === cookieNoLines.length) setTimeout(() => document.getElementById("cookie").remove(), 900);
+    if (noCount === cookieNoLines.length) setTimeout(() => { document.getElementById("cookie").remove(); startChat(); }, 900);
   };
 
   // Tab title guilt trip
@@ -669,6 +810,7 @@
   document.addEventListener("keydown", e => {
     if (e.target.tagName === "INPUT") return;
     typed = (typed + e.key.toLowerCase()).slice(-6);
+    if (typed.endsWith("ryan")) { typed = ""; ryanAlert(); }
     if (typed === "ankush") {
       goatMode = true;
       document.body.classList.remove("roll"); void document.body.offsetWidth; document.body.classList.add("roll");
@@ -686,6 +828,135 @@
     g.style.top = e.clientY + "px";
     document.body.appendChild(g);
     setTimeout(() => g.remove(), 1000);
+  });
+
+  // "Getting ready" bar tied to scroll position
+  const updateReady = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const pct = max > 0 ? Math.min(100, Math.round(scrollY / max * 100)) : 0;
+    document.getElementById("readyBar").style.width = pct + "%";
+    document.getElementById("readyText").textContent = pct >= 99
+      ? "Ankush getting ready: 100%… he went back to bed. Start over."
+      : `Ankush getting ready: ${pct}%`;
+  };
+  addEventListener("scroll", updateReady, { passive: true });
+
+  // Bro button
+  const broLines = ["bro", "bro.", "brooo", "bro?", "BRO", "bro…", "bruh", "bro 💀"];
+  document.getElementById("broBtn").onclick = () => {
+    const line = broLines[Math.floor(Math.random() * broLines.length)];
+    document.getElementById("broOut").textContent = `"${line}" (that's the whole vocabulary)`;
+    if ("speechSynthesis" in window) {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(line.replace(/[^a-z?.]/gi, "") || "bro");
+      u.pitch = 0.3 + Math.random() * 1.5;
+      u.rate = 0.6 + Math.random() * 0.8;
+      speechSynthesis.speak(u);
+    }
+  };
+
+  // Translator
+  const dictionary = {
+    "I'm 5 minutes away": "I have not left. I may not be wearing pants.",
+    "I'm outside": "I am thinking about going outside.",
+    "One more game": "See you in 3 hours.",
+    "Quick question": "Clear your schedule.",
+    "Bro": "Hello / goodbye / I love you / that's crazy / I wasn't listening.",
+    "I'm not even hungry": "I will be eating your fries.",
+    "Let's leave at 7": "Let's leave at 8:15.",
+    "Trust me": "Do not trust me.",
+    "I'm up": "My eyes opened briefly. I'm going back to sleep.",
+    "Last one": "Not the last one.",
+    "That's crazy": "I did not hear a single word you said.",
+    "I'll Venmo you": "You will never see this money again.",
+    "Lowkey": "Highkey.",
+    "I'll be quick": "I will not be quick."
+  };
+  const sel = document.getElementById("phrase");
+  Object.keys(dictionary).forEach(k => sel.add(new Option(`"${k}"`, k)));
+  let typer;
+  document.getElementById("translateBtn").onclick = () => {
+    const out = document.getElementById("translation");
+    const text = "> " + dictionary[sel.value];
+    clearInterval(typer);
+    let n = 0;
+    typer = setInterval(() => {
+      out.textContent = text.slice(0, ++n) + (n < text.length ? "_" : "");
+      if (n >= text.length) clearInterval(typer);
+    }, 28);
+  };
+
+  // Wake Up Ankush
+  const wakeLines = ["5 more minutes", "zzz…", "bro", "I'm up (he is not up)", "*rolls over*", "who is this",
+                     "I'm literally awake", "*snores aggressively*", "one more snooze", "why are you like this", "mmmph", "ok ok ok (he's asleep)"];
+  let snoozes = 0, wakeMins = 8 * 60;
+  const fmt = m => { const h = Math.floor(m / 60) % 24, mm = String(m % 60).padStart(2, "0"); return `${h % 12 || 12}:${mm} ${h < 12 ? "AM" : "PM"}`; };
+  document.getElementById("wakeBtn").onclick = e => {
+    if (snoozes >= wakeLines.length) {
+      snoozes = 0; wakeMins = 8 * 60;
+      document.getElementById("wakeFace").textContent = "😴";
+      document.getElementById("wakeSays").textContent = "zzz…";
+      document.getElementById("wakeCount").textContent = "Snoozes: 0";
+      document.getElementById("wakeClock").textContent = fmt(wakeMins);
+      e.target.textContent = "⏰ RING ALARM";
+      return;
+    }
+    wakeMins += 9 + Math.floor(Math.random() * 30);
+    document.getElementById("wakeSays").textContent = wakeLines[snoozes++];
+    document.getElementById("wakeCount").textContent = `Snoozes: ${snoozes}`;
+    if (snoozes === wakeLines.length) {
+      wakeMins = 14 * 60 + 47;
+      document.getElementById("wakeFace").textContent = "😳";
+      document.getElementById("wakeSays").textContent = "HE'S AWAKE! …it's 2:47 PM. He's hungry. He's asleep again.";
+      e.target.textContent = "🔁 Try again (pointless)";
+      confetti(30);
+    }
+    document.getElementById("wakeClock").textContent = fmt(wakeMins);
+  };
+
+  // "Ankush is typing…" popup
+  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "ok this is kinda funny", "wait am I late for something", "on my way (I'm not)"];
+  let chatIdx = 0, chatStarted = false;
+  const chat = document.getElementById("chat");
+  function startChat() {
+    if (chatStarted) return;
+    chatStarted = true;
+    setTimeout(nextChat, 8000);
+  }
+  function nextChat() {
+    if (chatIdx >= chatMsgs.length) return;
+    chat.style.display = "flex";
+    document.getElementById("chatMsg").innerHTML = 'is typing<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
+    setTimeout(() => {
+      document.getElementById("chatMsg").textContent = chatMsgs[chatIdx++];
+      setTimeout(() => { chat.style.display = "none"; setTimeout(nextChat, 20000); }, 5000);
+    }, 3500 + Math.random() * 4000);
+  }
+  document.getElementById("chatX").onclick = () => { chat.style.display = "none"; chatIdx = chatMsgs.length; };
+  setTimeout(startChat, 45000);
+
+  // SECRET: Ryan G. intruder alert (type "ryan", or click the trophy 3 times)
+  function ryanAlert() {
+    document.getElementById("ryan").style.display = "block";
+    document.getElementById("ryan").scrollTop = 0;
+  }
+  const toast = msg => {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.style.display = "block";
+    setTimeout(() => { t.style.display = "none"; }, 4500);
+  };
+  document.getElementById("ryanOut").onclick = () => {
+    document.getElementById("ryan").style.display = "none";
+    toast("🚪 Ryan G. has been escorted off the premises. He'll be back. They always come back.");
+  };
+  document.getElementById("ryanStay").onclick = () => {
+    document.getElementById("ryan").style.display = "none";
+    toast("Fine. Ryan may stay, but he's at the kids' table.");
+  };
+  let sealClicks = 0;
+  document.querySelector(".seal").addEventListener("click", () => {
+    if (++sealClicks === 3) { sealClicks = 0; ryanAlert(); }
   });
 </script>
 </body>
