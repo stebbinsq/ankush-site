@@ -456,6 +456,25 @@
   .fifa .club { font-size: 13px; margin-top: 10px; }
   .soccer-stats { text-align: center; margin-top: 20px; font-size: 16px; }
 
+  /* Live Ankush Tracker */
+  .tracker-map { width: 100%; height: auto; display: block; background: #f4efe4; border: 4px solid var(--ink); border-radius: 12px; }
+  .tracker-map .wall { fill: none; stroke: var(--ink); stroke-width: 8; stroke-linecap: square; }
+  .tracker-map .inner { stroke: var(--ink); stroke-width: 4; }
+  .tracker-map .room { font: 700 13px "Comic Neue", cursive; fill: #7a7060; letter-spacing: 1px; }
+  .tracker-map .thing { font-size: 34px; }
+  .tracker-map .exit { font: 700 12px "Comic Neue", cursive; fill: #c0392b; }
+  #ankushDot { transition: transform 2.2s ease-in-out; }
+  #ankushDot .pulse { fill: rgba(255,79,139,.35); animation: pulse 1.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes pulse { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+  .tracker-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .tracker-stats div { background: var(--bg); border: 3px solid var(--ink); border-radius: 12px; padding: 10px; text-align: center; }
+  .tracker-stats b { display: block; font-family: "Bungee", sans-serif; font-size: 20px; }
+  .tracker-stats small { font-size: 13px; }
+  #trackerStatus { font-weight: 700; font-size: 18px; text-align: center; min-height: 26px; }
+  #inviteOut { font-weight: 700; min-height: 26px; margin-top: 8px; text-align: center; }
+  .outside-list { columns: 2 220px; margin-top: 12px; }
+  .outside-list li { break-inside: avoid; margin: 4px 0; }
+
   /* Flower art museum */
   .museum { background: #2b2420; color: #f3e9d8; border-color: #000; }
   .museum h2 { color: #e8c66a; font-family: Georgia, serif; font-style: italic; letter-spacing: .5px; }
@@ -595,7 +614,8 @@
       <tr><th>Known for</th><td>Being Ankush<span class="cite">[citation needed]</span></td></tr>
       <tr><th>Occupation</th><td>Professional "5 more minutes" sayer</td></tr>
       <tr><th>Years active</th><td>Since whenever he woke up (afternoon)</td></tr>
-      <tr><th>Natural habitat</th><td>The group chat (read-only access)</td></tr>
+      <tr><th>Natural habitat</th><td>His New York apartment (has not left since)<span class="cite">[source: his couch]</span></td></tr>
+      <tr><th>Secondary habitat</th><td>The group chat (read-only access)</td></tr>
       <tr><th>Arch-nemesis</th><td>His alarm clock</td></tr>
       <tr><th>Signature move</th><td>Hitting the kush 💨<span class="cite">[witnesses requested anonymity]</span></td></tr>
       <tr><th>Catchphrase</th><td>"Bro."</td></tr>
@@ -609,6 +629,60 @@
       <tr><th>Time zone</th><td>Ankush Standard Time (UTC +45 min)</td></tr>
     </table>
     <p class="note">*Not actually from Wikipedia. Wikipedia said "please stop calling us."</p>
+  </section>
+
+  <section id="tracker">
+    <h2>📍 Live Ankush Tracker</h2>
+    <p>Real-time satellite footage of Ankush's New York apartment, where he has lived, worked, eaten and refused to leave since time immemorial. (Floor plan for illustration. The couch is to scale.)</p>
+    <svg class="tracker-map" viewBox="0 0 600 360" role="img" aria-label="Floor plan of Ankush's apartment with his location">
+      <defs><clipPath id="dotClip"><circle cx="0" cy="0" r="17"/></clipPath></defs>
+      <path class="wall" d="M525 350 H10 V10 H590 V350 H585"/>
+      <line class="inner" x1="210" y1="10" x2="210" y2="150"/>
+      <line class="inner" x1="210" y1="200" x2="210" y2="350"/>
+      <line class="inner" x1="10" y1="200" x2="150" y2="200"/>
+      <line class="inner" x1="450" y1="10" x2="450" y2="140"/>
+      <line class="inner" x1="450" y1="200" x2="590" y2="200"/>
+      <text class="room" x="22" y="32">BEDROOM</text>
+      <text class="room" x="22" y="222">BATHROOM</text>
+      <text class="room" x="222" y="32">LIVING ROOM (HQ)</text>
+      <text class="room" x="462" y="32">KITCHEN</text>
+      <text class="room" x="462" y="222">"OFFICE"</text>
+      <text class="thing" x="80" y="120">🛏️</text>
+      <text class="thing" x="90" y="300">🛁</text>
+      <text class="thing" x="300" y="170">🛋️</text>
+      <text class="thing" x="305" y="80">📺</text>
+      <text class="thing" x="500" y="110">🍕</text>
+      <text class="room" x="487" y="135">FRIDGE</text>
+      <text class="thing" x="505" y="290">💻</text>
+      <text class="thing" x="541" y="348" style="font-size:22px">🕸️</text>
+      <text class="exit" x="478" y="318">EXIT (UNUSED)</text>
+      <g id="ankushDot" transform="translate(100 140)">
+        <circle class="pulse" r="22"/>
+        <image href="img/p9.jpg" x="-17" y="-17" width="34" height="34" preserveAspectRatio="xMidYMid slice" clip-path="url(#dotClip)"/>
+        <circle r="17" fill="none" stroke="#ff4f8b" stroke-width="4"/>
+      </g>
+    </svg>
+    <div id="trackerStatus">📍 Locating Ankush… (he's inside)</div>
+    <div class="tracker-stats">
+      <div><b id="sinceOut">—</b><small>since he last left the apartment</small></div>
+      <div><b id="distToday">0 ft</b><small>traveled today</small></div>
+      <div><b id="fridgeTrips">0</b><small>fridge visits this session</small></div>
+      <div><b>0</b><small>times touched grass</small></div>
+    </div>
+    <p style="text-align:center"><button id="inviteBtn">📣 Invite Ankush outside</button></p>
+    <div id="inviteOut"></div>
+    <p class="disclaimer">Known exceptions: flowers at golden hour (see the Museum) and picking up Gabby.</p>
+    <h3 style="margin-bottom:0">Things that happened outside since Ankush last left:</h3>
+    <ul class="outside-list">
+      <li>The seasons changed. Twice.</li>
+      <li>The pigeons formed a government.</li>
+      <li>MF learned to use the elevator alone.</li>
+      <li>His soccer team finished a season without him (again).</li>
+      <li>Three new bodega cats were born and promoted to manager.</li>
+      <li>New York got a new slice of pizza. He had it delivered.</li>
+      <li>His neighbors started a rumor that his apartment is empty.</li>
+      <li>The sun asked if he was okay.</li>
+    </ul>
   </section>
 
   <section>
@@ -647,6 +721,7 @@
     <div class="soccer-stats">
       <p><b>Career stats:</b> Games scheduled: 47 · Games attended: 3 · Goals: 0 · Excuses: 44</p>
       <p><b>Scouting report:</b> "Excellent at warming up. Mostly does this at home, in bed, on game day."</p>
+      <p><b>Availability:</b> Home games only. And by "home," he means his apartment.</p>
     </div>
   </section>
 
@@ -767,6 +842,8 @@
         <tr><td>ANK 009</td><td>Picking up Gabby</td><td>ON TIME ✅ (miraculously)</td></tr>
         <tr><td>ANK 010</td><td>Walking MF</td><td>ON TIME ✅ (MF insists)</td></tr>
         <tr><td>ANK 011</td><td>Photographing a flower at golden hour</td><td>EARLY ✅ (always, somehow)</td></tr>
+        <tr><td>ANK 012</td><td>Leaving the apartment</td><td class="bad">CANCELLED INDEFINITELY</td></tr>
+        <tr><td>ANK 013</td><td>Couch → Fridge</td><td>DEPARTED ✅ (14th time today)</td></tr>
       </table>
     </div>
   </section>
@@ -779,6 +856,10 @@
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"Never met him. Heard he's on the team though."<b>— His soccer coach</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Kept his spot warm all season. Never once had to move."<b>— The bench</b></div>
       <div class="quote"><span class="stars">★★☆☆☆</span><br>"He got so close I could feel him breathing. Then he posted me with the caption 'nature.'"<b>— A tulip</b></div>
+      <div class="quote"><span class="stars">★☆☆☆☆</span><br>"Never heard of him. Supposedly he lives here?"<b>— New York City</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"He never leaves. We spend every waking moment together. And most sleeping ones."<b>— His couch</b></div>
+      <div class="quote"><span class="stars">★★☆☆☆</span><br>"I haven't been opened in weeks. A spider moved in. We're happy."<b>— His front door</b></div>
+      <div class="quote"><span class="stars">★★★★★</span><br>"Best customer in New York. I have never seen him in daylight."<b>— His delivery guy</b></div>
       <div class="quote"><span class="stars">★★★★☆</span><br>"Took 40 minutes to pick a restaurant. Picked the first one."<b>— His group chat</b></div>
       <div class="quote"><span class="stars">★★★★★</span><br>"Never once returned me. Honestly respect."<b>— A borrowed hoodie</b></div>
       <div class="quote"><span class="stars">★☆☆☆☆</span><br>"He keeps hitting snooze. I am tired."<b>— His alarm clock</b></div>
@@ -865,6 +946,7 @@
       <tr><th>Peace sign technique</th><td>Flawless ✌️</td><td>Somehow upside down</td></tr>
       <tr><th>Signature dance</th><td>Hitting the kush 💨</td><td>The robot (low battery)</td></tr>
       <tr><th>Dog's opinion</th><td>MF: "he's alright"</td><td>MF: *growls*</td></tr>
+      <tr><th>Home field advantage</th><td>Never leaves home. Undefeated there.</td><td>Not invited over</td></tr>
       <tr><th>In the photos on this site</th><td>11</td><td>0 (we checked twice)</td></tr>
     </table>
     <p class="verdict">WINNER: ANKUSH 🏆<br><small>by forfeit. Ryan was still parking.</small></p>
@@ -916,7 +998,13 @@
     "Ankush has never been on time for anything except golden hour at a flower bed.",
     "Ankush's flower photos are so artsy that Instagram asked if he was okay.",
     "Botanists study Ankush's Instagram to learn what flowers look like from 1 inch away. They wish they hadn't.",
-    "Ankush once missed a soccer game because he saw a tulip on the way. He never made it to the game. The tulip got 40 likes."
+    "Ankush once missed a soccer game because he saw a tulip on the way. He never made it to the game. The tulip got 40 likes.",
+    "Ankush lives in the city that never sleeps. He has seen approximately none of it.",
+    "Ankush has seen the Statue of Liberty once. On his TV. From his couch.",
+    "Ankush's delivery driver knows him better than his own neighbors do.",
+    "Ankush's apartment has a Google review from Ankush: 'Never leaving. 5 stars.'",
+    "Ankush's front door has cobwebs. On the inside.",
+    "Ankush doesn't have FOMO. He has FOGO: Fear Of Going Outside."
   ];
   let lastFact = -1;
   document.getElementById("factBtn").onclick = () => {
@@ -1031,7 +1119,8 @@
     "Can't talk, phone's at 3%.", "Absolutely not. Anyway, what's the plan?",
     "Ask me tomorrow. (Do not ask him tomorrow.)", "Sounds like a you problem, bro.",
     "Hit the kush and find out. 💨", "Ask MF. He's the smart one.", "Let me ask Gabby. (Good call, honestly.)",
-    "B*tches flock. (Sorry, old habit. Retired.)", "Can't, I have soccer. (He will not be at soccer.)"
+    "B*tches flock. (Sorry, old habit. Retired.)", "Can't, I have soccer. (He will not be at soccer.)",
+    "Come over, I'm not leaving. Ever.", "Sounds fun. Can we do it at my apartment?"
   ];
   const ask = () => {
     const q = document.getElementById("question").value.trim();
@@ -1052,7 +1141,7 @@
     "Says \"bro\"", "\"5 more minutes\"", "Phone at 3%", "Hasn't read the group chat", "\"Quick question\" (not quick)",
     "Shows up late", "Hits the kush 💨", "\"Trust me\"", "40 min to pick food", "Mentions MF",
     "\"One more game\"", "Says \"that's crazy\"", "FREE SPACE: Ankush exists", "Peace sign in a photo", "\"I'm on my way\" (he's not)",
-    "Stops to shoot a flower 🌷", "\"Wait, what are we doing?\"", "Eats your fries", "Skips soccer", "\"Last one\" (it's not)",
+    "Stops to shoot a flower 🌷", "Suggests staying in 🏠", "Eats your fries", "Skips soccer", "\"Last one\" (it's not)",
     "Snoozes alarm 5+ times", "Texts Gabby mid-story", "\"I'm outside\" (he's not)", "Hits the kush AGAIN", "Vintage \"b*tches flock\""
   ];
   const board = document.getElementById("bingo");
@@ -1170,7 +1259,10 @@
     "Watch this": "I am about to hit the kush. Brace yourself.",
     "Gabby says hi": "Gabby says hi. (Gabby is the reason I am on time today.)",
     "nature 🌿 (IG caption)": "I got way too close to a flower again and I need you to like it.",
-    "Hold on, the lighting is perfect": "We will be here for 25 minutes. There is a tulip."
+    "Hold on, the lighting is perfect": "We will be here for 25 minutes. There is a tulip.",
+    "Let's do something this weekend": "Come to my apartment. I will not be leaving it.",
+    "I'm in the city": "I'm in my apartment, which is technically in the city.",
+    "I went out last night": "I went to the lobby to get a package."
   };
   const sel = document.getElementById("phrase");
   Object.keys(dictionary).forEach(k => sel.add(new Option(`"${k}"`, k)));
@@ -1215,7 +1307,7 @@
   };
 
   // "Ankush is typing…" popup
-  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "brb there's a tulip 🌷", "hold on hitting the kush 💨"];
+  const chatMsgs = ["k", "who made this", "bro", "why is my phone at 3% in this", "MF says this is defamation 🐶", "omw to soccer (I'm not)", "gabby thinks this is hilarious", "ok fine this is kinda funny", "brb there's a tulip 🌷", "come over, I'm not leaving 🏠", "hold on hitting the kush 💨"];
   let chatIdx = 0, chatStarted = false;
   const chat = document.getElementById("chat");
   function startChat() {
@@ -1261,6 +1353,61 @@
   let woofIdx = 0;
   document.getElementById("dog").onclick = () => {
     document.getElementById("woof").textContent = woofs[woofIdx++ % woofs.length];
+  };
+
+  // Live Ankush Tracker: wanders the apartment, never reaches the door
+  const spots = {
+    bed:     { x: 100, y: 140, say: "🛏️ In bed. Status: horizontal." },
+    couch:   { x: 330, y: 200, say: "🛋️ On the couch. Do not disturb." },
+    fridge:  { x: 520, y: 160, say: "🍕 At the fridge. Again." },
+    desk:    { x: 520, y: 265, say: "💻 At his desk. \"Working.\"" },
+    bath:    { x: 110, y: 255, say: "🛁 Bathroom. Privacy, please." },
+    tv:      { x: 330, y: 105, say: "📺 Staring at the TV. It's off." },
+    door:    { x: 545, y: 318, say: "🚪 Approaching the door…" }
+  };
+  const route = ["bed", "couch", "fridge", "couch", "tv", "desk", "fridge", "bath", "couch", "door", "couch", "bed", "fridge", "couch"];
+  let stop = 0, lastSpot = spots.bed, feet = 0, fridgeTrips = 0;
+  const dot = document.getElementById("ankushDot");
+  const trackerStatus = document.getElementById("trackerStatus");
+  function moveAnkush() {
+    const name = route[stop++ % route.length];
+    const s = spots[name];
+    feet += Math.round(Math.hypot(s.x - lastSpot.x, s.y - lastSpot.y) / 12);
+    lastSpot = s;
+    dot.style.transform = `translate(${s.x}px, ${s.y}px)`;
+    if (name === "fridge") document.getElementById("fridgeTrips").textContent = ++fridgeTrips;
+    document.getElementById("distToday").textContent = feet + " ft";
+    trackerStatus.textContent = s.say;
+    if (name === "door") setTimeout(() => { trackerStatus.textContent = "🚪 …saw daylight through the peephole. Retreating."; }, 1800);
+  }
+  dot.removeAttribute("transform");
+  dot.style.transform = `translate(${spots.bed.x}px, ${spots.bed.y}px)`;
+  setInterval(moveAnkush, 3200);
+
+  // "Since he last left" counter, ticking up from a suspiciously long time ago
+  const lastLeft = Date.now() - ((47 * 24 + 6) * 3600 + 13 * 60) * 1000;
+  const tickOut = () => {
+    let s = Math.floor((Date.now() - lastLeft) / 1000);
+    const d = Math.floor(s / 86400); s %= 86400;
+    const h = Math.floor(s / 3600); s %= 3600;
+    const m = Math.floor(s / 60); s %= 60;
+    document.getElementById("sinceOut").textContent = `${d}d ${h}h ${m}m ${s}s`;
+  };
+  tickOut();
+  setInterval(tickOut, 1000);
+
+  const invites = [
+    "📵 Ankush has seen your invite. Ankush has not responded.",
+    "\"maybe next weekend\" (there is no next weekend)",
+    "He asked if you could come to him instead.",
+    "He put on shoes! …he took them off.",
+    "He opened the door, looked outside, and closed the door.",
+    "He says it's \"too bright out.\" It is 9 PM.",
+    "He agreed to go outside! …to the window. He waved. That counts."
+  ];
+  let inviteIdx = 0;
+  document.getElementById("inviteBtn").onclick = () => {
+    document.getElementById("inviteOut").textContent = invites[inviteIdx++ % invites.length];
   };
 
   // Flower museum: zoom in like Ankush would, plus art critics
