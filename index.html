@@ -176,22 +176,6 @@
     border-left: 6px solid var(--hot);
   }
 
-  .meter {
-    height: 36px;
-    border: 3px solid var(--ink);
-    border-radius: 18px;
-    overflow: hidden;
-    background: #eee;
-    margin: 16px 0 8px;
-  }
-  .meter-fill {
-    height: 100%;
-    width: 0;
-    background: repeating-linear-gradient(45deg, var(--hot), var(--hot) 12px, var(--sun) 12px, var(--sun) 24px);
-    transition: width 1.2s cubic-bezier(.2,1.6,.4,1);
-  }
-  #meterLabel { font-weight: 700; }
-
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -223,8 +207,17 @@
     border: 10px double var(--sun);
     background: #fffdf3;
   }
-  .certificate h2 { color: var(--hot); }
-  .seal { font-size: 64px; }
+  .certificate h2 { color: var(--hot); margin-bottom: 4px; }
+  .seal { font-size: 64px; cursor: default; user-select: none; }
+  .certificate .proof {
+    width: 150px; aspect-ratio: 4 / 5; object-fit: cover; border: 4px solid var(--ink);
+    transform: rotate(3deg); margin: 10px auto; display: block; box-shadow: 5px 5px 0 var(--sun);
+  }
+  .certificate .who { font-family: "Bungee", sans-serif; font-size: 28px; margin: 8px 0; }
+  .signatures { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 52px 18px; margin: 56px 0 10px; }
+  .signatures div { border-top: 2px solid var(--ink); padding-top: 6px; font-size: 13px; }
+  .signatures span { display: block; font-family: "Brush Script MT", "Snell Roundhand", cursive; font-size: 26px; margin-top: -42px; margin-bottom: 14px; color: #1b2a8a; }
+  .certificate .fine { font-size: 12px; opacity: .6; }
 
   footer { text-align: center; padding: 24px 16px 48px; font-size: 14px; opacity: .7; }
 
@@ -913,14 +906,6 @@
   </section>
 
   <section>
-    <h2>📈 Ankush-O-Meter</h2>
-    <p>Measures how much Ankush energy is in the room right now.</p>
-    <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
-    <p id="meterLabel">Reading: not yet measured</p>
-    <button id="meterBtn">Measure</button>
-  </section>
-
-  <section>
     <h2>🎱 Ask Ankush</h2>
     <p>Life advice from the man himself. Results not guaranteed. Results not even likely.</p>
     <div class="ball-row">
@@ -1038,11 +1023,19 @@
 
   <section class="certificate">
     <div class="seal">🏆</div>
-    <h2>Certificate of Achievement</h2>
+    <h2>Official Certificate for Leaving the Apartment</h2>
     <p>This certifies that</p>
-    <p style="font-family:Bungee; font-size:28px; margin:8px 0;">ANKUSH MANCHANDA</p>
-    <p>has successfully existed for another year<br>with only a moderate number of incidents.</p>
-    <p><i>Signed, The Committee (it's us, his friends)</i></p>
+    <p class="who">ANKUSH MANCHANDA</p>
+    <p>did, on <b>one (1) confirmed occasion</b>, leave his New York apartment,<br>sit outside at a restaurant, and eat food that was <b>not delivered</b>.</p>
+    <img class="proof" src="img/p12.jpg" alt="Ankush outside at a restaurant" loading="lazy">
+    <p><i>Exhibit A, verified by experts. The sunglasses were a precaution.</i></p>
+    <div class="signatures">
+      <div><span>🐾 MF</span>MF, roommate (shocked)</div>
+      <div><span>Gabby</span>Gabby, girlfriend (proud)</div>
+      <div><span>Delivery Guy</span>His delivery guy (heartbroken)</div>
+      <div><span>The Committee</span>His friends (still processing)</div>
+    </div>
+    <p class="fine">This certificate becomes void the next time he orders delivery. It has already been voided. Twice.</p>
   </section>
 
 </main>
@@ -1153,25 +1146,6 @@
     lastFact = i;
     document.getElementById("fact").textContent = facts[i];
     document.getElementById("factImg").src = photos[Math.floor(Math.random() * photos.length)];
-  };
-
-  const levels = [
-    [20, "Mild Ankush. He's probably asleep."],
-    [45, "Moderate Ankush. Someone mentioned food."],
-    [70, "High Ankush. He has a 'quick question.'"],
-    [90, "DANGEROUS Ankush. He's telling a story with no ending."],
-    [100, "MAXIMUM ANKUSH. Evacuate the group chat."]
-  ];
-  document.getElementById("meterBtn").onclick = () => {
-    const v = Math.floor(Math.random() * 101);
-    const fill = document.getElementById("meterFill");
-    fill.style.width = "0";
-    setTimeout(() => {
-      fill.style.width = v + "%";
-      const label = levels.find(([max]) => v <= max)[1];
-      document.getElementById("meterLabel").textContent = `Reading: ${v}% — ${label}`;
-      if (v > 90) confetti(40);
-    }, 150);
   };
 
   // The NO button refuses to be clicked
