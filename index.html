@@ -4,6 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ankush Manchanda Fan Club</title>
+<meta name="description" content="Breaking news: Ankush Manchanda is late again. Scientists baffled. Kush hit. MF unbothered.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ankushmanchanda.live/">
+<meta property="og:title" content="🚨 BREAKING: Ankush Manchanda is late again">
+<meta property="og:description" content="Scientists baffled. Kush hit. MF unbothered. The official Ankush Manchanda fan club.">
+<meta property="og:image" content="https://ankushmanchanda.live/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="🚨 BREAKING: Ankush Manchanda is late again">
+<meta name="twitter:description" content="Scientists baffled. Kush hit. MF unbothered.">
+<meta name="twitter:image" content="https://ankushmanchanda.live/og.jpg">
+<meta name="theme-color" content="#ff4f8b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💨</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -476,6 +490,41 @@
   .mf .dog { font-size: 90px; cursor: pointer; display: inline-block; transition: transform .2s; }
   .mf .dog:active { transform: scale(1.2) rotate(-10deg); }
   #woof { font-weight: 700; min-height: 26px; }
+
+  /* Floating section menu */
+  #navBtn {
+    position: fixed; top: 32px; right: 12px; z-index: 130;
+    font-size: 13px; padding: 8px 12px; background: var(--sun);
+  }
+  #navMenu {
+    position: fixed; top: 76px; right: 12px; z-index: 130;
+    width: min(280px, calc(100vw - 24px)); max-height: calc(100vh - 100px); overflow-y: auto;
+    background: #fff; border: 3px solid var(--ink); border-radius: 14px; box-shadow: 5px 5px 0 var(--ink);
+    padding: 8px; display: none;
+  }
+  #navMenu.open { display: block; }
+  #navMenu a {
+    display: block; padding: 9px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; font-weight: 700;
+  }
+  #navMenu a:hover { background: var(--bg); }
+  main section { scroll-margin-top: 40px; }
+
+  /* Roast wall */
+  .roast-form { display: grid; gap: 10px; }
+  .roast-form input, .roast-form textarea {
+    font: inherit; padding: 12px; border: 3px solid var(--ink); border-radius: 12px; width: 100%;
+  }
+  .roast-form textarea { min-height: 90px; resize: vertical; }
+  #roastStatus { font-weight: 700; min-height: 24px; }
+  .roasts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 20px; }
+  .roast {
+    background: #fffbe6; border: 3px solid var(--ink); border-radius: 4px; padding: 14px;
+    box-shadow: 4px 4px 0 var(--ink); font-size: 17px; overflow-wrap: anywhere;
+  }
+  .roast:nth-child(3n+1) { transform: rotate(-1.5deg); background: #ffe8f1; }
+  .roast:nth-child(3n+2) { transform: rotate(1deg); background: #e8f7ff; }
+  .roast b { display: block; margin-top: 8px; color: var(--hot); font-size: 15px; }
+  .roasts .empty { opacity: .7; font-style: italic; }
 </style>
 </head>
 <body>
@@ -764,6 +813,18 @@
     <div id="bingoMsg"></div>
   </section>
 
+  <section id="roast-wall">
+    <h2>🔥 The Roast Wall</h2>
+    <p>Got an Ankush story? A roast? A formal complaint from MF? Submit it below. A panel of highly qualified judges (one person) reviews every entry before it goes up.</p>
+    <form class="roast-form" id="roastForm">
+      <input id="roastName" maxlength="40" placeholder="Your name (or 'Anonymous Coward')" autocomplete="off">
+      <textarea id="roastText" maxlength="280" placeholder="The time Ankush…" required></textarea>
+      <button type="submit" id="roastSubmit">Submit roast 🔥</button>
+      <div id="roastStatus"></div>
+    </form>
+    <div class="roasts" id="roasts"><p class="empty">Loading approved roasts…</p></div>
+  </section>
+
   <section class="certificate">
     <div class="seal">🏆</div>
     <h2>Certificate of Achievement</h2>
@@ -778,6 +839,9 @@
 <footer>Made with love and zero permission. Ankush, if you're reading this: hi 👋<br><span class="hint">psst… try typing his name</span></footer>
 
 <div id="ready"><div id="readyBar"></div><span id="readyText">Ankush getting ready: 0%</span></div>
+
+<button id="navBtn" aria-expanded="false" aria-controls="navMenu">☰ Jump to</button>
+<nav id="navMenu" aria-label="Sections"></nav>
 
 <div id="chat">
   <img src="img/p9.jpg" alt="">
@@ -1037,7 +1101,7 @@
   // Easter egg: type "ankush" for GOAT mode
   let typed = "", goatMode = false;
   document.addEventListener("keydown", e => {
-    if (e.target.tagName === "INPUT") return;
+    if (["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName)) return;
     typed = (typed + e.key.toLowerCase()).slice(-6);
     if (typed.endsWith("ryan")) { typed = ""; ryanAlert(); }
     if (typed === "ankush") {
@@ -1221,6 +1285,92 @@
   document.getElementById("criticBtn").onclick = () => {
     document.getElementById("critic").textContent = critiques[critIdx++ % critiques.length];
   };
+
+  // Floating section menu, built from each section's heading
+  const navMenu = document.getElementById("navMenu");
+  const navBtn = document.getElementById("navBtn");
+  document.querySelectorAll("main > section").forEach((sec, i) => {
+    const h = sec.querySelector("h2");
+    if (!h) return;
+    if (!sec.id) sec.id = "s" + i;
+    const a = document.createElement("a");
+    a.href = "#" + sec.id;
+    a.textContent = h.textContent.replace(/\*$/, "");
+    a.onclick = () => { navMenu.classList.remove("open"); navBtn.setAttribute("aria-expanded", "false"); };
+    navMenu.appendChild(a);
+  });
+  navBtn.onclick = () => {
+    const open = navMenu.classList.toggle("open");
+    navBtn.setAttribute("aria-expanded", open);
+  };
+  document.addEventListener("click", e => {
+    if (!navMenu.contains(e.target) && e.target !== navBtn) navMenu.classList.remove("open");
+  });
+
+  // Roast Wall: submissions go to a Google Form; only rows marked approved
+  // in the linked sheet are published (as CSV) and shown here.
+  const ROAST_FORM = { action: "", name: "", roast: "" };
+  const ROAST_CSV = "";
+
+  function parseCSV(text) {
+    const rows = []; let row = [], cell = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+        else if (c === '"') q = false;
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(cell); cell = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        row.push(cell); rows.push(row); row = []; cell = "";
+      } else cell += c;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+  async function loadRoasts() {
+    const box = document.getElementById("roasts");
+    if (!ROAST_CSV) { box.innerHTML = '<p class="empty">The wall is empty. Be the first to roast him.</p>'; return; }
+    try {
+      const res = await fetch(ROAST_CSV + (ROAST_CSV.includes("?") ? "&" : "?") + "t=" + Date.now());
+      const rows = parseCSV(await res.text()).slice(1).filter(r => r[1] && r[1].trim());
+      box.innerHTML = "";
+      if (!rows.length) { box.innerHTML = '<p class="empty">The wall is empty. Be the first to roast him.</p>'; return; }
+      rows.reverse().forEach(([name, text]) => {
+        const card = document.createElement("div");
+        card.className = "roast";
+        card.textContent = `"${text.trim()}"`;
+        const by = document.createElement("b");
+        by.textContent = "— " + (name.trim() || "Anonymous Coward");
+        card.appendChild(by);
+        box.appendChild(card);
+      });
+    } catch {
+      box.innerHTML = '<p class="empty">The roasts are running late. (Ankush is delivering them.)</p>';
+    }
+  }
+  loadRoasts();
+  document.getElementById("roastForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const status = document.getElementById("roastStatus");
+    const text = document.getElementById("roastText").value.trim();
+    if (!text) return;
+    if (!ROAST_FORM.action) { status.textContent = "The Roast Wall opens soon. Save that one, it's good."; return; }
+    const body = new URLSearchParams();
+    body.append(ROAST_FORM.name, document.getElementById("roastName").value.trim());
+    body.append(ROAST_FORM.roast, text);
+    document.getElementById("roastSubmit").disabled = true;
+    try {
+      await fetch(ROAST_FORM.action, { method: "POST", mode: "no-cors", body });
+      status.textContent = "Submitted! 🔥 The judges (one person) will review it. Ankush has been notified. (He has not been notified.)";
+      e.target.reset();
+    } catch {
+      status.textContent = "That didn't go through. Try again in a sec.";
+    }
+    document.getElementById("roastSubmit").disabled = false;
+  });
 
   // SECRET: Ryan G. intruder alert (type "ryan", or click the trophy 3 times)
   function ryanAlert() {
