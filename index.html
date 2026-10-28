@@ -450,6 +450,27 @@
   @media (max-width: 520px) { .sighting { flex-direction: column; text-align: center; } }
   .outside-list li { break-inside: avoid; margin: 4px 0; }
 
+  /* Excuse Generator */
+  .slot { background: linear-gradient(180deg, #c0392b, #7b1e14); border: 5px solid var(--ink); border-radius: 22px; padding: 18px; box-shadow: 8px 8px 0 var(--ink); }
+  .slot-title { text-align: center; font-family: "Bungee", sans-serif; color: var(--sun); font-size: 18px; margin-bottom: 12px; letter-spacing: 1px; }
+  .reels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .reel {
+    background: #fff; border: 4px solid var(--ink); border-radius: 12px; min-height: 120px;
+    display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 10px 8px;
+    font-weight: 700; font-size: 15px; line-height: 1.25; overflow-wrap: break-word; hyphens: auto;
+  }
+  .reel small { display: block; font-family: "Bungee", sans-serif; font-size: 10px; color: #c0392b; margin-bottom: 6px; letter-spacing: .5px; }
+  .reel.spinning span { filter: blur(1.5px); opacity: .7; }
+  .slot-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+  #spinBtn { background: var(--sun); font-size: 18px; padding: 14px 26px; }
+  #copyExcuse { background: #fff; }
+  .excuse-text {
+    margin-top: 16px; background: #fff; border-radius: 16px 16px 16px 4px; border: 3px solid var(--ink);
+    padding: 12px 14px; font-size: 17px; min-height: 48px;
+  }
+  .excuse-meta { text-align: center; font-size: 13px; margin-top: 10px; opacity: .75; }
+  @media (max-width: 520px) { .reel { font-size: 12.5px; min-height: 140px; } }
+
   /* Ankush Eats: Year in Review */
   .review { max-width: 380px; margin: 0 auto; }
   .story {
@@ -720,6 +741,25 @@
       <li>His neighbors started a rumor that his apartment is empty.</li>
       <li>The sun asked if he was okay.</li>
     </ul>
+  </section>
+
+  <section id="excuses">
+    <h2>🎰 The Ankush Excuse Generator</h2>
+    <p>Ankush has never once run out of reasons to not show up. We reverse-engineered his technique. Pull the lever and get a 100% authentic Ankush excuse, ready to send to any group chat.</p>
+    <div class="slot">
+      <div class="slot-title">★ EXCUSE-O-MATIC 3000 ★</div>
+      <div class="reels">
+        <div class="reel" id="reel0"><small>CAN'T MAKE IT TO</small><span>—</span></div>
+        <div class="reel" id="reel1"><small>BECAUSE</small><span>—</span></div>
+        <div class="reel" id="reel2"><small>SIGN-OFF</small><span>—</span></div>
+      </div>
+      <div class="slot-controls">
+        <button id="spinBtn">🎰 PULL THE LEVER</button>
+        <button id="copyExcuse">📋 Copy excuse</button>
+      </div>
+    </div>
+    <div class="excuse-text" id="excuseText">Your excuse will appear here. Ankush's appears automatically, every time.</div>
+    <div class="excuse-meta" id="excuseMeta">Excuses generated this visit: 0 · Times Ankush actually showed up: 0</div>
   </section>
 
   <section id="ankush-eats">
@@ -1416,6 +1456,57 @@
   document.getElementById("aiNew").onclick = () => {
     aiSide.querySelectorAll("a").forEach(x => x.classList.remove("active"));
     renderChat("what should I name this new chat", "Ankush, this is the 9th chat today asking me to name a chat. I'm naming this one \"Please go outside.\"");
+  };
+
+  // Ankush Excuse Generator (slot machine)
+  const reels = [
+    ["soccer", "your birthday", "brunch", "the group dinner", "your wedding", "the game watch party",
+     "literally anything outside", "the thing I already said yes to", "the soccer game I organized"],
+    ["MF looked at me like he'd miss me", "my food delivery is 4 minutes away", "I asked AI and it said no",
+     "a tulip outside is in perfect golden hour", "I'm mid-kush and can't stop now", "it's too bright out (it's 9pm)",
+     "my phone is at 3%", "I said 5 more minutes 3 hours ago", "my couch would take it personally",
+     "Gabby said I should go, so I'm considering it", "I just ordered delivery and the driver's never seen my face"],
+    ["see you next time 🙏", "bro.", "I'll Venmo you (I won't)", "we should hang soon tho",
+     "say hi to everyone for me", "I'm literally so sad about it", "I'll be there next time, for real this time",
+     "hit the kush for me 💨", "omw (I'm not)"]
+  ];
+  let excusesMade = 0, spinning = false;
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  document.getElementById("spinBtn").onclick = () => {
+    if (spinning) return;
+    spinning = true;
+    const final = reels.map(pick);
+    reels.forEach((options, i) => {
+      const el = document.getElementById("reel" + i);
+      const span = el.querySelector("span");
+      el.classList.add("spinning");
+      const flicker = setInterval(() => { span.textContent = pick(options); }, 70);
+      setTimeout(() => {
+        clearInterval(flicker);
+        el.classList.remove("spinning");
+        span.textContent = final[i];
+        if (i === reels.length - 1) {
+          spinning = false;
+          excusesMade++;
+          document.getElementById("excuseText").textContent =
+            `hey guys so sorry, can't make it to ${final[0]}, ${final[1]}. ${final[2]}`;
+          document.getElementById("excuseMeta").textContent =
+            `Excuses generated this visit: ${excusesMade} · Times Ankush actually showed up: 0`;
+          if (excusesMade % 5 === 0) confetti(30);
+        }
+      }, 700 + i * 450);
+    });
+  };
+  document.getElementById("copyExcuse").onclick = async e => {
+    const text = document.getElementById("excuseText").textContent;
+    if (!excusesMade) { e.target.textContent = "Pull the lever first 🎰"; setTimeout(() => e.target.textContent = "📋 Copy excuse", 1500); return; }
+    try {
+      await navigator.clipboard.writeText(text);
+      e.target.textContent = "✅ Copied. Ankush would be proud.";
+    } catch {
+      e.target.textContent = "Couldn't copy, select it manually";
+    }
+    setTimeout(() => e.target.textContent = "📋 Copy excuse", 1800);
   };
 
   // Ankush Eats: Year in Review (story slides)
