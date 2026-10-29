@@ -593,6 +593,39 @@
   .roast:nth-child(3n+2) { transform: rotate(1deg); background: #e8f7ff; }
   .roast b { display: block; margin-top: 8px; color: var(--hot); font-size: 15px; }
   .roasts .empty { opacity: .7; font-style: italic; }
+  /* ===== Halloween theme (toggle with HALLOWEEN in the script) ===== */
+  body.halloween {
+    --hot: #ff7a1a; --sun: #ffb000; --sky: #b57bff; --card: #fff8ee; --bg: #fff1dd;
+    background: radial-gradient(ellipse at top, #3b1d5a 0%, #1a0f24 55%, #0d0712 100%) fixed;
+  }
+  body.halloween header, body.halloween footer { color: #f3e9ff; }
+  body.halloween header .tag em { color: var(--ink); }
+  body.halloween main > section { box-shadow: 8px 8px 0 #ff7a1a; }
+  body.halloween .marquee { background: #ff7a1a; color: #1a0f24; }
+  body.halloween .credit { background: #ff7a1a; color: #1a0f24; }
+  body.halloween .credit b { color: #fff; }
+  body.halloween #ready { background: rgba(26,15,36,.9); }
+  body.halloween .face { box-shadow: 0 0 0 6px #ff7a1a, 0 0 40px 12px rgba(255,122,26,.55); }
+  .spooky-badge {
+    display: none; font-family: "Bungee", sans-serif; font-size: 14px; letter-spacing: 1px;
+    background: #1a0f24; color: #ffb000; border: 3px solid #ff7a1a; border-radius: 999px;
+    padding: 6px 16px; margin: 14px auto 0; width: fit-content;
+  }
+  body.halloween .spooky-badge { display: block; }
+  .spooky-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  body.halloween header, body.halloween main, body.halloween footer { position: relative; z-index: 1; }
+  .bat { position: absolute; font-size: 30px; animation: batfly linear infinite; }
+  @keyframes batfly {
+    0% { transform: translate(-10vw, 0) scaleX(-1); }
+    25% { transform: translate(25vw, -40px) scaleX(-1); }
+    50% { transform: translate(55vw, 30px) scaleX(-1); }
+    75% { transform: translate(85vw, -30px) scaleX(-1); }
+    100% { transform: translate(115vw, 10px) scaleX(-1); }
+  }
+  .ghost { position: absolute; font-size: 38px; opacity: .55; animation: ghostfloat ease-in-out infinite alternate; }
+  @keyframes ghostfloat { from { transform: translateY(0) rotate(-6deg); } to { transform: translateY(-40px) rotate(6deg); } }
+  .web { position: fixed; font-size: 64px; opacity: .5; pointer-events: none; z-index: 4; }
+  @media (prefers-reduced-motion: reduce) { .bat, .ghost { animation: none; } }
 </style>
 </head>
 <body>
@@ -604,7 +637,7 @@
   <button id="skipLoader">Skip (he won't notice)</button>
 </div>
 
-<div class="marquee"><span>🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 Ankush reportedly spotted being on time; experts confirm it was a lookalike 🚨 Group chat enters day 400 of waiting for a reply 🚨 Local man "just built different," sources confirm 🚨 More at 11 (he'll be there at 11:45) 🚨</span></div>
+<div class="marquee"><span id="marqueeText">🚨 BREAKING: Ankush Manchanda continues to be Ankush Manchanda 🚨 Scientists baffled 🚨 Ankush reportedly spotted being on time; experts confirm it was a lookalike 🚨 Group chat enters day 400 of waiting for a reply 🚨 Local man "just built different," sources confirm 🚨 More at 11 (he'll be there at 11:45) 🚨</span></div>
 
 <header>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -635,6 +668,7 @@
   <img class="face" id="face" src="img/hero.jpg" alt="Ankush" title="poke him">
   <div id="heroDancer"></div>
   <h1>ANKUSH MANCHANDA</h1>
+  <div class="spooky-badge">🎃 SPOOKY SEASON EDITION 🎃</div>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
   <button id="broBtn">🔊 Hear Ankush's full vocabulary</button>
@@ -1130,7 +1164,7 @@
   };
 
   function confetti(n) {
-    const bits = ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
+    const bits = document.body.classList.contains("halloween") ? ["🎃", "👻", "🦇", "🕸️", "🍬", "💀"] : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
     for (let i = 0; i < n; i++) {
       const el = document.createElement("div");
       el.className = "confetti";
@@ -1457,6 +1491,47 @@
     aiSide.querySelectorAll("a").forEach(x => x.classList.remove("active"));
     renderChat("what should I name this new chat", "Ankush, this is the 9th chat today asking me to name a chat. I'm naming this one \"Please go outside.\"");
   };
+
+  // ===== Halloween theme =====
+  const HALLOWEEN = true;
+  if (HALLOWEEN) {
+    document.body.classList.add("halloween");
+    document.getElementById("marqueeText").textContent =
+      "🎃 HALLOWEEN UPDATE: Ankush dressed up as \"a guy who leaves his apartment.\" Nobody recognized him 🎃 " +
+      "Trick-or-treaters report Ankush only opened the door 2 inches 🎃 He handed out candy he had delivered 🎃 " +
+      "MF dressed as a pumpkin and refuses to elaborate 🎃 Ankush asked AI for a costume idea; AI said \"go outside\" 🎃 " +
+      "Local man hits the kush at a haunted house, ghosts flee 🎃";
+    const layer = document.createElement("div");
+    layer.className = "spooky-layer";
+    layer.setAttribute("aria-hidden", "true");
+    for (let i = 0; i < 4; i++) {
+      const b = document.createElement("div");
+      b.className = "bat";
+      b.textContent = "🦇";
+      b.style.top = (8 + Math.random() * 60) + "vh";
+      b.style.animationDuration = (12 + Math.random() * 10) + "s";
+      b.style.animationDelay = (-Math.random() * 20) + "s";
+      layer.appendChild(b);
+    }
+    [[6, 30], [88, 55], [4, 80]].forEach(([x, y], i) => {
+      const g = document.createElement("div");
+      g.className = "ghost";
+      g.textContent = "👻";
+      g.style.left = x + "vw";
+      g.style.top = y + "vh";
+      g.style.animationDuration = (3 + i) + "s";
+      layer.appendChild(g);
+    });
+    document.body.appendChild(layer);
+    [["top:24px;left:-6px", ""], ["top:24px;right:-6px", "scaleX(-1)"]].forEach(([pos, flip]) => {
+      const w = document.createElement("div");
+      w.className = "web";
+      w.setAttribute("aria-hidden", "true");
+      w.textContent = "🕸️";
+      w.style.cssText += pos + (flip ? ";transform:" + flip : "");
+      document.body.appendChild(w);
+    });
+  }
 
   // Ankush Excuse Generator (slot machine)
   const reels = [
