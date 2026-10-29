@@ -1493,7 +1493,8 @@
   };
 
   // ===== Halloween theme =====
-  const HALLOWEEN = true;
+  // On until the end of Halloween weekend; turns itself off at midnight Nov 2 (viewer's local time)
+  const HALLOWEEN = new Date() < new Date(2026, 10, 2);
   if (HALLOWEEN) {
     document.body.classList.add("halloween");
     document.getElementById("marqueeText").textContent =
