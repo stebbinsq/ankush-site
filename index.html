@@ -1783,6 +1783,15 @@
     document.body.appendChild(layer);
   }
 
+  // Ticker scrolls at a steady, readable speed no matter how long the text is
+  const setTickerSpeed = () => {
+    const t = document.getElementById("marqueeText");
+    t.style.animationDuration = Math.max(18, t.offsetWidth / 60) + "s";
+  };
+  setTickerSpeed();
+  document.fonts?.ready.then(setTickerSpeed);
+  addEventListener("resize", setTickerSpeed);
+
   // Ankush Excuse Generator (slot machine)
   const reels = [
     ["soccer", "your birthday", "brunch", "the group dinner", "your wedding", "the game watch party",
