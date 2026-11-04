@@ -593,39 +593,51 @@
   .roast:nth-child(3n+2) { transform: rotate(1deg); background: #e8f7ff; }
   .roast b { display: block; margin-top: 8px; color: var(--hot); font-size: 15px; }
   .roasts .empty { opacity: .7; font-style: italic; }
-  /* ===== Halloween theme (toggle with HALLOWEEN in the script) ===== */
-  body.halloween {
-    --hot: #ff7a1a; --sun: #ffb000; --sky: #b57bff; --card: #fff8ee; --bg: #fff1dd;
-    background: radial-gradient(ellipse at top, #3b1d5a 0%, #1a0f24 55%, #0d0712 100%) fixed;
+  /* ===== Thanksgiving theme (toggle with THANKSGIVING in the script) ===== */
+  body.thanksgiving {
+    --hot: #c2410c; --sun: #f59e0b; --sky: #a16207; --card: #fffaf0; --bg: #fdf0dc;
+    background: radial-gradient(ellipse at top, #7c2d12 0%, #4a1d0a 55%, #2a1206 100%) fixed;
   }
-  body.halloween header, body.halloween footer { color: #f3e9ff; }
-  body.halloween header .tag em { color: var(--ink); }
-  body.halloween main > section { box-shadow: 8px 8px 0 #ff7a1a; }
-  body.halloween .marquee { background: #ff7a1a; color: #1a0f24; }
-  body.halloween .credit { background: #ff7a1a; color: #1a0f24; }
-  body.halloween .credit b { color: #fff; }
-  body.halloween #ready { background: rgba(26,15,36,.9); }
-  body.halloween .face { box-shadow: 0 0 0 6px #ff7a1a, 0 0 40px 12px rgba(255,122,26,.55); }
-  .spooky-badge {
+  body.thanksgiving header, body.thanksgiving footer { color: #fff1dc; }
+  body.thanksgiving header .tag em { color: var(--ink); }
+  body.thanksgiving main > section { box-shadow: 8px 8px 0 #f59e0b; }
+  body.thanksgiving .marquee { background: #f59e0b; color: #2a1206; }
+  body.thanksgiving .credit { background: #f59e0b; color: #2a1206; }
+  body.thanksgiving .credit b { color: #7c2d12; }
+  body.thanksgiving #ready { background: rgba(42,18,6,.9); }
+  body.thanksgiving .face { box-shadow: 0 0 0 6px #f59e0b, 0 0 40px 12px rgba(245,158,11,.5); }
+  .season-badge {
     display: none; font-family: "Bungee", sans-serif; font-size: 14px; letter-spacing: 1px;
-    background: #1a0f24; color: #ffb000; border: 3px solid #ff7a1a; border-radius: 999px;
+    background: #2a1206; color: #f59e0b; border: 3px solid #c2410c; border-radius: 999px;
     padding: 6px 16px; margin: 14px auto 0; width: fit-content;
   }
-  body.halloween .spooky-badge { display: block; }
-  .spooky-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-  body.halloween header, body.halloween main, body.halloween footer { position: relative; z-index: 1; }
-  .bat { position: absolute; font-size: 30px; animation: batfly linear infinite; }
-  @keyframes batfly {
-    0% { transform: translate(-10vw, 0) scaleX(-1); }
-    25% { transform: translate(25vw, -40px) scaleX(-1); }
-    50% { transform: translate(55vw, 30px) scaleX(-1); }
-    75% { transform: translate(85vw, -30px) scaleX(-1); }
-    100% { transform: translate(115vw, 10px) scaleX(-1); }
+  body.thanksgiving .season-badge { display: block; }
+  .thankful {
+    display: none; max-width: 440px; margin: 14px auto 0; padding: 12px 18px; text-align: left;
+    background: #fffaf0; color: var(--ink); border: 3px solid var(--ink); border-radius: 14px;
+    box-shadow: 5px 5px 0 #c2410c; transform: rotate(-1deg); font-size: 16px;
   }
-  .ghost { position: absolute; font-size: 38px; opacity: .55; animation: ghostfloat ease-in-out infinite alternate; }
-  @keyframes ghostfloat { from { transform: translateY(0) rotate(-6deg); } to { transform: translateY(-40px) rotate(6deg); } }
-  .web { position: fixed; font-size: 64px; opacity: .5; pointer-events: none; z-index: 4; }
-  @media (prefers-reduced-motion: reduce) { .bat, .ghost { animation: none; } }
+  .thankful b { font-family: "Bungee", sans-serif; display: block; margin-bottom: 4px; color: #c2410c; }
+  .thankful ol { margin: 0; padding-left: 22px; }
+  .thankful s { opacity: .6; }
+  body.thanksgiving .thankful { display: block; }
+  .season-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  body.thanksgiving header, body.thanksgiving main, body.thanksgiving footer { position: relative; z-index: 1; }
+  .leaf { position: absolute; top: -8vh; font-size: 28px; opacity: .8; animation: leaffall linear infinite; }
+  @keyframes leaffall {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(30px, 30vh) rotate(90deg); }
+    50% { transform: translate(-20px, 60vh) rotate(200deg); }
+    100% { transform: translate(25px, 118vh) rotate(360deg); }
+  }
+  .turkey { position: absolute; bottom: 6px; font-size: 40px; animation: turkeywalk 26s linear infinite; }
+  @keyframes turkeywalk {
+    0% { transform: translateX(-12vw) scaleX(-1); }
+    49% { transform: translateX(105vw) scaleX(-1); }
+    50% { transform: translateX(105vw) scaleX(1); }
+    100% { transform: translateX(-12vw) scaleX(1); }
+  }
+  @media (prefers-reduced-motion: reduce) { .leaf, .turkey { animation: none; } .leaf { display: none; } }
 </style>
 </head>
 <body>
@@ -668,7 +680,18 @@
   <img class="face" id="face" src="img/hero.jpg" alt="Ankush" title="poke him">
   <div id="heroDancer"></div>
   <h1>ANKUSH MANCHANDA</h1>
-  <div class="spooky-badge">🎃 SPOOKY SEASON EDITION 🎃</div>
+  <div class="season-badge">🦃 THANKSGIVING EDITION 🦃</div>
+  <div class="thankful">
+    <b>🙏 Ankush is thankful for:</b>
+    <ol>
+      <li>Gabby (genuinely, she's the best)</li>
+      <li>MF</li>
+      <li>His DoorDash driver, Marcus</li>
+      <li>WiFi that reaches the couch</li>
+      <li>ChatGPT, who wrote this list</li>
+      <li><s>Soccer</s> (he didn't show up to be thanked)</li>
+    </ol>
+  </div>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
   <button id="broBtn">🔊 Hear Ankush's full vocabulary</button>
@@ -1164,7 +1187,7 @@
   };
 
   function confetti(n) {
-    const bits = document.body.classList.contains("halloween") ? ["🎃", "👻", "🦇", "🕸️", "🍬", "💀"] : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
+    const bits = document.body.classList.contains("thanksgiving") ? ["🦃", "🍂", "🥧", "🌽", "🍁", "🍗"] : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
     for (let i = 0; i < n; i++) {
       const el = document.createElement("div");
       el.className = "confetti";
@@ -1492,46 +1515,37 @@
     renderChat("what should I name this new chat", "Ankush, this is the 9th chat today asking me to name a chat. I'm naming this one \"Please go outside.\"");
   };
 
-  // ===== Halloween theme =====
-  // On until the end of Halloween weekend; turns itself off at midnight Nov 2 (viewer's local time)
-  const HALLOWEEN = new Date() < new Date(2026, 10, 2);
-  if (HALLOWEEN) {
-    document.body.classList.add("halloween");
+  // ===== Thanksgiving theme =====
+  // On through Thanksgiving weekend (Thanksgiving is Nov 26, 2026); turns itself off at midnight Nov 30 (viewer's local time)
+  const THANKSGIVING = new Date() < new Date(2026, 10, 30);
+  if (THANKSGIVING) {
+    document.body.classList.add("thanksgiving");
     document.getElementById("marqueeText").textContent =
-      "🎃 HALLOWEEN UPDATE: Ankush dressed up as \"a guy who leaves his apartment.\" Nobody recognized him 🎃 " +
-      "Trick-or-treaters report Ankush only opened the door 2 inches 🎃 He handed out candy he had delivered 🎃 " +
-      "MF dressed as a pumpkin and refuses to elaborate 🎃 Ankush asked AI for a costume idea; AI said \"go outside\" 🎃 " +
-      "Local man hits the kush at a haunted house, ghosts flee 🎃";
+      "🦃 THANKSGIVING UPDATE: Ankush is hosting Friendsgiving. It's being delivered 🦃 " +
+      "He ordered the turkey on DoorDash and tipped the driver in gratitude 🦃 " +
+      "Ankush asked AI what he's thankful for; AI said \"me, apparently\" 🦃 " +
+      "Ankush RSVP'd \"maybe\" to the Turkey Bowl soccer game. Nobody set a place for him 🦃 " +
+      "MF has been staring at the turkey for 6 hours 🦃 Ankush photographed the centerpiece flowers from 1 inch away 🦃 " +
+      "Local man hits the kush after second plate of stuffing, pants surrender 🦃";
     const layer = document.createElement("div");
-    layer.className = "spooky-layer";
+    layer.className = "season-layer";
     layer.setAttribute("aria-hidden", "true");
-    for (let i = 0; i < 4; i++) {
-      const b = document.createElement("div");
-      b.className = "bat";
-      b.textContent = "🦇";
-      b.style.top = (8 + Math.random() * 60) + "vh";
-      b.style.animationDuration = (12 + Math.random() * 10) + "s";
-      b.style.animationDelay = (-Math.random() * 20) + "s";
-      layer.appendChild(b);
-    }
-    [[6, 30], [88, 55], [4, 80]].forEach(([x, y], i) => {
-      const g = document.createElement("div");
-      g.className = "ghost";
-      g.textContent = "👻";
-      g.style.left = x + "vw";
-      g.style.top = y + "vh";
-      g.style.animationDuration = (3 + i) + "s";
-      layer.appendChild(g);
+    const leaves = ["🍂", "🍁", "🍂", "🍁", "🍃", "🍂", "🍁"];
+    leaves.forEach((emoji, i) => {
+      const l = document.createElement("div");
+      l.className = "leaf";
+      l.textContent = emoji;
+      l.style.left = (4 + (i * 92 / leaves.length) + Math.random() * 6) + "vw";
+      l.style.fontSize = (20 + Math.random() * 16) + "px";
+      l.style.animationDuration = (11 + Math.random() * 9) + "s";
+      l.style.animationDelay = (-Math.random() * 20) + "s";
+      layer.appendChild(l);
     });
+    const t = document.createElement("div");
+    t.className = "turkey";
+    t.textContent = "🦃";
+    layer.appendChild(t);
     document.body.appendChild(layer);
-    [["top:24px;left:-6px", ""], ["top:24px;right:-6px", "scaleX(-1)"]].forEach(([pos, flip]) => {
-      const w = document.createElement("div");
-      w.className = "web";
-      w.setAttribute("aria-hidden", "true");
-      w.textContent = "🕸️";
-      w.style.cssText += pos + (flip ? ";transform:" + flip : "");
-      document.body.appendChild(w);
-    });
   }
 
   // Ankush Excuse Generator (slot machine)
