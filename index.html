@@ -593,7 +593,8 @@
   .roast:nth-child(3n+2) { transform: rotate(1deg); background: #e8f7ff; }
   .roast b { display: block; margin-top: 8px; color: var(--hot); font-size: 15px; }
   .roasts .empty { opacity: .7; font-style: italic; }
-  /* ===== Thanksgiving theme (toggle with THANKSGIVING in the script) ===== */
+  /* ===== Seasonal themes (dates set in the script) ===== */
+  /* Thanksgiving */
   body.thanksgiving {
     --hot: #c2410c; --sun: #f59e0b; --sky: #a16207; --card: #fffaf0; --bg: #fdf0dc;
     background: radial-gradient(ellipse at top, #7c2d12 0%, #4a1d0a 55%, #2a1206 100%) fixed;
@@ -611,7 +612,7 @@
     background: #2a1206; color: #f59e0b; border: 3px solid #c2410c; border-radius: 999px;
     padding: 6px 16px; margin: 14px auto 0; width: fit-content;
   }
-  body.thanksgiving .season-badge { display: block; }
+  body.thanksgiving .season-badge.tg, body.christmas .season-badge.xmas { display: block; }
   .thankful {
     display: none; max-width: 440px; margin: 14px auto 0; padding: 12px 18px; text-align: left;
     background: #fffaf0; color: var(--ink); border: 3px solid var(--ink); border-radius: 14px;
@@ -620,9 +621,10 @@
   .thankful b { font-family: "Bungee", sans-serif; display: block; margin-bottom: 4px; color: #c2410c; }
   .thankful ol { margin: 0; padding-left: 22px; }
   .thankful s { opacity: .6; }
-  body.thanksgiving .thankful { display: block; }
+  body.thanksgiving .thankful.tg, body.christmas .thankful.xmas { display: block; }
   .season-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-  body.thanksgiving header, body.thanksgiving main, body.thanksgiving footer { position: relative; z-index: 1; }
+  body.thanksgiving header, body.thanksgiving main, body.thanksgiving footer,
+  body.christmas header, body.christmas main, body.christmas footer { position: relative; z-index: 1; }
   .leaf { position: absolute; top: -8vh; font-size: 28px; opacity: .8; animation: leaffall linear infinite; }
   @keyframes leaffall {
     0% { transform: translate(0, 0) rotate(0deg); }
@@ -637,7 +639,36 @@
     50% { transform: translateX(105vw) scaleX(1); }
     100% { transform: translateX(-12vw) scaleX(1); }
   }
-  @media (prefers-reduced-motion: reduce) { .leaf, .turkey { animation: none; } .leaf { display: none; } }
+  /* Christmas */
+  body.christmas {
+    --hot: #c62828; --sun: #f4c430; --sky: #2e7d32; --card: #fffdf7; --bg: #f3faf3;
+    background: radial-gradient(ellipse at top, #166534 0%, #0b3d20 55%, #04210f 100%) fixed;
+  }
+  body.christmas header, body.christmas footer { color: #f1fff4; }
+  body.christmas header .tag em { color: var(--ink); }
+  body.christmas main > section { box-shadow: 8px 8px 0 #c62828; }
+  body.christmas .marquee { background: #c62828; color: #fff; }
+  body.christmas .credit { background: #c62828; color: #fff; }
+  body.christmas .credit b { color: #f4c430; }
+  body.christmas #ready { background: rgba(4,33,15,.9); }
+  body.christmas .face { box-shadow: 0 0 0 6px #c62828, 0 0 0 12px #fff, 0 0 40px 16px rgba(244,196,48,.45); }
+  body.christmas .season-badge.xmas { background: #04210f; color: #f4c430; border-color: #c62828; }
+  body.christmas .thankful.xmas { box-shadow: 5px 5px 0 #2e7d32; }
+  body.christmas .thankful.xmas b { color: #c62828; }
+  .thankful .reply { margin: 8px 0 0; font-style: italic; font-size: 15px; }
+  .snow { position: absolute; top: -6vh; color: #fff; opacity: .85; animation: snowfall linear infinite; }
+  @keyframes snowfall {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-25px, 55vh); }
+    100% { transform: translate(20px, 112vh); }
+  }
+  .sleigh { position: absolute; top: 9vh; font-size: 34px; white-space: nowrap; animation: sleighfly 22s linear infinite; }
+  @keyframes sleighfly {
+    0% { transform: translate(115vw, 0); }
+    50% { transform: translate(40vw, -20px); }
+    100% { transform: translate(-40vw, 10px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .leaf, .turkey, .snow, .sleigh { animation: none; } .leaf, .snow { display: none; } }
 </style>
 </head>
 <body>
@@ -680,8 +711,9 @@
   <img class="face" id="face" src="img/hero.jpg" alt="Ankush" title="poke him">
   <div id="heroDancer"></div>
   <h1>ANKUSH MANCHANDA</h1>
-  <div class="season-badge">🦃 THANKSGIVING EDITION 🦃</div>
-  <div class="thankful">
+  <div class="season-badge tg">🦃 THANKSGIVING EDITION 🦃</div>
+  <div class="season-badge xmas">🎄 CHRISTMAS EDITION 🎄</div>
+  <div class="thankful tg">
     <b>🙏 Ankush is thankful for:</b>
     <ol>
       <li>Gabby (genuinely, she's the best)</li>
@@ -691,6 +723,18 @@
       <li>ChatGPT, who wrote this list</li>
       <li><s>Soccer</s> (he didn't show up to be thanked)</li>
     </ol>
+  </div>
+  <div class="thankful xmas">
+    <b>🎅 Ankush's letter to Santa:</b>
+    <ol>
+      <li>Something really nice for Gabby (top priority)</li>
+      <li>A tiny sweater for MF</li>
+      <li>Free delivery. For life.</li>
+      <li>Unlimited AI messages</li>
+      <li>A bigger apartment so he never has to leave it</li>
+      <li><s>New soccer cleats</s> (Santa said be realistic)</li>
+    </ol>
+    <p class="reply">Santa's reply: "I'll leave it at the door. You love that."</p>
   </div>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
@@ -1191,7 +1235,9 @@
   };
 
   function confetti(n) {
-    const bits = document.body.classList.contains("thanksgiving") ? ["🦃", "🍂", "🥧", "🌽", "🍁", "🍗"] : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
+    const bits = document.body.classList.contains("thanksgiving") ? ["🦃", "🍂", "🥧", "🌽", "🍁", "🍗"]
+      : document.body.classList.contains("christmas") ? ["🎄", "🎅", "❄️", "🎁", "⛄", "🦌"]
+      : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
     for (let i = 0; i < n; i++) {
       const el = document.createElement("div");
       el.className = "confetti";
@@ -1519,9 +1565,13 @@
     renderChat("what should I name this new chat", "Ankush, this is the 9th chat today asking me to name a chat. I'm naming this one \"Please go outside.\"");
   };
 
-  // ===== Thanksgiving theme =====
-  // On through Thanksgiving weekend (Thanksgiving is Nov 26, 2026); turns itself off at midnight Nov 30 (viewer's local time)
-  const THANKSGIVING = new Date() < new Date(2026, 10, 30);
+  // ===== Seasonal themes =====
+  // Switch at midnight in the viewer's local time. Thanksgiving until Dec 1, Christmas Dec 1 until Jan 1.
+  // Preview another theme with ?season=thanksgiving or ?season=christmas
+  const now = new Date();
+  const seasonParam = new URLSearchParams(location.search).get("season");
+  const THANKSGIVING = seasonParam ? seasonParam === "thanksgiving" : now < new Date(2026, 11, 1);
+  const CHRISTMAS = seasonParam ? seasonParam === "christmas" : now >= new Date(2026, 11, 1) && now < new Date(2027, 0, 1);
   if (THANKSGIVING) {
     document.body.classList.add("thanksgiving");
     document.getElementById("marqueeText").textContent =
@@ -1549,6 +1599,34 @@
     t.className = "turkey";
     t.textContent = "🦃";
     layer.appendChild(t);
+    document.body.appendChild(layer);
+  }
+  if (CHRISTMAS) {
+    document.body.classList.add("christmas");
+    document.getElementById("marqueeText").textContent =
+      "🎄 CHRISTMAS UPDATE: Ankush asked Santa to just leave the presents with the doorman 🎄 " +
+      "Santa checked his list twice. Ankush is on it under \"missed 14 soccer games\" 🎄 " +
+      "Ankush asked AI to write his Christmas cards. They're signed \"Love, ChatGPT\" 🎄 " +
+      "MF ate the cookies left out for Santa. Santa ordered DoorDash 🎄 " +
+      "Ankush photographed a poinsettia from 1 inch away. 300 likes, 0 explanations 🎄 " +
+      "Local man hits the kush under the mistletoe, mistletoe files complaint 🎄";
+    const layer = document.createElement("div");
+    layer.className = "season-layer";
+    layer.setAttribute("aria-hidden", "true");
+    for (let i = 0; i < 14; i++) {
+      const f = document.createElement("div");
+      f.className = "snow";
+      f.textContent = i % 3 ? "❄" : "❅";
+      f.style.left = (2 + (i * 96 / 14) + Math.random() * 4) + "vw";
+      f.style.fontSize = (14 + Math.random() * 16) + "px";
+      f.style.animationDuration = (9 + Math.random() * 9) + "s";
+      f.style.animationDelay = (-Math.random() * 18) + "s";
+      layer.appendChild(f);
+    }
+    const sl = document.createElement("div");
+    sl.className = "sleigh";
+    sl.textContent = "🦌🦌🛷";
+    layer.appendChild(sl);
     document.body.appendChild(layer);
   }
 
