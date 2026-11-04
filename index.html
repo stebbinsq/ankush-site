@@ -612,7 +612,7 @@
     background: #2a1206; color: #f59e0b; border: 3px solid #c2410c; border-radius: 999px;
     padding: 6px 16px; margin: 14px auto 0; width: fit-content;
   }
-  body.thanksgiving .season-badge.tg, body.christmas .season-badge.xmas { display: block; }
+  body.thanksgiving .season-badge.tg, body.christmas .season-badge.xmas, body.newyear .season-badge.ny { display: block; }
   .thankful {
     display: none; max-width: 440px; margin: 14px auto 0; padding: 12px 18px; text-align: left;
     background: #fffaf0; color: var(--ink); border: 3px solid var(--ink); border-radius: 14px;
@@ -621,10 +621,11 @@
   .thankful b { font-family: "Bungee", sans-serif; display: block; margin-bottom: 4px; color: #c2410c; }
   .thankful ol { margin: 0; padding-left: 22px; }
   .thankful s { opacity: .6; }
-  body.thanksgiving .thankful.tg, body.christmas .thankful.xmas { display: block; }
+  body.thanksgiving .thankful.tg, body.christmas .thankful.xmas, body.newyear .thankful.ny { display: block; }
   .season-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
   body.thanksgiving header, body.thanksgiving main, body.thanksgiving footer,
-  body.christmas header, body.christmas main, body.christmas footer { position: relative; z-index: 1; }
+  body.christmas header, body.christmas main, body.christmas footer,
+  body.newyear header, body.newyear main, body.newyear footer { position: relative; z-index: 1; }
   .leaf { position: absolute; top: -8vh; font-size: 28px; opacity: .8; animation: leaffall linear infinite; }
   @keyframes leaffall {
     0% { transform: translate(0, 0) rotate(0deg); }
@@ -668,7 +669,32 @@
     50% { transform: translate(40vw, -20px); }
     100% { transform: translate(-40vw, 10px); }
   }
-  @media (prefers-reduced-motion: reduce) { .leaf, .turkey, .snow, .sleigh { animation: none; } .leaf, .snow { display: none; } }
+  /* New Year's */
+  body.newyear {
+    --hot: #7c3aed; --sun: #fbbf24; --sky: #a78bfa; --card: #fffdf5; --bg: #f7f3ff;
+    background: radial-gradient(ellipse at top, #2e1065 0%, #12082b 55%, #05020f 100%) fixed;
+  }
+  body.newyear header, body.newyear footer { color: #f5f0ff; }
+  body.newyear header .tag em { color: var(--ink); }
+  body.newyear main > section { box-shadow: 8px 8px 0 #fbbf24; }
+  body.newyear .marquee { background: #fbbf24; color: #12082b; }
+  body.newyear .credit { background: #fbbf24; color: #12082b; }
+  body.newyear .credit b { color: #7c3aed; }
+  body.newyear #ready { background: rgba(5,2,15,.9); }
+  body.newyear .face { box-shadow: 0 0 0 6px #fbbf24, 0 0 40px 14px rgba(251,191,36,.5); }
+  body.newyear .season-badge.ny { background: #05020f; color: #fbbf24; border-color: #7c3aed; }
+  body.newyear .thankful.ny { box-shadow: 5px 5px 0 #7c3aed; }
+  body.newyear .thankful.ny b { color: #7c3aed; }
+  .firework { position: absolute; font-size: 54px; opacity: 0; animation: fireworkpop ease-out infinite; }
+  @keyframes fireworkpop {
+    0% { transform: scale(.2); opacity: 0; }
+    10% { opacity: 1; }
+    40% { transform: scale(1.4); opacity: .9; }
+    60%, 100% { transform: scale(1.7); opacity: 0; }
+  }
+  .sparkle { position: absolute; color: #fbbf24; animation: twinkle ease-in-out infinite alternate; }
+  @keyframes twinkle { from { opacity: .15; transform: scale(.7); } to { opacity: .9; transform: scale(1.1); } }
+  @media (prefers-reduced-motion: reduce) { .leaf, .turkey, .snow, .sleigh, .firework, .sparkle { animation: none; } .leaf, .snow, .firework { display: none; } }
 </style>
 </head>
 <body>
@@ -713,6 +739,7 @@
   <h1>ANKUSH MANCHANDA</h1>
   <div class="season-badge tg">🦃 THANKSGIVING EDITION 🦃</div>
   <div class="season-badge xmas">🎄 CHRISTMAS EDITION 🎄</div>
+  <div class="season-badge ny">🥂 NEW YEAR'S EDITION 🥂</div>
   <div class="thankful tg">
     <b>🙏 Ankush is thankful for:</b>
     <ol>
@@ -735,6 +762,18 @@
       <li><s>New soccer cleats</s> (Santa said be realistic)</li>
     </ol>
     <p class="reply">Santa's reply: "I'll leave it at the door. You love that."</p>
+  </div>
+  <div class="thankful ny">
+    <b>📝 Ankush's 2027 resolutions:</b>
+    <ol>
+      <li>Leave the apartment <s>daily</s> <s>weekly</s> at least once</li>
+      <li>Cook one (1) meal. Delivery apps on standby.</li>
+      <li>Only ask AI things he could Google. Ask AI to define "Google."</li>
+      <li>Show up to a soccer game. Any soccer game.</li>
+      <li>Keep being the luckiest guy alive for having Gabby</li>
+      <li>Take MF on a walk longer than the hallway</li>
+    </ol>
+    <p class="reply">Status as of Jan 1: #5 and #6 still going strong.</p>
   </div>
   <p class="tag">The man. The myth. The <em>guy who says "5 more minutes" and means 45.</em></p>
   <p><a class="ig" href="https://www.instagram.com/ojandkushh/" target="_blank" rel="noopener">📸 Follow the legend: @ojandkushh</a></p>
@@ -1237,6 +1276,7 @@
   function confetti(n) {
     const bits = document.body.classList.contains("thanksgiving") ? ["🦃", "🍂", "🥧", "🌽", "🍁", "🍗"]
       : document.body.classList.contains("christmas") ? ["🎄", "🎅", "❄️", "🎁", "⛄", "🦌"]
+      : document.body.classList.contains("newyear") ? ["🥂", "🎆", "🍾", "✨", "🎉", "🪩"]
       : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
     for (let i = 0; i < n; i++) {
       const el = document.createElement("div");
@@ -1566,12 +1606,13 @@
   };
 
   // ===== Seasonal themes =====
-  // Switch at midnight in the viewer's local time. Thanksgiving until Dec 1, Christmas Dec 1 until Jan 1.
-  // Preview another theme with ?season=thanksgiving or ?season=christmas
+  // Switch at midnight in the viewer's local time. Thanksgiving until Dec 1, Christmas Dec 1 until Dec 26,
+  // New Year's Dec 26 until Jan 2. Preview another theme with ?season=thanksgiving, christmas or newyear
   const now = new Date();
   const seasonParam = new URLSearchParams(location.search).get("season");
   const THANKSGIVING = seasonParam ? seasonParam === "thanksgiving" : now < new Date(2026, 11, 1);
-  const CHRISTMAS = seasonParam ? seasonParam === "christmas" : now >= new Date(2026, 11, 1) && now < new Date(2027, 0, 1);
+  const CHRISTMAS = seasonParam ? seasonParam === "christmas" : now >= new Date(2026, 11, 1) && now < new Date(2026, 11, 26);
+  const NEWYEAR = seasonParam ? seasonParam === "newyear" : now >= new Date(2026, 11, 26) && now < new Date(2027, 0, 2);
   if (THANKSGIVING) {
     document.body.classList.add("thanksgiving");
     document.getElementById("marqueeText").textContent =
@@ -1627,6 +1668,41 @@
     sl.className = "sleigh";
     sl.textContent = "🦌🦌🛷";
     layer.appendChild(sl);
+    document.body.appendChild(layer);
+  }
+  if (NEWYEAR) {
+    document.body.classList.add("newyear");
+    document.getElementById("marqueeText").textContent =
+      "🥂 NEW YEAR'S UPDATE: Ankush will watch the ball drop \"live\" from Times Square, on his TV, from his couch 🥂 " +
+      "His midnight kiss is with Gabby. His 12:01 kiss is with MF 🥂 " +
+      "Ankush asked AI for his resolutions; AI said \"go outside\" for the 3rd year running 🥂 " +
+      "Ankush's first meal of 2027 was delivered at 12:04 AM. A new personal record 🥂 " +
+      "Ankush photographed the confetti from 1 inch away. Instagram is concerned 🥂 " +
+      "Local man hits the kush at the stroke of midnight, ball drops faster out of respect 🥂";
+    const layer = document.createElement("div");
+    layer.className = "season-layer";
+    layer.setAttribute("aria-hidden", "true");
+    [[8, 14], [78, 10], [88, 48], [5, 60], [50, 6], [70, 78]].forEach(([x, y], i) => {
+      const f = document.createElement("div");
+      f.className = "firework";
+      f.textContent = i % 2 ? "🎇" : "🎆";
+      f.style.left = x + "vw";
+      f.style.top = y + "vh";
+      f.style.animationDuration = (2.6 + Math.random() * 1.6) + "s";
+      f.style.animationDelay = (i * 0.7) + "s";
+      layer.appendChild(f);
+    });
+    for (let i = 0; i < 16; i++) {
+      const p = document.createElement("div");
+      p.className = "sparkle";
+      p.textContent = "✦";
+      p.style.left = (Math.random() * 96) + "vw";
+      p.style.top = (Math.random() * 92) + "vh";
+      p.style.fontSize = (10 + Math.random() * 12) + "px";
+      p.style.animationDuration = (1.2 + Math.random() * 2) + "s";
+      p.style.animationDelay = (-Math.random() * 3) + "s";
+      layer.appendChild(p);
+    }
     document.body.appendChild(layer);
   }
 
