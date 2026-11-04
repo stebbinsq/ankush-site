@@ -612,7 +612,7 @@
     background: #2a1206; color: #f59e0b; border: 3px solid #c2410c; border-radius: 999px;
     padding: 6px 16px; margin: 14px auto 0; width: fit-content;
   }
-  body.thanksgiving .season-badge.tg, body.christmas .season-badge.xmas, body.newyear .season-badge.ny { display: block; }
+  body.diwali .season-badge.dw, body.thanksgiving .season-badge.tg, body.christmas .season-badge.xmas, body.newyear .season-badge.ny { display: block; }
   .thankful {
     display: none; max-width: 440px; margin: 14px auto 0; padding: 12px 18px; text-align: left;
     background: #fffaf0; color: var(--ink); border: 3px solid var(--ink); border-radius: 14px;
@@ -621,11 +621,12 @@
   .thankful b { font-family: "Bungee", sans-serif; display: block; margin-bottom: 4px; color: #c2410c; }
   .thankful ol { margin: 0; padding-left: 22px; }
   .thankful s { opacity: .6; }
-  body.thanksgiving .thankful.tg, body.christmas .thankful.xmas, body.newyear .thankful.ny { display: block; }
+  body.diwali .thankful.dw, body.thanksgiving .thankful.tg, body.christmas .thankful.xmas, body.newyear .thankful.ny { display: block; }
   .season-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
   body.thanksgiving header, body.thanksgiving main, body.thanksgiving footer,
   body.christmas header, body.christmas main, body.christmas footer,
-  body.newyear header, body.newyear main, body.newyear footer { position: relative; z-index: 1; }
+  body.newyear header, body.newyear main, body.newyear footer,
+  body.diwali header, body.diwali main, body.diwali footer { position: relative; z-index: 1; }
   .leaf { position: absolute; top: -8vh; font-size: 28px; opacity: .8; animation: leaffall linear infinite; }
   @keyframes leaffall {
     0% { transform: translate(0, 0) rotate(0deg); }
@@ -685,16 +686,35 @@
   body.newyear .season-badge.ny { background: #05020f; color: #fbbf24; border-color: #7c3aed; }
   body.newyear .thankful.ny { box-shadow: 5px 5px 0 #7c3aed; }
   body.newyear .thankful.ny b { color: #7c3aed; }
-  .firework { position: absolute; font-size: 54px; opacity: 0; animation: fireworkpop ease-out infinite; }
+  .firework { position: absolute; width: 4px; height: 4px; border-radius: 50%; opacity: 0; animation: fireworkpop ease-out infinite;
+    box-shadow: 38px 0px 0 2px #ffd23f, 35px 15px 0 2px #ff4d8d, 27px 27px 0 2px #7cf3ff, 15px 35px 0 2px #ffffff, 0px 38px 0 2px #ff9a1f, -15px 35px 0 2px #b28dff, -27px 27px 0 2px #ffd23f, -35px 15px 0 2px #ff4d8d, -38px 0px 0 2px #7cf3ff, -35px -15px 0 2px #ffffff, -27px -27px 0 2px #ff9a1f, -15px -35px 0 2px #b28dff, 0px -38px 0 2px #ffd23f, 15px -35px 0 2px #ff4d8d, 27px -27px 0 2px #7cf3ff, 35px -15px 0 2px #ffffff, 17px 7px 0 1px #ffffff, 7px 17px 0 1px #ff9a1f, -7px 17px 0 1px #b28dff, -17px 7px 0 1px #ffd23f, -17px -7px 0 1px #ff4d8d, -7px -17px 0 1px #7cf3ff, 7px -17px 0 1px #ffffff, 17px -7px 0 1px #ff9a1f; }
   @keyframes fireworkpop {
-    0% { transform: scale(.2); opacity: 0; }
+    0% { transform: scale(.1); opacity: 0; }
     10% { opacity: 1; }
-    40% { transform: scale(1.4); opacity: .9; }
-    60%, 100% { transform: scale(1.7); opacity: 0; }
+    45% { transform: scale(1.6); opacity: .9; }
+    65%, 100% { transform: scale(2); opacity: 0; }
   }
   .sparkle { position: absolute; color: #fbbf24; animation: twinkle ease-in-out infinite alternate; }
   @keyframes twinkle { from { opacity: .15; transform: scale(.7); } to { opacity: .9; transform: scale(1.1); } }
-  @media (prefers-reduced-motion: reduce) { .leaf, .turkey, .snow, .sleigh, .firework, .sparkle { animation: none; } .leaf, .snow, .firework { display: none; } }
+  /* Diwali */
+  body.diwali {
+    --hot: #d9246c; --sun: #ffb627; --sky: #ff7a00; --card: #fffaf0; --bg: #fff4e0;
+    background: radial-gradient(ellipse at top, #7a1240 0%, #3d0a24 55%, #1c0410 100%) fixed;
+  }
+  body.diwali header, body.diwali footer { color: #fff1e0; }
+  body.diwali header .tag em { color: var(--ink); }
+  body.diwali main > section { box-shadow: 8px 8px 0 #ffb627; }
+  body.diwali .marquee { background: #ffb627; color: #3d0a24; }
+  body.diwali .credit { background: #ffb627; color: #3d0a24; }
+  body.diwali .credit b { color: #d9246c; }
+  body.diwali #ready { background: rgba(28,4,16,.9); }
+  body.diwali .face { box-shadow: 0 0 0 6px #ffb627, 0 0 0 12px #d9246c, 0 0 46px 18px rgba(255,182,39,.5); }
+  body.diwali .season-badge.dw { background: #1c0410; color: #ffb627; border-color: #d9246c; }
+  body.diwali .thankful.dw { box-shadow: 5px 5px 0 #d9246c; }
+  body.diwali .thankful.dw b { color: #d9246c; }
+  .diya { position: absolute; bottom: 8px; font-size: 30px; animation: flicker ease-in-out infinite alternate; filter: drop-shadow(0 0 10px rgba(255,170,0,.9)); }
+  @keyframes flicker { from { transform: scale(1); opacity: .8; } to { transform: scale(1.12) translateY(-2px); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .leaf, .turkey, .snow, .sleigh, .firework, .sparkle, .diya { animation: none; } .leaf, .snow, .firework { display: none; } }
 </style>
 </head>
 <body>
@@ -737,9 +757,22 @@
   <img class="face" id="face" src="img/hero.jpg" alt="Ankush" title="poke him">
   <div id="heroDancer"></div>
   <h1>ANKUSH MANCHANDA</h1>
+  <div class="season-badge dw">🪔 DIWALI EDITION 🪔</div>
   <div class="season-badge tg">🦃 THANKSGIVING EDITION 🦃</div>
   <div class="season-badge xmas">🎄 CHRISTMAS EDITION 🎄</div>
   <div class="season-badge ny">🥂 NEW YEAR'S EDITION 🥂</div>
+  <div class="thankful dw">
+    <b>🪔 Ankush's Diwali to-do list:</b>
+    <ol>
+      <li>Light the diyas (lit 1. It's LED. It's from Amazon.)</li>
+      <li>Deep clean the apartment (ordered a cleaner)</li>
+      <li>Eat the mithai (done by Day 1, ordered more)</li>
+      <li>Wear the new kurta <s>outside</s> on FaceTime</li>
+      <li>Win at cards night (finally a game he shows up for)</li>
+      <li>Text everyone Happy Diwali (AI wrote all 40)</li>
+    </ol>
+    <p class="reply">Happy Diwali from Ankush and MF 🪔✨</p>
+  </div>
   <div class="thankful tg">
     <b>🙏 Ankush is thankful for:</b>
     <ol>
@@ -1274,7 +1307,8 @@
   };
 
   function confetti(n) {
-    const bits = document.body.classList.contains("thanksgiving") ? ["🦃", "🍂", "🥧", "🌽", "🍁", "🍗"]
+    const bits = document.body.classList.contains("diwali") ? ["🪔", "✨", "🎆", "🌼", "🍬", "🎇"]
+      : document.body.classList.contains("thanksgiving") ? ["🦃", "🍂", "🥧", "🌽", "🍁", "🍗"]
       : document.body.classList.contains("christmas") ? ["🎄", "🎅", "❄️", "🎁", "⛄", "🦌"]
       : document.body.classList.contains("newyear") ? ["🥂", "🎆", "🍾", "✨", "🎉", "🪩"]
       : ["🎉", "🐐", "✨", "🔥", "👑", "🍕"];
@@ -1606,13 +1640,57 @@
   };
 
   // ===== Seasonal themes =====
-  // Switch at midnight in the viewer's local time. Thanksgiving until Dec 1, Christmas Dec 1 until Dec 26,
-  // New Year's Dec 26 until Jan 2. Preview another theme with ?season=thanksgiving, christmas or newyear
+  // Switch at midnight in the viewer's local time. Diwali until Nov 12 (Diwali is Nov 8, 2026), Thanksgiving Nov 12
+  // until Dec 1, Christmas Dec 1 until Dec 26, New Year's Dec 26 until Jan 2.
+  // Preview another theme with ?season=diwali, thanksgiving, christmas or newyear
   const now = new Date();
   const seasonParam = new URLSearchParams(location.search).get("season");
-  const THANKSGIVING = seasonParam ? seasonParam === "thanksgiving" : now < new Date(2026, 11, 1);
+  const DIWALI = seasonParam ? seasonParam === "diwali" : now < new Date(2026, 10, 12);
+  const THANKSGIVING = seasonParam ? seasonParam === "thanksgiving" : now >= new Date(2026, 10, 12) && now < new Date(2026, 11, 1);
   const CHRISTMAS = seasonParam ? seasonParam === "christmas" : now >= new Date(2026, 11, 1) && now < new Date(2026, 11, 26);
   const NEWYEAR = seasonParam ? seasonParam === "newyear" : now >= new Date(2026, 11, 26) && now < new Date(2027, 0, 2);
+  if (DIWALI) {
+    document.body.classList.add("diwali");
+    document.getElementById("marqueeText").textContent =
+      "🪔 DIWALI UPDATE: Ankush's apartment has never been brighter. Turns out he opened the blinds 🪔 " +
+      "Ankush ordered mithai on DoorDash. The driver got a box too. Festival of generosity 🪔 " +
+      "Ankush lit one diya and asked AI if that counts as a festival of lights. AI said \"that's a candle\" 🪔 " +
+      "MF wore a kurta and refuses to take it off 🪔 Ankush photographed a marigold from 1 inch away. Very spiritual. Very sus 🪔 " +
+      "Ankush finally showed up to a group activity: cards night. Undefeated 🪔 " +
+      "Local man hits the kush at the Diwali party, aunties take notes 🪔";
+    const layer = document.createElement("div");
+    layer.className = "season-layer";
+    layer.setAttribute("aria-hidden", "true");
+    [[10, 18], [82, 14], [90, 50], [4, 56]].forEach(([x, y], i) => {
+      const f = document.createElement("div");
+      f.className = "firework";
+      f.style.left = x + "vw";
+      f.style.top = y + "vh";
+      f.style.animationDuration = (2.8 + Math.random() * 1.6) + "s";
+      f.style.animationDelay = (i * 0.8) + "s";
+      layer.appendChild(f);
+    });
+    for (let i = 0; i < 12; i++) {
+      const p = document.createElement("div");
+      p.className = "sparkle";
+      p.textContent = "✦";
+      p.style.left = (Math.random() * 96) + "vw";
+      p.style.top = (6 + Math.random() * 86) + "vh";
+      p.style.fontSize = (10 + Math.random() * 12) + "px";
+      p.style.animationDuration = (1.2 + Math.random() * 2) + "s";
+      p.style.animationDelay = (-Math.random() * 3) + "s";
+      layer.appendChild(p);
+    }
+    for (let i = 0; i < 9; i++) {
+      const d = document.createElement("div");
+      d.className = "diya";
+      d.textContent = "🪔";
+      d.style.left = (2 + i * 11.5) + "vw";
+      d.style.animationDuration = (0.6 + Math.random() * 0.8) + "s";
+      layer.appendChild(d);
+    }
+    document.body.appendChild(layer);
+  }
   if (THANKSGIVING) {
     document.body.classList.add("thanksgiving");
     document.getElementById("marqueeText").textContent =
@@ -1685,7 +1763,6 @@
     [[8, 14], [78, 10], [88, 48], [5, 60], [50, 6], [70, 78]].forEach(([x, y], i) => {
       const f = document.createElement("div");
       f.className = "firework";
-      f.textContent = i % 2 ? "🎇" : "🎆";
       f.style.left = x + "vw";
       f.style.top = y + "vh";
       f.style.animationDuration = (2.6 + Math.random() * 1.6) + "s";
