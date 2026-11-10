@@ -69,6 +69,20 @@
     user-select: none;
   }
 
+  /* Featured photo at the top (seasonal themes restyle .face, so it carries over) */
+  .feature { margin: 0 auto 8px; width: fit-content; position: relative; }
+  #face {
+    width: min(360px, 78vw); height: auto; aspect-ratio: 4 / 5; border-radius: 22px;
+    animation: none; transform: rotate(-2deg); transition: transform .25s;
+  }
+  #face:hover { transform: rotate(0) scale(1.02); }
+  .feature-cap {
+    position: relative; margin: -22px auto 0; width: fit-content; max-width: min(320px, 72vw);
+    background: var(--sun); color: var(--ink); border: 3px solid var(--ink); border-radius: 10px;
+    padding: 6px 12px; font-weight: 700; font-size: 15px; line-height: 1.3;
+    transform: rotate(2deg); box-shadow: 3px 3px 0 var(--ink);
+  }
+
   .fact-row { display: flex; gap: 16px; align-items: center; }
   .fact-row img {
     width: 110px;
@@ -397,7 +411,7 @@
   @keyframes armL { from { transform: rotate(0); } to { transform: rotate(14deg) translateY(-6px); } }
   @keyframes armR { from { transform: rotate(0); } to { transform: rotate(-14deg) translateY(-6px); } }
   #heroDancer { display: none; }
-  .hero-dancing #face { display: none; }
+  .hero-dancing #face, .hero-dancing .feature-cap { display: none; }
   .hero-dancing #heroDancer { display: block; }
   @media (prefers-reduced-motion: reduce) { .dancer * { animation-duration: 2s !important; } }
   body.kush-shake main { animation: kshake .5s 3; }
@@ -754,7 +768,10 @@
       </g>
     </svg>
   </template>
-  <img class="face" id="face" src="img/hero.jpg" alt="Ankush" title="poke him">
+  <figure class="feature">
+    <img class="face" id="face" src="img/featured.jpg" alt="Ankush in sunglasses holding a football" title="poke him">
+    <figcaption class="feature-cap">📸 Ankush, outdoors, holding a ball. He did not throw it.</figcaption>
+  </figure>
   <div id="heroDancer"></div>
   <h1>ANKUSH MANCHANDA</h1>
   <div class="season-badge dw">🪔 DIWALI EDITION 🪔</div>
@@ -1219,7 +1236,7 @@
 </div>
 
 <script>
-  const photos = ["hero", "face", "p12", "p13", "p17", "p18", "p15", "p16", "p19"].map(p => `img/${p}.jpg`);
+  const photos = ["featured", "hero", "face", "p12", "p13", "p17", "p18", "p15", "p16", "p19"].map(p => `img/${p}.jpg`);
 
   const facts = [
     "Ankush doesn't do push-ups. He pushes the Earth down.",
